@@ -66,7 +66,6 @@ class GameState(object):
 						self.p1_net_wealth += (properties[i][0]/2)
 					elif self.status[i] > 0:
 						self.p1_net_wealth += properties[i][0] + ((self.status[i]-1)*properties[i][1])
-					print("P1",self.p1_net_wealth,"P2",self.p2_net_wealth)
 
 				if self.status[i] < 0:#player 2
 					if self.status[i] == -7:
@@ -74,4 +73,14 @@ class GameState(object):
 					elif self.status[i] < 0:
 						x = ((self.status[i]+1)*properties[i][1]*-1)
 						self.p2_net_wealth += properties[i][0] + x
-					print("P1",self.p1_net_wealth,"P2",self.p2_net_wealth)
+
+	# def phaseInfo
+if __name__ == '__main__':
+	gs = GameState()
+	gs.status[0] = -1
+	gs.status[1] = 2
+	gs.status[2] = 7
+	gs.status[27] = -7
+	gs.calculateNetWealth()
+	print(gs.p1_net_wealth)
+	print(gs.p2_net_wealth)
