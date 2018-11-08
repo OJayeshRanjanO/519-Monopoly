@@ -1,4 +1,5 @@
 import random
+from gamestate import GameState
 
 class Adjudicator(object):
 	def __init__(self, playerModel1, playerModel2):
@@ -9,7 +10,8 @@ class Adjudicator(object):
 
 		#Initialize game state
 		self.turn = 0		
-
+		self.gamestate = new GameState()
+		self.gamestateHistory = []
 
 	def diceRoll(self):
 		# Get two random ints to make it closer to the regular dist.
@@ -21,6 +23,10 @@ class Adjudicator(object):
 		# Increase the number of turns
 		self.turn = self.turn+1
 		return self.turn >= self.maxTurns
+
+	def multiBMST(self):
+		currentTurn = self.gamestate.current_player
+		
 
 	# Plays the game, returns a csv
 	def play(self):
