@@ -1,6 +1,7 @@
-class GameState:
+class GameState(object):
 	def __init__(self):
 		self.turn = 0
+		self.current_player = 0
 		self.status = [0 for i in range(30)]
 		self.position = [0,0]
 		self.liquid_cash = [0,0]
@@ -53,8 +54,8 @@ class GameState:
 		(200,0),#"Short Line Railroad"
 		(350,200),#"Park Place"
 		(400,200),#"Boardwalk"
-		(0,0),#Get Out of Jail Free 1
-		(0,0)#Get Out of Jail Free 2
+		(50,0),#Get Out of Jail Free 1
+		(50,0)#Get Out of Jail Free 2
 		]
 		self.p1_net_wealth = 0
 		self.p2_net_wealth = 0
