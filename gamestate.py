@@ -16,7 +16,7 @@ class GameState(object):
 		self.debt = 0
 		self.previous_states = []
 		self.card_history=[]		
-		self.percent_own_buildings=[addons_p1, addons_p2]
+		self.percent_own_buildings=[0.0,0.0]#[addons_p1, addons_p2]
 		self.percent_own_money =[0, 0]
 		self.total_transacted_wealth = [0.0, 0.0]
 		self.trades_p1 = []#[([properties], price, accepted)]
@@ -27,10 +27,7 @@ class GameState(object):
 		self.monopolies_held = [0 for i in range(10)]
 		self.p1_net_wealth = 0
 		self.p2_net_wealth = 0
-
-	def calculateNetWealth(self):
-		#(Property Price, house price)
-		properties = [
+		self.properties = [
 		(60,50),#"Mediterranean Avenue"
 		(60,50),#"Baltic Avenue"
 		(100,50),#"Oriental Avenue"
@@ -62,6 +59,9 @@ class GameState(object):
 		(50,0),#Get Out of Jail Free 1
 		(50,0)#Get Out of Jail Free 2
 		]
+
+	def calculateNetWealth(self):
+		#(Property Price, house price)
 		for i in range(len(self.status)):
 			if i!= 29 or i!=28:
 				if self.status[i] > 0:#player
