@@ -8,26 +8,25 @@ class GameState(object):
 		self.jailed = [False, False]
 		self.status = [0 for i in range(30)]
 		self.position = [0,0]
-		self.liquid_cash = [0,0]
-		self.total_wealth = [0,0]
-		self.liquid_assets= [0,0]
+		self.liquid_cash = [0,0]#Cash in hand
+		self.total_wealth = [0,0]#Cash + Buildings + Face value of property
+		self.liquid_assets= [0,0]#Cash + Face value of prop
 		self.phase = None#Phase when the game begins, this will be changed later
 		self.phase_info = None
 		self.debt = 0
 		self.previous_states = []
 		self.card_history=[]		
-		self.player_obj = self.players[current_player] 
 		self.percent_own_buildings=[addons_p1, addons_p2]
 		self.percent_own_money =[0, 0]
 		self.total_transacted_wealth = [0.0, 0.0]
-		self.trades_p1 = [([properties], price, accepted)]
-		self.trades_p2 = [([properties], price, accepted)]
+		self.trades_p1 = []#[([properties], price, accepted)]
+		self.trades_p2 = []#[([properties], price, accepted)]
 		self.trades_attepmted=[0, 0] 
 		self.hotels_left = 12
 		self.houses_left = 32
 		self.monopolies_held = [0 for i in range(10)]
-		self.jailed = [False, False]
-
+		self.p1_net_wealth = 0
+		self.p2_net_wealth = 0
 
 	def calculateNetWealth(self):
 		#(Property Price, house price)
@@ -63,8 +62,6 @@ class GameState(object):
 		(50,0),#Get Out of Jail Free 1
 		(50,0)#Get Out of Jail Free 2
 		]
-		self.p1_net_wealth = 0
-		self.p2_net_wealth = 0
 		for i in range(len(self.status)):
 			if i!= 29 or i!=28:
 				if self.status[i] > 0:#player
@@ -79,7 +76,6 @@ class GameState(object):
 					elif self.status[i] < 0:
 						x = ((self.status[i]+1)*properties[i][1]*-1)
 						self.p2_net_wealth += properties[i][0] + x
-					print("P1",self.p1_net_wealth,"P2",self.p2_net_wealth)
 
 if __name__ == '__main__':
 	gs = GameState()
