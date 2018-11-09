@@ -12,7 +12,6 @@ class Adjudicator(object):
 		self.turn = 0		
 		self.gamestate = new GameState()
 		self.gamestateHistory = []
-		self.game
 
 	def diceRoll(self):
 		# Get two random ints to make it closer to the regular dist.
@@ -47,13 +46,26 @@ class Adjudicator(object):
 			responses[turn] = resp
 			concensus = responses[0] is None and responses[1] is None
 			turn = (turn + 1) % 2
+
+	def respondToBMSTDecision(self, player_index, response):
+			if(response):
+			elif(response[0] == 0):
+			elif(response[0] == 1):
+			elif(resonse[0] == 2
+	
 			
-		
+	def updateWealth(self, player_index, wealth):
+		self.gamestate.liquid_cash[player_index] -= wealth
+
+	def getCurrentPlayerAndModel(self):
+		playerIndex = self.gamestate.current_player
+		playerModel = self.players[playerIndex]
+		return (playerIndex, playerModel)
+
 
 	# Plays the game, returns a csv
 	def play(self):
-		current_player = self.gamestateHistory.current_player
-		current_model = self.players[current_player]
+		current_player, current_model = self.getCurrentPlayerAndModel()
 		while not self.gameFinished():
 			roll = self.diceRoll()
 			jail_decision = None
@@ -112,7 +124,6 @@ class Adjudicator(object):
 			self.multiBMST()
 			current_gamestate = self.buildGamestate(self)
 			gonna_buy = player_model.buyProperty(current_gamestate)
-		els
 		
 
 
