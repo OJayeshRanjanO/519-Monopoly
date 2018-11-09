@@ -53,11 +53,12 @@ class Adjudicator(object):
 	# Plays the game, returns a csv
 	def play(self):
 		current_player = self.gamestateHistory.current_player
+		current_model = self.players[current_player]
 		while not self.gameFinished():
 			roll = self.diceRoll()
 			jail_decision = None
 			true_free = True
-			is_jailed = self.jailed[current_player]
+			is_jailed = self.gamestate.jailed[current_player
 			if(is_jailed == True)
 				trueFree = False
 
@@ -66,15 +67,14 @@ class Adjudicator(object):
 				player_free = False
 
 				temp_state = self.buildGamestate()
-				jail_decision = player_obj.jailDecision(temp_state)
+				jail_decision = player_model.jailDecision(temp_state)
 				
 				valid = 1
 				if arg_in == 'GETOUTFREE':
 					current_player = self.gamestateHistory.current_player
-					player_obj = self.players[current_player] 
 
-					if player_obj.jaiL_free_card > 0:
-						player_obj.jaiL_free_card - 1
+					if player_model.jaiL_free_card > 0:
+						player_model.jaiL_free_card - 1
 						player_free = True
 						true_free = True
 					else
@@ -83,9 +83,9 @@ class Adjudicator(object):
 					if(roll[1] == roll[2]):
 							player_free = True
 						else:
-							player_obj.wait_count = player_obj.wait_count + 1 
+							player_model.wait_count = player_model.wait_count + 1 
 				else if arg_in == 'NOTHING':
-					if(player_obj.wait_count >= 3):
+					if(player_model.wait_count >= 3):
 						player_free = True
 				else:
 					updateWealth(-50)
@@ -103,7 +103,7 @@ class Adjudicator(object):
 	def mainLogic():
 		#### Need to check the tile type here ####
 		current_player = self.current_player
-		player_obj = self.players[current_player]
+		player_model = self.players[current_player]
 		player_pos = self.position[current_player]
 		tile_status = self.board[player_pos]
 		#player landed on an unowned property
@@ -111,7 +111,7 @@ class Adjudicator(object):
 		if(tile_status == 0):
 			self.multiBMST()
 			current_gamestate = self.buildGamestate(self)
-			gonna_buy = player_obj.buyProperty(current_gamestate)
+			gonna_buy = player_model.buyProperty(current_gamestate)
 		els
 		
 
