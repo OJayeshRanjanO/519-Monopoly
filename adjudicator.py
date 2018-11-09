@@ -25,8 +25,29 @@ class Adjudicator(object):
 		self.turn = self.turn+1
 		return self.turn >= self.maxTurns
 
+	def buildGamestate(self):
+		# Builds a deep copy of gamestate so models can use
+		return self.gamestate
+
 	def multiBMST(self):
-		currentTurn = self.gamestate.current_player
+		turn = self.gamestate.current_player
+		responses = [None, None]
+		concensus = False
+		while not concensus:
+			gs = self.buildGamestate()
+			model = self.players[turn]
+			resp = model.getBMSTDecision(gs)
+
+			self.respondToBMSTDecision(turn, resp)
+
+			if(type(resp) == TradeDecision):
+				gs = self.buildGamestate()
+				self.player[(turn+1)%2].respondTrade(gs)
+			
+			responses[turn] = resp
+			concensus = responses[0] is None and responses[1] is None
+			turn = (turn + 1) % 2
+			
 		
 
 	# Plays the game, returns a csv
