@@ -14,7 +14,7 @@ class Agent:
 	def buyProperty(self,state):
 		#args: GameState Object
 		#rtype: Action
-
+		
 		return None
 
 	def jailDecision(self,state):
