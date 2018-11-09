@@ -26,6 +26,7 @@ class GameState(object):
 		self.houses_left = 32
 		self.monopolies_held = [0 for i in range(10)]
 		self.p1_net_wealth = 0
+		self.wait_count = [0, 0]
 		self.p2_net_wealth = 0
 		self.properties = [
 		(60,50),#"Mediterranean Avenue"
