@@ -1,14 +1,14 @@
 Roll
-MultiBMST
+MultiBMST()
 jailDecision = None
 
 trueFree = True
 playerFree = True
 if(player is jail):
 	trueFree = False
-	MultiBMST
+	MultiBMST()
 	playerFree = False
-	jailDecision = player.jailDecision
+	jailDecision = player.jailDecision()
 	switch(jailDecision):
 		case getOutFree():
 			removeCard
@@ -16,6 +16,8 @@ if(player is jail):
 			trueFree = True
 		case roll():
 			if doubles: playerFree = True
+			else:
+				updateWaitCount
 		case nothing():
 			if(waitCount >= 3): playerFree = True
 		case pay():
@@ -42,11 +44,11 @@ else:
 def mainLogic() <-- Returns True/False for final state reached
 	Check type of tile landed
 	if(property and unowned):
-		MultiBMST
+		MultiBMST()
 		bought = pCurrent.buy()
 		owner = pCurrent
 		if(not bought):
-			MultiBMST
+			MultiBMST()
 			aucPrice1 = p1.auction()
 			aucPrice2 = p2.auction()
 			owner = resolveAuction(aucPrice1, aucPrice2, otherPlayer)
@@ -75,7 +77,7 @@ def mainLogic() <-- Returns True/False for final state reached
 		if(playerPos != currentPlayer.pos()):
 		movePlayer(currentPlayer, pos)
 
-	MultiBMST
+	MultiBMST()
 
 
 Game(object):

@@ -1,7 +1,11 @@
+#
+
+
 class GameState(object):
 	def __init__(self):
 		self.turn = 0
 		self.current_player = 0
+		self.jailed = [False, False]
 		self.status = [0 for i in range(30)]
 		self.position = [0,0]
 		self.liquid_cash = [0,0]
@@ -11,7 +15,8 @@ class GameState(object):
 		self.phase_info = None
 		self.debt = 0
 		self.previous_states = []
-		self.card_history=[]
+		self.card_history=[]		
+		self.player_obj = self.players[current_player] 
 		self.percent_own_buildings=[addons_p1, addons_p2]
 		self.percent_own_money =[0, 0]
 		self.total_transacted_wealth = [0.0, 0.0]
@@ -21,6 +26,7 @@ class GameState(object):
 		self.hotels_left = 12
 		self.houses_left = 32
 		self.monopolies_held = [0 for i in range(10)]
+		self.jailed = [False, False]
 
 
 	def calculateNetWealth(self):
@@ -75,3 +81,14 @@ class GameState(object):
 						x = ((self.status[i]+1)*properties[i][1]*-1)
 						self.p2_net_wealth += properties[i][0] + x
 					print("P1",self.p1_net_wealth,"P2",self.p2_net_wealth)
+
+	# def phaseInfo
+if __name__ == '__main__':
+	gs = GameState()
+	gs.status[0] = -1
+	gs.status[1] = 2
+	gs.status[2] = 7
+	gs.status[27] = -7
+	gs.calculateNetWealth()
+	print(gs.p1_net_wealth)
+	print(gs.p2_net_wealth)
