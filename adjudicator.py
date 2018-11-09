@@ -48,13 +48,22 @@ class Adjudicator(object):
 			turn = (turn + 1) % 2
 
 	def respondToBMSTDecision(self, player_index, response):
-			error = False
-			if(not response):
-				return False
-			elif(response[0] == 0): # This is the BMS
+			success = False
+			if(response):
+				if(response[0] == 0): # This is the BMS
+					b, m, s = response[1:]
+					
+					for p in s:
+						pass
+														
+					for p in b:
+						pass
+
+					for p in m:
+						pass
 				
-			elif(response[0] == 1): # This is the Trade
-				
+			return success
+
 			
 	def updateWealth(self, player_index, wealth):
 		self.gamestate.liquid_cash[player_index] -= wealth
