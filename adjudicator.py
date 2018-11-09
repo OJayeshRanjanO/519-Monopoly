@@ -4,6 +4,9 @@ from gamestate import GameState
 class Adjudicator(object):
 	def __init__(self, playerModel1, playerModel2):
 		self.players = (playerModel1, playerModel2)
+
+		# Error Flag -- automatic game over
+		self.error = -1
 		
 		# Set some constants
 		self.maxTurns = 100
@@ -14,10 +17,7 @@ class Adjudicator(object):
 		self.gamestateHistory = []
 
 	def diceRoll(self):
-		# Get two random ints to make it closer to the regular dist.
-		die1 = random.randint(0,5)
-		die2 = random.randint(0,5)
-		return (die1 + die2, die1, die2)
+		return (random.randint(0,5), random.randint(0,5))
 
 	def gameFinished(self):
 		# Increase the number of turns
@@ -48,11 +48,13 @@ class Adjudicator(object):
 			turn = (turn + 1) % 2
 
 	def respondToBMSTDecision(self, player_index, response):
-			if(response):
-			elif(response[0] == 0):
-			elif(response[0] == 1):
-			elif(resonse[0] == 2
-	
+			error = False
+			if(not response):
+				return False
+			elif(response[0] == 0): # This is the BMS
+				
+			elif(response[0] == 1): # This is the Trade
+				
 			
 	def updateWealth(self, player_index, wealth):
 		self.gamestate.liquid_cash[player_index] -= wealth
@@ -67,10 +69,11 @@ class Adjudicator(object):
 	def play(self):
 		current_player, current_model = self.getCurrentPlayerAndModel()
 		while not self.gameFinished():
-			roll = self.diceRoll()
+			die1, die2 = self.diceRoll()
+			roll = die1 + die2
 			jail_decision = None
 			true_free = True
-			is_jailed = self.gamestate.jailed[current_player
+			is_jailed = self.gamestate.jailed[current_player]
 			if(is_jailed == True)
 				trueFree = False
 
@@ -83,7 +86,6 @@ class Adjudicator(object):
 				
 				valid = 1
 				if arg_in == 'GETOUTFREE':
-					current_player = self.gamestateHistory.current_player
 
 					if player_model.jaiL_free_card > 0:
 						player_model.jaiL_free_card - 1
@@ -105,7 +107,7 @@ class Adjudicator(object):
 
 			if(player_free):
 				movePlayer()
-				while(not mailLogic());
+				while(not mainLogic());
 
 
 		self.buildGamestate(self)
