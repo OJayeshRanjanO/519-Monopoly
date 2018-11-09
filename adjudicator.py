@@ -64,6 +64,9 @@ class Adjudicator(object):
 		playerModel = self.players[playerIndex]
 		return (playerIndex, playerModel)
 
+	def inJail(self, player_index):
+		return self.gamestate.jailed[player_index]
+
 
 	# Plays the game, returns a csv
 	def play(self):
@@ -73,8 +76,7 @@ class Adjudicator(object):
 			roll = die1 + die2
 			jail_decision = None
 			true_free = True
-			is_jailed = self.gamestate.jailed[current_player]
-			if(is_jailed == True)
+			if(self.inJail(current_player))
 				trueFree = False
 
 				##### Signature will change when the function is committed #####
@@ -86,7 +88,6 @@ class Adjudicator(object):
 				
 				valid = 1
 				if arg_in == 'GETOUTFREE':
-
 					if player_model.jaiL_free_card > 0:
 						player_model.jaiL_free_card - 1
 						player_free = True
