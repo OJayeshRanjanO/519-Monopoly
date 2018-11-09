@@ -126,8 +126,7 @@ class Adjudicator(object):
 
 	def mainLogic():
 		#### Need to check the tile type here ####
-		current_player = self.current_player
-		player_model = self.players[current_player]
+		current_player, current_model = self.getCurrentPlayerAndModel()
 		player_pos = self.position[current_player]
 		tile_status = self.board[player_pos]
 		#player landed on an unowned property
@@ -144,4 +143,4 @@ class Adjudicator(object):
 			
 		
 	
-		
+	
