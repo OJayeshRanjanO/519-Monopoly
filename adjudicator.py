@@ -48,13 +48,22 @@ class Adjudicator(object):
 			turn = (turn + 1) % 2
 
 	def respondToBMSTDecision(self, player_index, response):
-			error = False
-			if(not response):
-				return False
-			elif(response[0] == 0): # This is the BMS
+			success = False
+			if(response):
+				if(response[0] == 0): # This is the BMS
+					b, m, s = response[1:]
+					
+					for p in s:
+						pass
+														
+					for p in b:
+						pass
+
+					for p in m:
+						pass
 				
-			elif(response[0] == 1): # This is the Trade
-				
+			return success
+
 			
 	def updateWealth(self, player_index, wealth):
 		self.gamestate.liquid_cash[player_index] -= wealth
@@ -63,6 +72,9 @@ class Adjudicator(object):
 		playerIndex = self.gamestate.current_player
 		playerModel = self.players[playerIndex]
 		return (playerIndex, playerModel)
+
+	def inJail(self, player_index):
+		return self.gamestate.jailed[player_index]
 
 
 	# Plays the game, returns a csv
@@ -73,8 +85,7 @@ class Adjudicator(object):
 			roll = die1 + die2
 			jail_decision = None
 			true_free = True
-			is_jailed = self.gamestate.jailed[current_player]
-			if(is_jailed == True)
+			if(self.inJail(current_player))
 				trueFree = False
 
 				##### Signature will change when the function is committed #####
@@ -86,7 +97,6 @@ class Adjudicator(object):
 				
 				valid = 1
 				if arg_in == 'GETOUTFREE':
-
 					if player_model.jaiL_free_card > 0:
 						player_model.jaiL_free_card - 1
 						player_free = True
@@ -116,8 +126,7 @@ class Adjudicator(object):
 
 	def mainLogic():
 		#### Need to check the tile type here ####
-		current_player = self.current_player
-		player_model = self.players[current_player]
+		current_player, current_model = self.getCurrentPlayerAndModel()
 		player_pos = self.position[current_player]
 		tile_status = self.board[player_pos]
 		#player landed on an unowned property
@@ -134,4 +143,4 @@ class Adjudicator(object):
 			
 		
 	
-		
+	
