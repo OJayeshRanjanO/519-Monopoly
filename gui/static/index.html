@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+		<script src="js/home.js"></script>
 	</head>
 	<body>
 		<div class='container'>
@@ -17,20 +18,20 @@
 			<div class='col'>
 				<div class='container'>
 					<h3 class='text-center'>Upload Your Model</h3>
-					<form action='/upload'>
+					<form action='/upload' method="POST" enctype = "multipart/form-data">
 						<div class='form-group'>
 							<label for='team'>Team Name</label>
-							<input class='form-control' id='team'>
+							<input class='form-control' name="teamName" id='team' required>
 						</div>
 						<div class='form-group'>
 							<label for='game'>A unique game ID</label>
-							<input class='form-control' id='game'>
+							<input class='form-control' name="gameName" id='game' required>
 						</div>
 						<div class='form-group'>
 							<label for='file'>Upload your pickled file</label>
-							<input type="file" class="form-control-file border" id='file'> 
+							<input type="file" name="file" class="form-control-file border" id='file' required> 
 						</div>
-						<button type="submit" class="btn btn-primary btn-block">Upload!</button> 
+						<button type="submit" class="btn btn-outline-primary btn-block">Upload!</button> 
 					</form>
 				</div>
 			</div>
