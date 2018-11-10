@@ -66,7 +66,7 @@ class Adjudicator(object):
 
 			
 	def updateWealth(self, player_index, wealth):
-		self.gamestate.liquid_cash[player_index] -= wealth
+		self.gamestate.liquid_cash[player_index] += wealth
 
 	def getCurrentPlayerAndModel(self):
 		playerIndex = self.gamestate.current_player
@@ -77,6 +77,42 @@ class Adjudicator(object):
 		return self.gamestate.jailed[player_index]
 
 
+	def hasJailCard(which_deck):
+		jail_cards = self.gamestate.jail_free_card[current_player]
+		#first index represents a chance get out of jail card
+		#second index represents a community chest get of jail card
+		chance_card = jail_cards[0]
+		community_card = jail_cards[1]
+		return_val = -1
+
+		if(chance_card >= 1 && which_deck == 28):
+			return_val = 0
+		else if(community_card >= 1 && which_deck == 29):
+			return_val = 1
+
+		return return_val
+
+
+	#Pass in a negative 1 to remove and positve 1 to add
+	def updateJailCards(amount, which_deck):
+		jail_cards = self.gamestate.jail_free_card[current_player]
+		chance_card = jail_cards[0]
+		community_card = jail_cards[1]
+
+		if(which_deck == 28):
+			chance_card = chance_card + amount
+		else:
+			community_card = community_card + amount
+
+		self.gamestate.jail_free_card[current_player] = [chance_card, community_card]
+
+
+
+	def updateWaitCount():
+		current_player, current_model = self.getCurrentPlayerAndModel()
+		current_wait = self.gamestate.wait_count[current_player]
+		self.gamestate.wait_count[current_player] = current_wait + 1 
+
 	# Plays the game, returns a csv
 	def play(self):
 		current_player, current_model = self.getCurrentPlayerAndModel()
@@ -85,31 +121,39 @@ class Adjudicator(object):
 			roll = die1 + die2
 			jail_decision = None
 			true_free = True
-			if(self.inJail(current_player))
+			is_jailed = self.gamestate.jailed[current_player]
+
+			if(is_jailed == True)
 				trueFree = False
 
 				##### Signature will change when the function is committed #####
-				MultiBMST()
+				multiBMST()
 				player_free = False
 
 				temp_state = self.buildGamestate()
 				jail_decision = player_model.jailDecision(temp_state)
+				wait_count = self.gamestate.wait_count[current_player]
 				
 				valid = 1
-				if arg_in == 'GETOUTFREE':
-					if player_model.jaiL_free_card > 0:
-						player_model.jaiL_free_card - 1
+				if arg_in[0] == 'C':
+					num_jail_free = hasJailCard(arg_in[1])
+
+					if has_jail_free > 0:
+						#Update the player's jail cards
+						updateJailCards(-1, arg_in[1])
+						updateDeck()
 						player_free = True
 						true_free = True
 					else
 						valid = 0
-				else if arg_in == 'ROLL':
+				else if arg_in[0] == 'R':
 					if(roll[1] == roll[2]):
 							player_free = True
+							updateWealth(-50)
 						else:
-							player_model.wait_count = player_model.wait_count + 1 
-				else if arg_in == 'NOTHING':
-					if(player_model.wait_count >= 3):
+							updateWaitCount()
+				else if arg_in[0] == 'N':
+					if(wait_count >= 3):
 						player_free = True
 				else:
 					updateWealth(-50)
@@ -139,6 +183,8 @@ class Adjudicator(object):
 
 
 	def updateGameHistory(self):
+		current_reflection = self.buildGamestate(self)
+		self.gamestateHistory.append(current_reflection)
 
 			
 		
