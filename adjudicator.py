@@ -193,13 +193,14 @@ class Adjudicator(object):
 
 		self.buildGamestate(self)
 
-
 	def mainLogic(self):
 		#### Need to check the tile type here ####
 		current_player, current_model = self.getCurrentPlayerAndModel()
 		other_player, other_model = self.getOtherPlayerAndModel()
+		status_both = self.status
 		player_pos = self.position[current_player]
-		tile_status = self.board[player_pos]
+
+		tile_status = self.lookupSpace(current_player)
 
 		#player landed on an unowned property
 		if(tile_status == 0):
@@ -223,11 +224,34 @@ class Adjudicator(object):
 		cost_to_player = 0
 		cost_to_others = 0
 
+		#Every other tile status indicates various degrees of ownership
 		if(tile_status != 0):
 			#Need to calculate the rent 
 			cost_to_player = self.resolveRent(player_pos)
+		#If there is a cost associated with the spot e.g. income tax or luxury tax
+		if(tile_status == -2 || tile_status == -3):
+			cost_to_player = self.resolveRent(property_index)
+		#Chance or community chest
+		if(tile_status == -4 || tile_status == -5):
+			card = None
+			if((tile_status % 2) == 0):
+				card = self.pullChanceCard()
+			else:
+				card = self.pullCommunityChestCard()
 
-		
+			self.resolveCardModifiers(card, current_player)
+
+		self.multiBMST()
+
+
+	def resolveCardModifiers(card_id, current_player):
+
+	def pullChanceCard(self):
+
+	def pullCommunityChestCard(self):
+
+	def lookupSpace(self, current_player):
+
 
 	def updateGameHistory(self):
 		current_reflection = self.buildGamestate(self)
@@ -241,11 +265,3 @@ class Adjudicator(object):
 
 	def resolveRent(self, property_index):
 
-
-
-	def resolveAuction(current_player_price, other_player_price, floor_price):
-
-			
-		
-	
-	
