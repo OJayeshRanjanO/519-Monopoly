@@ -139,7 +139,7 @@ class Adjudicator(object):
 				trueFree = False
 
 				##### Signature will change when the function is committed #####
-				multiBMST()
+				self.multiBMST()
 				player_free = False
 
 				temp_state = self.buildGamestate()
