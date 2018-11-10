@@ -73,11 +73,16 @@ class Adjudicator(object):
 		playerModel = self.players[playerIndex]
 		return (playerIndex, playerModel)
 
+	def getOtherPlayerAndModel(self):
+		player_index = self.players[(self.turn + 1)%2]
+		player_model = self.players[player_index]
+		return (player_index, player_model)
+
 	def inJail(self, player_index):
 		return self.gamestate.jailed[player_index]
 
-	def hasJailCard(which_deck):
-		jail_cards = self.gamestate.jail_free_card[current_player]
+	def hasJailCard(which_deck, player_index):
+		jail_cards = self.gamestate.jail_free_card[player_index]
 		#first index represents a chance get out of jail card
 		#second index represents a community chest get of jail card
 		chance_card = jail_cards[0]
@@ -93,8 +98,8 @@ class Adjudicator(object):
 
 
 	#Pass in a negative 1 to remove and positve 1 to add
-	def updateJailCards(amount, which_deck):
-		jail_cards = self.gamestate.jail_free_card[current_player]
+	def updateJailCards(amount, which_deck, player_index):
+		jail_cards = self.gamestate.jail_free_card[player_index]
 		chance_card = jail_cards[0]
 		community_card = jail_cards[1]
 
@@ -103,8 +108,7 @@ class Adjudicator(object):
 		else:
 			community_card = community_card + amount
 
-		self.gamestate.jail_free_card[current_player] = [chance_card, community_card]
-
+		self.gamestate.jail_free_card[player_index] = [chance_card, community_card]
 
 
 	def updateWaitCount(self):
@@ -128,7 +132,7 @@ class Adjudicator(object):
 				trueFree = False
 
 				##### Signature will change when the function is committed #####
-				multiBMST()
+				self.multiBMST()
 				player_free = False
 
 				temp_state = self.buildGamestate()
@@ -137,12 +141,12 @@ class Adjudicator(object):
 				
 				valid = 1
 				if arg_in[0] == 'C':
-					num_jail_free = hasJailCard(arg_in[1])
+					num_jail_free = hasJailCard(arg_in[1], current_player)
 
 					if has_jail_free > 0:
 						#Update the player's jail cards
-						updateJailCards(-1, arg_in[1])
-						updateDeck()
+						self.updateJailCards(-1, arg_in[1], current_player)
+						self.updateDeck()
 						player_free = True
 						true_free = True
 					else
@@ -160,31 +164,63 @@ class Adjudicator(object):
 					player_free = True
 
 			if(player_free):
-				movePlayer()
-				while(not mainLogic());
+				self.movePlayer()
+				while(not self.mainLogic());
 
 
 		self.buildGamestate(self)
 
 
-
-	def mainLogic():
+	def mainLogic(self):
 		#### Need to check the tile type here ####
 		current_player, current_model = self.getCurrentPlayerAndModel()
+		other_player, other_model = self.getOtherPlayerAndModel()
 		player_pos = self.position[current_player]
 		tile_status = self.board[player_pos]
-		#player landed on an unowned property
 
+		#player landed on an unowned property
 		if(tile_status == 0):
 			self.multiBMST()
 			current_gamestate = self.buildGamestate(self)
 			gonna_buy = player_model.buyProperty(current_gamestate)
-		
+			owner = -1
+			if(not gonna_buy):
+				self.multiBMST()
+				#phase info needs to be updated here before model call 
+				auc_price_current = current_model.auctionProperty(current_gamestate)
+				auc_price_other =  other_model.auctionProperty(current_gamestate)
+				#As of now the base price for a property will be set to 0, this will
+				#be updated when the property objects are fully implemented
+				winner = self.resolveAuction(auc_price_current, auc_price_other, 0)
+				if(winner != -1):
+					owner = winner
 
+			self.updateProperty(player_pos, owner)
+
+		cost_to_player = 0
+		cost_to_others = 0
+
+		if(tile_status != 0):
+			#Need to calculate the rent 
+			cost_to_player = self.resolveRent(player_pos)
+
+		
 
 	def updateGameHistory(self):
 		current_reflection = self.buildGamestate(self)
 		self.gamestateHistory.append(current_reflection)
+
+	def updateProperty(self, player_pos, owner):
+		if(owner != -1):
+			#Do all the things, -1 owner means bank owned 
+
+
+
+	def resolveRent(self, property_index)
+
+
+
+	def resolveAuction(current_player_price, other_player_price, floor_price):
 
 			
 		
