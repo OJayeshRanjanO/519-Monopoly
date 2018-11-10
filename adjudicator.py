@@ -76,6 +76,17 @@ class Adjudicator(object):
 	def inJail(self, player_index):
 		return self.gamestate.jailed[player_index]
 
+	def movePlayer(self, player_index, move, fixed=False, get_go=False):
+		previous_pos = self.gamestate.position[player_index]
+		current_pos = previous_pos
+		if(fixed):
+			current_pos = move
+		else:
+			current_pos = previous_pos + move
+		updated_pos = updated_pos % 40
+		if(updated_pos < current_pos and get_go): 
+			self.updateWealth(current_pos, 200)
+
 	def hasJailCard(which_deck):
 		jail_cards = self.gamestate.jail_free_card[current_player]
 		#first index represents a chance get out of jail card
@@ -160,9 +171,9 @@ class Adjudicator(object):
 					player_free = True
 
 			if(player_free):
-				movePlayer()
+				self.movePlayer(current_player, roll)
 				while(not mainLogic());
-
+			
 
 		self.buildGamestate(self)
 
