@@ -76,7 +76,6 @@ class Adjudicator(object):
 	def inJail(self, player_index):
 		return self.gamestate.jailed[player_index]
 
-
 	def hasJailCard(which_deck):
 		jail_cards = self.gamestate.jail_free_card[current_player]
 		#first index represents a chance get out of jail card
@@ -108,7 +107,7 @@ class Adjudicator(object):
 
 
 
-	def updateWaitCount():
+	def updateWaitCount(self):
 		current_player, current_model = self.getCurrentPlayerAndModel()
 		current_wait = self.gamestate.wait_count[current_player]
 		self.gamestate.wait_count[current_player] = current_wait + 1 
@@ -118,10 +117,12 @@ class Adjudicator(object):
 		current_player, current_model = self.getCurrentPlayerAndModel()
 		while not self.gameFinished():
 			die1, die2 = self.diceRoll()
+			double = die1 == die2
 			roll = die1 + die2
+
 			jail_decision = None
 			true_free = True
-			is_jailed = self.gamestate.jailed[current_player]
+			is_jailed = self.inJail(current_player)
 
 			if(is_jailed == True)
 				trueFree = False
@@ -147,16 +148,15 @@ class Adjudicator(object):
 					else
 						valid = 0
 				else if arg_in[0] == 'R':
-					if(roll[1] == roll[2]):
+					if(double):
 							player_free = True
-							updateWealth(-50)
 						else:
 							updateWaitCount()
 				else if arg_in[0] == 'N':
 					if(wait_count >= 3):
 						player_free = True
 				else:
-					updateWealth(-50)
+					self.updateWealth(current_player, -50)
 					player_free = True
 
 			if(player_free):
