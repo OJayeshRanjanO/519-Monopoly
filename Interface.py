@@ -24,6 +24,3 @@ class Agent:
 		#args: GameState Object
 		#rtype: Action
 		return None
-	def recieveState(self,state):
-
-		return None
