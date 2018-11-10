@@ -80,6 +80,18 @@ class Adjudicator(object):
 
 	def inJail(self, player_index):
 		return self.gamestate.jailed[player_index]
+	
+	def movePlayer(self, player_index, move, fixed=False, get_go=False):
+		previous_pos = self.gamestate.position[player_index]
+		current_pos = previous_pos
+		if(fixed):
+			current_pos = move
+		else:
+			current_pos = previous_pos + move
+		updated_pos = updated_pos % 40
+		if(updated_pos < current_pos and get_go): 
+			self.updateWealth(current_pos, 200)
+
 
 	def hasJailCard(which_deck, player_index):
 		jail_cards = self.gamestate.jail_free_card[player_index]
@@ -96,7 +108,19 @@ class Adjudicator(object):
 
 		return return_val
 
+	def updateProperty(self, player_index, property_id):
+		pass
 
+	def resolveAuction(self, floor_price, current_player_price, other_player_price):
+		maxBet = int(max(current_player_price, other_player_price))
+		if(maxBet < floor_price):
+			return -1
+		else:
+			if(maxBet == int(other_player_price)):
+				return 1
+			else:
+				return 0
+				
 	#Pass in a negative 1 to remove and positve 1 to add
 	def updateJailCards(amount, which_deck, player_index):
 		jail_cards = self.gamestate.jail_free_card[player_index]
@@ -109,7 +133,6 @@ class Adjudicator(object):
 			community_card = community_card + amount
 
 		self.gamestate.jail_free_card[player_index] = [chance_card, community_card]
-
 
 	def updateWaitCount(self):
 		current_player, current_model = self.getCurrentPlayerAndModel()
@@ -164,9 +187,9 @@ class Adjudicator(object):
 					player_free = True
 
 			if(player_free):
-				self.movePlayer()
-				while(not self.mainLogic());
-
+				self.movePlayer(current_player, roll)
+				while(not mainLogic());
+			
 
 		self.buildGamestate(self)
 
@@ -216,7 +239,7 @@ class Adjudicator(object):
 
 
 
-	def resolveRent(self, property_index)
+	def resolveRent(self, property_index):
 
 
 
