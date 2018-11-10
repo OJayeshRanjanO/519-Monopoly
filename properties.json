@@ -736,13 +736,6 @@
       "averageProbability": 2.2609500000000002
     },
     {
-      "name": "Jail / Just Visiting",
-      "id": "jail",
-      "position": 10,
-      "group": "Special",
-      "averageProbability": 8.897
-    },
-    {
       "name": "Chance",
       "id": "chance",
       "group": "Special",
