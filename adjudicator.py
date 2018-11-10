@@ -102,7 +102,19 @@ class Adjudicator(object):
 
 		return return_val
 
+	def updateProperty(self, player_index, property_id):
+		pass
 
+	def resolveAuction(self, floor_price, current_player_price, other_player_price):
+		maxBet = int(max(current_player_price, other_player_price))
+		if(maxBet < floor_price):
+			return -1
+		else:
+			if(maxBet == int(other_player_price)):
+				return 1
+			else:
+				return 0
+				
 	#Pass in a negative 1 to remove and positve 1 to add
 	def updateJailCards(amount, which_deck):
 		jail_cards = self.gamestate.jail_free_card[current_player]
@@ -115,7 +127,6 @@ class Adjudicator(object):
 			community_card = community_card + amount
 
 		self.gamestate.jail_free_card[current_player] = [chance_card, community_card]
-
 
 
 	def updateWaitCount(self):
