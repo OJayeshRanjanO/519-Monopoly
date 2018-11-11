@@ -188,18 +188,16 @@ class Adjudicator(object):
 
 			if(player_free):
 				self.movePlayer(current_player, roll)
-				while(not mainLogic());
+				while(not self.mainLogic(roll));
 			
 
 		self.buildGamestate(self)
 
-	def mainLogic(self):
+	def mainLogic(self, dice_roll):
 		#### Need to check the tile type here ####
 		current_player, current_model = self.getCurrentPlayerAndModel()
 		other_player, other_model = self.getOtherPlayerAndModel()
-		status_both = self.status
 		player_pos = self.position[current_player]
-
 		tile_status = self.lookupSpace(current_player)
 
 		#player landed on an unowned property
@@ -225,6 +223,7 @@ class Adjudicator(object):
 		cost_to_others = 0
 
 		#Every other tile status indicates various degrees of ownership
+		#TODO PARSE OUT TO FUNCTION
 		if(tile_status != 0):
 			#Need to calculate the rent 
 			cost_to_player = self.resolveRent(player_pos)

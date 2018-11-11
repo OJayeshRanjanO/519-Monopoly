@@ -29,49 +29,8 @@ class GameState(object):
 		self.p1_net_wealth = 0
 		self.wait_count = [0, 0]
 		self.p2_net_wealth = 0
-		self.properties = []
-		# self.properties = [
-		# (60,50),#"Mediterranean Avenue"
-		# (60,50),#"Baltic Avenue"
-		# (100,50),#"Oriental Avenue"
-		# (200,0),# "Reading Railroad"
-		# (100,50),#"Vermont Avenue"
-		# (120,50),#"Connecticut Avenue"
-		# (140,100),#"St. Charles Place"
-		# (150,0),#"Electric Company"
-		# (140,100),#"States Avenue"
-		# (160,100),#"Virginia Avenue"
-		# (200,0),#"Pennsylvania Railroad"
-		# (180,100),#"St. James Place"
-		# (180,100),#"Tennessee Avenue"
-		# (200,100),#"New York Avenue"
-		# (220,150),#"Kentucky Avenue"
-		# (220,150),#"Indiana Avenue"
-		# (240,150),#"Illinois Avenue"
-		# (200,0),#"B. & O. Railroad"
-		# (260,150),#"Atlantic Avenue"
-		# (260,150),#"Ventnor Avenue"
-		# (150,0),#"Water Works"
-		# (280,150),#"Marvin Gardens"
-		# (300,200),#"Pacific Avenue"
-		# (300,200),#"North Carolina Avenue"
-		# (320,200),#"Pennsylvania Avenue"
-		# (200,0),#"Short Line Railroad"
-		# (350,200),#"Park Place"
-		# (400,200),#"Boardwalk"
-		# (50,0),#Get Out of Jail Free 1
-		# (50,0)#Get Out of Jail Free 2
-		# ]
-		self.properties = []
-	def build_board(self):
-		js = json.load(open("./properties.json"))
-		for tile in js['properties']:
-			price = tile['price'] if 'price' in tile else -1
-			housecost = tile['housecost'] if 'housecost' in tile else -1
-			multpliedrent = tile['multpliedrent'] if 'multpliedrent' in tile else []
-			obj = Tile(tile['id'],tile['name'],price,tile['position']-1,tile['group'],housecost,multpliedrent)
-			print(obj)
-			self.properties.append(obj)
+		self.tiles = []#41 tiles in here boiis -1 to 39 Read (3a)
+
 		return None
 class Tile:
 	def __init__(self,id,name,price,position,group,housecost,multpliedrent):
@@ -83,12 +42,34 @@ class Tile:
 		self.price = price
 		self.housecost = housecost
 		self.rent = multpliedrent
+		self.status_pos = -1#Has no place in status list
 	def __repr__(self):
-		return str(self.id) + " " + str(self.name) + " " + str(self.price) + " " + str(self.position) + " " + str(self.group) + " " + str(self.price) + " " + str(self.housecost) + " " + str(self.rent) +"\n"
+		return str(self.status_pos) + " " +str(self.position)+ " " +str(self.id) + " " + str(self.name) + " " + str(self.price) + " " + str(self.group) + " " + str(self.price) + " " + str(self.housecost) + " " + str(self.rent) + " " +str(self.status_pos) +"\n"
+def build_board(gamestate,path):
+	property_types = []
+	js = json.load(open(path))
+	for tile in js['properties']:
+		price = tile['price'] if 'price' in tile else -1
+		housecost = tile['housecost'] if 'housecost' in tile else -1
+		multpliedrent = tile['multpliedrent'] if 'multpliedrent' in tile else []
+		property_types.append(tile['group'])
+		obj = Tile(tile['id'],tile['name'],price,tile['position']-1,tile['group'],housecost,multpliedrent)
+		gamestate.tiles.append(obj)
+	gamestate.tiles.sort(key=lambda x:x.position)
+
+	print(set(property_types))
+	count = 0
+	for each_tile in gamestate.tiles:
+		if each_tile.group != "Special":
+			each_tile.status_pos = count
+			count+=1
+
 
 if __name__ == '__main__':
 	gs = GameState()
-	gs.build_board()
+	build_board(gs,"./properties.json")
+	for i in gs.tiles:
+		print(i)
 	# gs.status[0] = -1
 	# gs.status[1] = 2
 	# gs.status[2] = 7
