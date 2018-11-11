@@ -43,9 +43,11 @@ def upload_file():
 	return root()
 	
 def main():
-	sThread = threading.Thread(target=worker.startMonopoly, args = (gameStartQueue, gameActiveQueue))
-	sThread.start()
-	gameStartQueue.put(('asdf', ['asdf', '124124']))
+	tTargets = [worker.startMonopoly, worker.activeMonopoly]
+	tArgs = [(gameStartQueue, gameActiveQueue), (gameActiveQueue, None)]
+	for target, args in zip(tTargets, tArgs):
+		thread = threading.Thread(target=target, args=args)
+		thread.start()
 	app.run()
 
 if __name__ == '__main__':
