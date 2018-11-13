@@ -3,7 +3,7 @@ from gamestate import GameState
 import library
 
 class Adjudicator(object):
-	def __init__(self, playerModel1, playerModel2):
+	def __init__(self, playerModel1, playerModel2, config=None):
 		# Add agents to the game
 		self.players = (playerModel1, playerModel2)
 		# Error Flag -- automatic game over
@@ -15,10 +15,34 @@ class Adjudicator(object):
 		self.gamestate = GameState()
 		self.gamestateHistory = []
 		# Initialize the lookup table
-		self.properties = library.loadGameConfigurations("./properties.json")
+		self.properties, self.cmnty_chest, self.chance = library.loadLookup("./properties.json")
+		# Randomize a current deck for community chest and chance
+		self.cmnty_chance_deck = sorted(list(range(len(self.cmnty_chest))))
+		self.chance_deck = sorted(list(range(len(self.chance))))
+		# Declare random dice rolls
+		self.rolls = [(random.randint(0,5), random.randint(0,5)) for i in range(self.maxTurns)]
+
+		# If configuration is provided, set the start state accordingly
+		if(config):
+			# If a history is provided, initailze that state entirely
+			if("from_history" in config):
+			
+			# Now we can use sub combinations of state backup
+			else:			
+				# If there are a specific dice roll layout required, let this be the start
+				if("dice_rolls" in config):
+					self.rolls = config["dice_rolls"]
+				# If a specific order of community_chest cards, let this be the original configuartion
+				if("community_chest_order" in config):
+					self.cmnt_chance_deck = config["community_chest_order"]
+				# If there is a specific chance configuration, let it be so
+				if("chance_order"):
+					self.chance_deck = config["chance_order"]
+
+
 
 	def diceRoll(self):
-		return (random.randint(0,5), random.randint(0,5))
+		return self.rolls[self.turn]
 
 	def gameFinished(self):
 		# Increase the number of turns
