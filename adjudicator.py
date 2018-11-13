@@ -54,7 +54,7 @@ class Adjudicator(object):
 		return property_one["group_id"] == property_two["group_id"]
 
 	def respondToBMSTDecision(self, player_index, response):
-			success = False
+			invalid_move = False
 			if(response):
 				if(response[0] == 0): # This is the BMS
 					b, m, s = response[1:]
@@ -62,44 +62,35 @@ class Adjudicator(object):
 					buildGS = self.buildGamestate()
 
 					p_sign = (-1)**(player_index)
-					same_sign = lambda x,y = (x < 0 and y < 0) or (x > 0 and y > 0)
-					same_group = lambda x,y = x["group_id"] == y["group_id"]
+					same_sign = lambda x,y: (x < 0 and y < 0) or (x > 0 and y > 0)
+					same_group = lambda x,y: x["group_id"] == y["group_id"]
 					prop_lookup = lambda x: buildGS.status[x["position"]]
 
-					invalid_move = False
+					if(not all([same_sign(buildGS.status[s], p_sign) for s in b+m+s])):
+						invalid_move = True
+						return invalid_move
 
 					for p in s:
 						prop = self.properties[p]
 						status = buildGS.status[p]					
-						if(same_sign(status, p_sign) and abs(status) > 1 and abs(status) < 7):
-							p_group = [prop_lookup(adj) for adj in self.properties if same_group(prop, adj)]
-							if(all([adj_s < 7 for adj_s in p_group])):
-								buildGS.liquid_cash[player_index] += (prop["houseprice"] // 2)
-								if(abs(status) == 6):
-									buildGS.houses_left -= 4
-									buildGS.hotels_left += 1
-								else:
-									buildGS.houses_left += 1
+						if(abs(status) > 1 and abs(status) < 7):
+							buildGS.liquid_cash[player_index] += (prop["houseprice"] // 2)
+							buildGS.status[p] -= p_sign
+							if(abs(status) == 6):
+								buildGS.houses_left -= 4
+								buildGS.hotels_left += 1
 							else:
-								invalid_move = True
-								break
+								buildGS.houses_left += 1
 						else:
-							invalid_move = True
-							break
-
-					for p in s:
-						prop = self.properties[p]
-						status = buildGS.status[p]					
-						p_group = [prop_lookup(adj) for adj in self.properties if same_group(prop, adj)]
-						if(any([abs((status-adj_s-1) > 1) for adj_s in p_group])):
 							invalid_move = True
 							break
 
 					for p in m:
 						prop = self.properties[p]
 						status = buildGS.status[p]
-						if(same_sign(status, p_sign) and abs(status) == 1):
+						if(abs(status) == 1):
 							buildGS.liquid_cash[player_index] += (prop["price"] // 2)
+							buildGS.status[p] = p_sign*7
 						else:
 							invalid_move = True
 							break
@@ -108,34 +99,30 @@ class Adjudicator(object):
 						prop = self.properties[p]
 						status = buildGS.status[p]
 						group = prop["group_id"]
-						if(buildGS.monopolies[group] == player_index):
-							if(same_sign(status, p_sign) and abs(status) > 6 and abs(status) < 7):
-								p_group = [prop_lookup(adj) for adj in self.properties if same_group(prop, adj)]
-								if(all([adj_s < 7 for adj_s in p_group])):
-									buildGS.liquid_cash[player_index] -= prop["houseprice"]
-									if(status == 5):
-										buildGS.hotels_left -= 1
-										buildGS.houses_left += 4
-									else:	
-										buildGS.houses_left -= 1
-								else:
-									invalid_move = True
-									break
-							else:
-								invalid_move = True
-								break
+
+						has_monopoly = buildGS.monopolies[group] == player_index
+						can_build = group < 8 and abs(status) < 6
+
+						if(can_build and has_monopoly):
+							buildGS.liquid_cash[player_index] -= prop["houseprice"]
+							buildGS.status[p] += p_sign
+							if(status == 5):
+								buildGS.hotels_left -= 1
+								buildGS.houses_left += 4
+							else:	
+								buildGS.houses_left -= 1
 						else:
 							invalid_move = True
 							break
 
-					for p in b:
+					for p in s+b:
 						prop = self.properties[p]
 						status = buildGS.status[p]					
 						p_group = [prop_lookup(adj) for adj in self.properties if same_group(prop, adj)]
-						if(any([abs((status-adj_s+1) > 1) for adj_s in p_group])):
+						if(any([abs(status-((adj_s!=7)*adj_s)) > 1 for adj_s in p_group])):
 							invalid_move = True
 							break
-					
+
 					invalid_move = invalid_move or buildGS.houses_left < 0
 					invalid_move = invalid_move or buildGS.hotels_left < 0
 					invalid_move = invalid_move or buildGS.liquid_cash[player_index] < 0
@@ -144,7 +131,6 @@ class Adjudicator(object):
 						self.gamestate = buildGS
 
 			return not invalid_move
-
 			
 	def updateWealth(self, player_index, wealth):
 		self.gamestate.liquid_cash[player_index] += wealth
