@@ -12,7 +12,7 @@ class Adjudicator(object):
 		self.maxTurns = 100
 		# Initialize game state
 		self.turn = 0		
-		self.gamestate = new GameState()
+		self.gamestate = GameState()
 		self.gamestateHistory = []
 		# Initialize the lookup table
 		self.properties = library.loadGameConfigurations("./properties.json")
@@ -182,9 +182,9 @@ class Adjudicator(object):
 		community_card = jail_cards[1]
 		return_val = -1
 
-		if(chance_card >= 1 && which_deck == 28):
+		if(chance_card >= 1 and which_deck == 28):
 			return_val = 0
-		else if(community_card >= 1 && which_deck == 29):
+		elif (community_card >= 1 and which_deck == 29):
 			return_val = 1
 
 		return return_val
@@ -233,10 +233,9 @@ class Adjudicator(object):
 			true_free = True
 			is_jailed = self.inJail(current_player)
 
-			if(is_jailed == True)
+			if(is_jailed[current_player] == True):
 				trueFree = False
 
-				##### Signature will change when the function is committed #####
 				self.multiBMST()
 				player_free = False
 
@@ -245,47 +244,46 @@ class Adjudicator(object):
 				wait_count = self.gamestate.wait_count[current_player]
 				
 				valid = 1
-				if arg_in[0] == 'C':
-					num_jail_free = hasJailCard(arg_in[1], current_player)
+				if jail_decision[0] == 'C':
+					num_jail_free = hasJailCard(jail_decision[1], current_player)
 
 					if has_jail_free > 0:
 						#Update the player's jail cards
-						self.updateJailCards(-1, arg_in[1], current_player)
+						self.updateJailCards(-1, jail_decision[1], current_player)
 						self.updateDeck()
 						player_free = True
 						true_free = True
-					else
-						valid = 0
-				else if arg_in[0] == 'R':
+					else:
+						#They tried to use a card that they didn't have.
+						#TODO handle
+						pass
+				elif jail_decision[0] == 'R':
 					if(double):
 							player_free = True
-						else:
-							updateWaitCount()
-				else if arg_in[0] == 'N':
+					else:
+						self.updateWaitCount(current_player)
+				elif jail_decision[0] == 'N':
 					if(wait_count >= 3):
 						player_free = True
+					else:
+						self.updateWaitCount(current_player)
 				else:
 					self.updateWealth(current_player, -50)
 					player_free = True
 
 			if(player_free):
-				#self.movePlayer(current_player, roll)
-				while(not self.mainLogic(roll));
+				while(not self.mainLogic(roll)):
+					pass
 
 				player_pos = self.gamestate.position[current_player]
-				#move_player with get go as false
 				if(true_free and double and (double_count + 1) < 3):
 					#Need to send in the mapping for jail
 					self.movePlayer(player_pos, 10, True, False)
+					self.incDoubleCount(current_player)
+				elif(true_free and double and (double_count + 1) >= 3):
+					self.movePlayer(current_player, 10, True, False)
 				else:
 					self.movePlayer(player_pos, roll)
-				if(double_count >= 3):
-					other_player, other_model = self.getOtherPlayerAndModel()
-					self.movePlayer(other_player, 10, True, False)
-				else:
-					self.updateJailWaitCount(current_player)
-			else:
-				#The logic here was player is changed
 
 			self.buildGamestate(self)
 
@@ -296,6 +294,10 @@ class Adjudicator(object):
 		jail_wait_count = self.gamestate.wait_count[current_player]
 		jail_wait_count = jail_wait_count + 1
 		self.gamestate.wait_count[current_player] = jail_wait_count
+
+
+	def incDoubleCount(current_player):
+		self.double_count[current_player] = self.double_count[current_player] + 1
 
 	def mainLogic(self, dice_roll):
 		#### Need to check the tile type here ####
@@ -332,10 +334,10 @@ class Adjudicator(object):
 			#Need to calculate the rent 
 			cost_to_player = self.resolveRent(player_pos)
 		#If there is a cost associated with the spot e.g. income tax or luxury tax
-		if(tile_status == -2 || tile_status == -3):
+		if(tile_status == -2 or tile_status == -3):
 			cost_to_player = self.resolveRent(property_index)
 		#Chance or community chest
-		if(tile_status == -4 || tile_status == -5):
+		if(tile_status == -4 or tile_status == -5):
 			card = None
 			if((tile_status % 2) == 0):
 				card = self.pullChanceCard()
@@ -348,12 +350,16 @@ class Adjudicator(object):
 
 
 	def resolveCardModifiers(card_id, current_player):
+		pass
 
 	def pullChanceCard(self):
+		pass
 
 	def pullCommunityChestCard(self):
+		pass
 
 	def lookupSpace(self, current_player):
+		pass
 
 
 	def updateGameHistory(self):
@@ -361,10 +367,8 @@ class Adjudicator(object):
 		self.gamestateHistory.append(current_reflection)
 
 	def updateProperty(self, player_pos, owner):
-		if(owner != -1):
-			#Do all the things, -1 owner means bank owned 
-
-
+		pass
 
 	def resolveRent(self, property_index):
+		pass
 
