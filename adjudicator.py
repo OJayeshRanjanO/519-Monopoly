@@ -4,13 +4,10 @@ from gamestate import GameState
 class Adjudicator(object):
 	def __init__(self, playerModel1, playerModel2):
 		self.players = (playerModel1, playerModel2)
-
 		# Error Flag -- automatic game over
 		self.error = -1
-		
 		# Set some constants
 		self.maxTurns = 100
-
 		#Initialize game state
 		self.turn = 0		
 		self.gamestate = new GameState()
@@ -147,6 +144,7 @@ class Adjudicator(object):
 			double = die1 == die2
 			roll = die1 + die2
 
+			double_count = self.GameState.double_count[current_player]
 			jail_decision = None
 			true_free = True
 			is_jailed = self.inJail(current_player)
@@ -187,11 +185,30 @@ class Adjudicator(object):
 					player_free = True
 
 			if(player_free):
-				self.movePlayer(current_player, roll)
+				#self.movePlayer(current_player, roll)
 				while(not self.mainLogic(roll));
-			
+
+				player_pos = self.gamestate.position[current_player]
+				#move_player with get go as false
+				if(true_free and double and (double_count + 1) < 3):
+					#Need to send in the mapping for jail
+					self.movePlayer(player_pos, 10, True, False)
+				else:
+					self.movePlayer(player_pos, roll)
+				if(double_count >= 3):
+					other_player, other_model = self.getOtherPlayerAndModel()
+					self.movePlayer(other_player, 10, True, False)
+				else:
+					self.updateJailWaitCount(current_player)
+			else:
+				#The logic here was player is changed
 
 		self.buildGamestate(self)
+
+	def updateJailWaitCount(current_player):
+		jail_wait_count = self.gamestate.wait_count[current_player]
+		jail_wait_count = jail_wait_count + 1
+		self.gamestate.wait_count[current_player] = jail_wait_count
 
 	def mainLogic(self, dice_roll):
 		#### Need to check the tile type here ####
