@@ -1,4 +1,5 @@
 import json
+import copy
 
 class GameState(object):
 	def __init__(self):
@@ -27,6 +28,9 @@ class GameState(object):
 		self.houses_left = 32
 		self.monopolies_held = [0 for i in range(10)]
 		self.wait_count = [0, 0]
+
+	def deepcopy(self):
+		return copy.deepcopy(self)
 
 class HistoricState(object):
 	def __init__(self, gameState, community_chest, chance, diceRoll, error_flag):
