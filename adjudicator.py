@@ -7,7 +7,7 @@ class Adjudicator(object):
 		# Add agents to the game
 		self.players = (playerModel1, playerModel2)
 		# Error Flag -- automatic game over
-		self.error = -1
+		self.error = False
 		# Set some constants
 		self.maxTurns = 100
 		# Initialize game state
@@ -26,6 +26,7 @@ class Adjudicator(object):
 		if(config):
 			# If a history is provided, initailze that state entirely
 			if("from_history" in config):
+				
 			
 			# Now we can use sub combinations of state backup
 			else:			
