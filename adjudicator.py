@@ -1,17 +1,21 @@
 import random
 from gamestate import GameState
+import library
 
 class Adjudicator(object):
 	def __init__(self, playerModel1, playerModel2):
+		# Add agents to the game
 		self.players = (playerModel1, playerModel2)
 		# Error Flag -- automatic game over
 		self.error = -1
 		# Set some constants
 		self.maxTurns = 100
-		#Initialize game state
+		# Initialize game state
 		self.turn = 0		
 		self.gamestate = new GameState()
 		self.gamestateHistory = []
+		# Initialize the lookup table
+		self.properties = library.loadGameConfigurations("./properties.json")
 
 	def diceRoll(self):
 		return (random.randint(0,5), random.randint(0,5))
@@ -139,7 +143,7 @@ class Adjudicator(object):
 	# Plays the game, returns a csv
 	def play(self):
 		current_player, current_model = self.getCurrentPlayerAndModel()
-		while not self.gameFinished():
+		if(not self.gameFinished()):
 			die1, die2 = self.diceRoll()
 			double = die1 == die2
 			roll = die1 + die2
@@ -203,7 +207,9 @@ class Adjudicator(object):
 			else:
 				#The logic here was player is changed
 
-		self.buildGamestate(self)
+			self.buildGamestate(self)
+
+		return self.gameFinished()
 
 	def updateJailWaitCount(current_player):
 		jail_wait_count = self.gamestate.wait_count[current_player]
