@@ -1,9 +1,26 @@
 {
+	"groups": [
+		"purple",
+		"lightgreen",
+		"violet",
+		"orange",
+		"red",
+		"yellow",
+		"darkgreen",
+		"darkblue",
+		"railroad",
+		"utilities",
+		"cost",
+		"chance",
+		"community_chest",
+		"jail",
+		"special"
+	],
   "properties": [
     {
       "name": "Mediterranean Avenue",
       "id": "mediterraneanave",
-      "position": 2,
+      "position": 1,
       "price": 60,
       "rent": 2,
       "multpliedrent": [
@@ -15,24 +32,12 @@
       ],
       "housecost": 50,
       "group": "Purple",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "probability": 2.1314,
-      "rel": {
-        "Square": "Mediterranean Avenue",
-        "Probability % (Jail Short)": 2.1314,
-        "Rank": 36,
-        "Probability % (Jail Long)": 2.0073
-      },
-      "ohousecost": 50,
-      "oprice": 60,
-      "averageProbability": 2.06935
+			"group_id": 0
     },
     {
       "name": "Baltic Avenue",
       "id": "balticave",
-      "position": 4,
+      "position": 3,
       "price": 60,
       "rent": 4,
       "multpliedrent": [
@@ -43,25 +48,12 @@
         450
       ],
       "housecost": 50,
-      "group": "Purple",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "probability": 2.1624,
-      "rel": {
-        "Square": "Baltic Avenue",
-        "Probability % (Jail Short)": 2.1624,
-        "Rank": 35,
-        "Probability % (Jail Long)": 2.0369
-      },
-      "ohousecost": 50,
-      "oprice": 60,
-      "averageProbability": 2.09965
+      "group": "Purple"
     },
     {
       "name": "Oriental Avenue",
       "id": "orientalave",
-      "position": 7,
+      "position": 6,
       "price": 100,
       "rent": 6,
       "multpliedrent": [
@@ -72,24 +64,12 @@
         550
       ],
       "housecost": 50,
-      "group": "lightgreen",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "rel": {
-        "Square": "Oriental Avenue",
-        "Probability % (Jail Short)": 2.2621,
-        "Rank": 32,
-        "Probability % (Jail Long)": 2.1317
-      },
-      "ohousecost": 50,
-      "oprice": 100,
-      "averageProbability": 2.1969000000000003
+      "group": "lightgreen"
     },
     {
       "name": "Vermont Avenue",
       "id": "vermontave",
-      "position": 9,
+      "position": 8,
       "price": 100,
       "rent": 6,
       "multpliedrent": [
@@ -100,24 +80,12 @@
         550
       ],
       "housecost": 50,
-      "group": "lightgreen",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "rel": {
-        "Square": "Vermont Avenue",
-        "Probability % (Jail Short)": 2.321,
-        "Rank": 28,
-        "Probability % (Jail Long)": 2.1874
-      },
-      "ohousecost": 50,
-      "oprice": 100,
-      "averageProbability": 2.2542
+      "group": "lightgreen"
     },
     {
       "name": "Connecticut Avenue",
       "id": "connecticutave",
-      "position": 10,
+      "position": 9,
       "price": 120,
       "rent": 8,
       "multpliedrent": [
@@ -128,24 +96,12 @@
         600
       ],
       "housecost": 50,
-      "group": "lightgreen",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "rel": {
-        "Square": "Connecticut Avenue",
-        "Probability % (Jail Short)": 2.3003,
-        "Rank": 30,
-        "Probability % (Jail Long)": 2.168
-      },
-      "ohousecost": 50,
-      "oprice": 120,
-      "averageProbability": 2.23415
+      "group": "lightgreen"
     },
     {
       "name": "St. Charles Place",
       "id": "stcharlesplace",
-      "position": 12,
+      "position": 11,
       "price": 140,
       "rent": 10,
       "multpliedrent": [
@@ -156,24 +112,12 @@
         750
       ],
       "housecost": 100,
-      "group": "Violet",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "rel": {
-        "Square": "St. Charles Place",
-        "Probability % (Jail Short)": 2.7017,
-        "Rank": 15,
-        "Probability % (Jail Long)": 2.556
-      },
-      "ohousecost": 100,
-      "oprice": 140,
-      "averageProbability": 2.62885
+      "group": "Violet"
     },
     {
       "name": "States Avenue",
       "id": "statesave",
-      "position": 14,
+      "position": 13,
       "price": 140,
       "rent": 10,
       "multpliedrent": [
@@ -184,24 +128,12 @@
         750
       ],
       "housecost": 100,
-      "group": "Violet",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "rel": {
-        "Square": "States Avenue",
-        "Probability % (Jail Short)": 2.3721,
-        "Rank": 29,
-        "Probability % (Jail Long)": 2.1741
-      },
-      "ohousecost": 100,
-      "oprice": 140,
-      "averageProbability": 2.2731000000000003
+      "group": "Violet"
     },
     {
       "name": "Virginia Avenue",
       "id": "virginiaave",
-      "position": 15,
+      "position": 14,
       "price": 160,
       "rent": 12,
       "multpliedrent": [
@@ -212,24 +144,12 @@
         900
       ],
       "housecost": 100,
-      "group": "Violet",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "rel": {
-        "Square": "Virginia Avenue",
-        "Probability % (Jail Short)": 2.4649,
-        "Rank": 22,
-        "Probability % (Jail Long)": 2.4255
-      },
-      "ohousecost": 100,
-      "oprice": 160,
-      "averageProbability": 2.4452
+      "group": "Violet"
     },
     {
       "name": "St. James Place",
       "id": "stjamesplace",
-      "position": 17,
+      "position": 16,
       "price": 180,
       "rent": 14,
       "multpliedrent": [
@@ -240,24 +160,12 @@
         950
       ],
       "housecost": 100,
-      "group": "Orange",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "rel": {
-        "Square": "St. James Place",
-        "Probability % (Jail Short)": 2.7924,
-        "Rank": 9,
-        "Probability % (Jail Long)": 2.6802
-      },
-      "ohousecost": 100,
-      "oprice": 180,
-      "averageProbability": 2.7363
+      "group": "Orange"
     },
     {
       "name": "Tennessee Avenue",
       "id": "tennesseeave",
-      "position": 19,
+      "position": 18,
       "price": 180,
       "rent": 14,
       "multpliedrent": [
@@ -268,24 +176,12 @@
         950
       ],
       "housecost": 100,
-      "group": "Orange",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "rel": {
-        "Square": "Tennessee Avenue",
-        "Probability % (Jail Short)": 2.9356,
-        "Rank": 6,
-        "Probability % (Jail Long)": 2.821
-      },
-      "ohousecost": 100,
-      "oprice": 180,
-      "averageProbability": 2.8783000000000003
+      "group": "Orange"
     },
     {
       "name": "New York Avenue",
       "id": "newyorkave",
-      "position": 20,
+      "position": 19,
       "price": 200,
       "rent": 16,
       "multpliedrent": [
@@ -296,24 +192,12 @@
         1000
       ],
       "housecost": 100,
-      "group": "Orange",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "rel": {
-        "Square": "New York Avenue",
-        "Probability % (Jail Short)": 3.0852,
-        "Rank": 7,
-        "Probability % (Jail Long)": 2.8118
-      },
-      "ohousecost": 100,
-      "oprice": 200,
-      "averageProbability": 2.9485
+      "group": "Orange"
     },
     {
       "name": "Kentucky Avenue",
       "id": "kentuckyave",
-      "position": 22,
+      "position": 21,
       "price": 220,
       "rent": 18,
       "multpliedrent": [
@@ -324,24 +208,12 @@
         1050
       ],
       "housecost": 150,
-      "group": "Red",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "rel": {
-        "Square": "Kentucky Avenue",
-        "Probability % (Jail Short)": 2.8358,
-        "Rank": 12,
-        "Probability % (Jail Long)": 2.6143
-      },
-      "ohousecost": 150,
-      "oprice": 220,
-      "averageProbability": 2.72505
+      "group": "Red"
     },
     {
       "name": "Indiana Avenue",
       "id": "indianaave",
-      "position": 24,
+      "position": 23,
       "price": 220,
       "rent": 18,
       "multpliedrent": [
@@ -352,24 +224,12 @@
         1050
       ],
       "housecost": 150,
-      "group": "Red",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "rel": {
-        "Square": "Indiana Avenue",
-        "Probability % (Jail Short)": 2.7357,
-        "Rank": 14,
-        "Probability % (Jail Long)": 2.5671
-      },
-      "ohousecost": 150,
-      "oprice": 220,
-      "averageProbability": 2.6513999999999998
+      "group": "Red"
     },
     {
       "name": "Illinois Avenue",
       "id": "illinoisave",
-      "position": 25,
+      "position": 24,
       "price": 240,
       "rent": 20,
       "multpliedrent": [
@@ -380,23 +240,27 @@
         1100
       ],
       "housecost": 150,
-      "group": "Red",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "rel": {
-        "Square": "Illinois Avenue",
-        "Probability % (Jail Short)": 3.1858,
-        "Rank": 2,
-        "Probability % (Jail Long)": 2.9929
-      },
-      "ohousecost": 150,
-      "oprice": 240,
-      "averageProbability": 3.08935
+      "group": "Red"
     },
     {
       "name": "Atlantic Avenue",
       "id": "atlanticave",
+      "position": 26,
+      "price": 260,
+      "rent": 22,
+      "multpliedrent": [
+        110,
+        330,
+        800,
+        975,
+        1150
+      ],
+      "housecost": 150,
+      "group": "Yellow"
+    },
+    {
+      "name": "Ventnor Avenue",
+      "id": "ventnorave",
       "position": 27,
       "price": 260,
       "rent": 22,
@@ -408,52 +272,12 @@
         1150
       ],
       "housecost": 150,
-      "group": "Yellow",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "rel": {
-        "Square": "Atlantic Avenue",
-        "Probability % (Jail Short)": 2.7072,
-        "Rank": 16,
-        "Probability % (Jail Long)": 2.537
-      },
-      "ohousecost": 150,
-      "oprice": 260,
-      "averageProbability": 2.6220999999999997
-    },
-    {
-      "name": "Ventnor Avenue",
-      "id": "ventnorave",
-      "position": 28,
-      "price": 260,
-      "rent": 22,
-      "multpliedrent": [
-        110,
-        330,
-        800,
-        975,
-        1150
-      ],
-      "housecost": 150,
-      "group": "Yellow",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "rel": {
-        "Square": "Ventnor Avenue",
-        "Probability % (Jail Short)": 2.6789,
-        "Rank": 18,
-        "Probability % (Jail Long)": 2.5191
-      },
-      "ohousecost": 150,
-      "oprice": 260,
-      "averageProbability": 2.599
+      "group": "Yellow"
     },
     {
       "name": "Marvin Gardens",
       "id": "marvingardens",
-      "position": 30,
+      "position": 29,
       "price": 280,
       "rent": 22,
       "multpliedrent": [
@@ -464,23 +288,27 @@
         1200
       ],
       "housecost": 150,
-      "group": "Yellow",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "rel": {
-        "Square": "Marvin Gardens",
-        "Probability % (Jail Short)": 2.5861,
-        "Rank": 21,
-        "Probability % (Jail Long)": 2.4381
-      },
-      "ohousecost": 150,
-      "oprice": 280,
-      "averageProbability": 2.5121
+      "group": "Yellow"
     },
     {
       "name": "Pacific Avenue",
       "id": "pacificave",
+      "position": 31,
+      "price": 300,
+      "rent": 26,
+      "multpliedrent": [
+        130,
+        390,
+        900,
+        1100,
+        1275
+      ],
+      "housecost": 200,
+      "group": "darkgreen"
+    },
+    {
+      "name": "North Carolina Avenue",
+      "id": "northcarolinaave",
       "position": 32,
       "price": 300,
       "rent": 26,
@@ -492,52 +320,12 @@
         1275
       ],
       "housecost": 200,
-      "group": "darkgreen",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "rel": {
-        "Square": "Pacific Avenue",
-        "Probability % (Jail Short)": 2.6774,
-        "Rank": 17,
-        "Probability % (Jail Long)": 2.5236
-      },
-      "ohousecost": 200,
-      "oprice": 300,
-      "averageProbability": 2.6005000000000003
-    },
-    {
-      "name": "North Carolina Avenue",
-      "id": "northcarolinaave",
-      "position": 33,
-      "price": 300,
-      "rent": 26,
-      "multpliedrent": [
-        130,
-        390,
-        900,
-        1100,
-        1275
-      ],
-      "housecost": 200,
-      "group": "darkgreen",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "rel": {
-        "Square": "North Carolina Avenue",
-        "Probability % (Jail Short)": 2.6252,
-        "Rank": 20,
-        "Probability % (Jail Long)": 2.4721
-      },
-      "ohousecost": 200,
-      "oprice": 300,
-      "averageProbability": 2.5486500000000003
+      "group": "darkgreen"
     },
     {
       "name": "Pennsylvania Avenue",
       "id": "pennsylvaniaave",
-      "position": 35,
+      "position": 34,
       "price": 320,
       "rent": 28,
       "multpliedrent": [
@@ -548,24 +336,12 @@
         1400
       ],
       "housecost": 200,
-      "group": "darkgreen",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "rel": {
-        "Square": "Pennsylvania Avenue",
-        "Probability % (Jail Short)": 2.5006,
-        "Rank": 23,
-        "Probability % (Jail Long)": 2.3531
-      },
-      "ohousecost": 200,
-      "oprice": 320,
-      "averageProbability": 2.42685
+      "group": "darkgreen"
     },
     {
       "name": "Park Place",
       "id": "parkplace",
-      "position": 38,
+      "position": 37,
       "price": 350,
       "rent": 35,
       "multpliedrent": [
@@ -576,24 +352,12 @@
         1500
       ],
       "housecost": 200,
-      "group": "darkblue",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "rel": {
-        "Square": "Park Place",
-        "Probability % (Jail Short)": 2.1864,
-        "Rank": 33,
-        "Probability % (Jail Long)": 2.0595
-      },
-      "ohousecost": 200,
-      "oprice": 350,
-      "averageProbability": 2.12295
+      "group": "darkblue"
     },
     {
       "name": "Boardwalk",
       "id": "boardwalk",
-      "position": 40,
+      "position": 39,
       "price": 400,
       "rent": 50,
       "multpliedrent": [
@@ -604,257 +368,159 @@
         2000
       ],
       "housecost": 200,
-      "group": "darkblue",
-      "ownedby": -1,
-      "buildings": 0,
-      "mortgaged": false,
-      "rel": {
-        "Square": "Boardwalk",
-        "Probability % (Jail Short)": 2.626,
-        "Rank": 19,
-        "Probability % (Jail Long)": 2.4832
-      },
-      "ohousecost": 200,
-      "oprice": 400,
-      "averageProbability": 2.5545999999999998
+      "group": "darkblue"
     },
     {
       "name": "Electric Company",
       "id": "electriccompany",
-      "position": 13,
+      "position": 12,
       "price": 150,
       "group": "Utilities",
-      "ownedby": -1,
-      "mortgaged": false,
-      "rel": {
-        "Square": "Electric Company",
-        "Probability % (Jail Short)": 2.604,
-        "Rank": 13,
-        "Probability % (Jail Long)": 2.614
-      },
-      "oprice": 150,
-      "averageProbability": 2.609
+			"multpliedrent": [
+				4,
+				10
+			]
     },
     {
       "name": "Water Works",
       "id": "waterworks",
-      "position": 29,
+      "position": 28,
       "price": 150,
       "group": "Utilities",
-      "ownedby": -1,
-      "mortgaged": false,
-      "rel": {
-        "Square": "Water Works",
-        "Probability % (Jail Short)": 2.8074,
-        "Rank": 10,
-        "Probability % (Jail Long)": 2.6507
-      },
-      "oprice": 150,
-      "averageProbability": 2.72905
+			"multpliedrent": [
+				4, 
+				10
+			]
     },
     {
       "name": "Reading Railroad",
       "id": "readingrailroad",
-      "position": 6,
+      "position": 5,
       "price": 200,
       "group": "Railroad",
-      "ownedby": -1,
-      "mortgaged": false,
-      "probability": 2.1314,
-      "rel": {
-        "Square": "Reading Railroad",
-        "Probability % (Jail Short)": 2.9631,
-        "Rank": 8,
-        "Probability % (Jail Long)": 2.801
-      },
-      "oprice": 200,
-      "averageProbability": 2.88205
+			"rent": 25,
+			"multpliedrent": [
+				50,
+				100,
+				200
+			]
     },
     {
       "name": "Pennsylvania Railroad",
       "id": "pennsylvaniarailroad",
-      "position": 16,
+      "position": 15,
       "price": 200,
       "group": "Railroad",
-      "ownedby": -1,
-      "mortgaged": false,
-      "rel": {
-        "Square": "Pennsylvania Railroad",
-        "Probability % (Jail Short)": 2.92,
-        "Rank": 11,
-        "Probability % (Jail Long)": 2.6354
-      },
-      "oprice": 200,
-      "averageProbability": 2.7777000000000003
+			"rent": 25,
+			"multpliedrent": [
+				50,
+				100,
+				200
+			]
     },
     {
       "name": "B. & O. Railroad",
       "id": "borailroad",
-      "position": 26,
+      "position": 25,
       "price": 200,
       "group": "Railroad",
-      "ownedby": -1,
-      "mortgaged": false,
-      "oprice": 200,
-      "averageProbability": 2.975
+			"rent": 25,
+			"multpliedrent": [
+				50,
+				100,
+				200
+			]
     },
     {
       "name": "Short Line Railroad",
       "id": "shortlinerailroad",
-      "position": 36,
+      "position": 35,
       "price": 200,
       "group": "Railroad",
-      "ownedby": -1,
-      "mortgaged": false,
-      "oprice": 200,
-      "averageProbability": 2.3609500000000002
+			"rent": 25,
+			"multpliedrent": [
+				50,
+				100,
+				200
+			]
     },
     {
       "name": "Go",
       "id": "go",
-      "position": 1,
-      "group": "Special",
-      "rel": {
-        "Square": "Go",
-        "Probability % (Jail Short)": 3.0961,
-        "Rank": 3,
-        "Probability % (Jail Long)": 2.9143
-      },
-      "averageProbability": 3.0052
+      "position": 0,
+      "group": "Special"
     },
     {
       "name": "Income Tax",
       "id": "incometax",
-      "group": "Special",
-      "position": 5,
-      "rel": {
-        "Square": "Income Tax",
-        "Probability % (Jail Short)": 2.3285,
-        "Rank": 27,
-        "Probability % (Jail Long)": 2.1934
-      },
-      "averageProbability": 2.2609500000000002
-    },
-    {
-      "name": "Chance",
-      "id": "chance",
-      "group": "Special",
-      "position": 8,
-      "rel": {
-        "Square": "Chance",
-        "Probability % (Jail Short)": 0.865,
-        "Rank": 40,
-        "Probability % (Jail Long)": 0.8152
-      },
-      "averageProbability": 0.8401000000000001
-    },
-    {
-      "name": "Chance",
-      "id": "chance",
-      "group": "Special",
-      "position": 23,
-      "rel": {
-        "Square": "Chance",
-        "Probability % (Jail Short)": 0.865,
-        "Rank": 40,
-        "Probability % (Jail Long)": 0.8152
-      },
-      "averageProbability": 0.8401000000000001
-    },
-    {
-      "name": "Chance",
-      "id": "chance",
-      "group": "Special",
-      "position": 37,
-      "rel": {
-        "Square": "Chance",
-        "Probability % (Jail Short)": 0.865,
-        "Rank": 40,
-        "Probability % (Jail Long)": 0.8152
-      },
-      "averageProbability": 0.8401000000000001
+      "group": "cost",
+      "position": 4,
+			"cost": {
+				"fixed": 200,
+				"variable": 0.1
+			}
     },
     {
       "name": "Free Parking",
       "id": "freeparking",
       "group": "Special",
-      "position": 21,
-      "rel": {
-        "Square": "Free Parking",
-        "Probability % (Jail Short)": 2.8836,
-        "Rank": 5,
-        "Probability % (Jail Long)": 2.8253
-      },
-      "averageProbability": 2.85445
+      "position": 20
+    },
+    {
+      "name": "Chance",
+      "id": "chance",
+      "group": "chance",
+      "position": 7
+    },
+    {
+      "name": "Chance",
+      "id": "chance",
+      "group": "chance",
+      "position": 22
+    },
+    {
+      "name": "Chance",
+      "id": "chance",
+      "group": "chance",
+      "position": 36
     },
     {
       "name": "Community Chest",
       "id": "communitychest",
-      "group": "Special",
-      "position": 3,
-      "rel": {
-        "Square": "Community Chest",
-        "Probability % (Jail Short)": 1.8849,
-        "Rank": 37,
-        "Probability % (Jail Long)": 1.775
-      },
-      "averageProbability": 1.82995
+      "group": "community_chest",
+      "position": 2
     },
     {
       "name": "Community Chest",
       "id": "communitychest",
-      "group": "Special",
-      "position": 18,
-      "rel": {
-        "Square": "Community Chest",
-        "Probability % (Jail Short)": 1.8849,
-        "Rank": 37,
-        "Probability % (Jail Long)": 1.775
-      },
-      "averageProbability": 1.82995
+      "group": "community_chest",
+      "position": 17
     },
     {
       "name": "Community Chest",
       "id": "communitychest",
-      "group": "Special",
-      "position": 34,
-      "rel": {
-        "Square": "Community Chest",
-        "Probability % (Jail Short)": 1.8849,
-        "Rank": 37,
-        "Probability % (Jail Long)": 1.775
-      },
-      "averageProbability": 1.82995
+      "group": "community_chest",
+      "position": 33
     },
     {
       "name": "Go To Jail",
       "id": "gotojail",
-      "group": "Special",
-      "position":31,
-      "rel": {
-        "Square": "Go To Jail",
-        "Probability % (Jail Short)": 0,
-        "Rank": 41,
-        "Probability % (Jail Long)": 0
-      },
-      "averageProbability": 0
+      "group": "jail",
+      "position":30
     },
     {
       "name": "Luxury Tax",
-      "position": 39,
+      "position": 38,
       "id": "luxerytax",
-      "group": "Special",
-      "averageProbability": 2.116
-    },
-    {
-      "name": "In Jail",
-      "position": 0,
-      "id": "injail",
-      "group": "Special"
+      "group": "cost",
+			"cost": {
+				"fixed": 75,
+				"variable": 0
+			}
     },
     {
       "name": "Just Visiting",
-      "position": 11,
+      "position": 10,
       "id": "justvisiting",
       "group": "Special"
     }
