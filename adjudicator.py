@@ -17,7 +17,7 @@ class Adjudicator(object):
 		# Initialize the lookup table
 		self.properties, self.cmnty_chest, self.chance = library.loadLookup("./properties.json")
 		# Randomize a current deck for community chest and chance
-		self.cmnty_chance_deck = sorted(list(range(len(self.cmnty_chest))))
+		self.cmnty_chest_deck = sorted(list(range(len(self.cmnty_chest))))
 		self.chance_deck = sorted(list(range(len(self.chance))))
 		# Declare random dice rolls
 		self.rolls = [(random.randint(0,5), random.randint(0,5)) for i in range(self.maxTurns)]
@@ -26,7 +26,12 @@ class Adjudicator(object):
 		if(config):
 			# If a history is provided, initailze that state entirely
 			if("from_history" in config):
-				
+				loadedHistory = library.HistoricState_fromDict(config["from_history"])			
+				self.cmnty_chest_deck = loadedHistory.cards.community_chest
+				self.chance_deck = loadedHistory.cards.chance
+				self.gamestate = loadedHistory.gamestate
+				self.error = loadedHistory.error
+				self.rolls[0] = loadedHistory.diceRoll
 			
 			# Now we can use sub combinations of state backup
 			else:			
