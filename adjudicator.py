@@ -22,8 +22,10 @@ class Adjudicator(object):
 
 	def gameFinished(self):
 		# Increase the number of turns
-		self.turn = self.turn+1
-		return self.turn >= self.maxTurns
+		turnsReached = self.turn >= self.maxTurns
+		# Check if any player has a negative balance
+		noMoney = any([m < 0.0 for m in self.gamestate.liquid_cash])
+		return turnsReached or noMoney
 
 	def buildGamestate(self):
 		# Builds a deep copy of gamestate so models can use
@@ -209,6 +211,7 @@ class Adjudicator(object):
 
 			self.buildGamestate(self)
 
+		self.turn = self.turn + 1
 		return self.gameFinished()
 
 	def updateJailWaitCount(current_player):
