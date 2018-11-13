@@ -50,22 +50,100 @@ class Adjudicator(object):
 			concensus = responses[0] is None and responses[1] is None
 			turn = (turn + 1) % 2
 
+	def same_group(self, property_one, property_two):
+		return property_one["group_id"] == property_two["group_id"]
+
 	def respondToBMSTDecision(self, player_index, response):
 			success = False
 			if(response):
 				if(response[0] == 0): # This is the BMS
 					b, m, s = response[1:]
-					
+
+					buildGS = self.buildGamestate()
+
+					p_sign = (-1)**(player_index)
+					same_sign = lambda x,y = (x < 0 and y < 0) or (x > 0 and y > 0)
+					same_group = lambda x,y = x["group_id"] == y["group_id"]
+					prop_lookup = lambda x: buildGS.status[x["position"]]
+
+					invalid_move = False
+
 					for p in s:
-						pass
-														
-					for p in b:
-						pass
+						prop = self.properties[p]
+						status = buildGS.status[p]					
+						if(same_sign(status, p_sign) and abs(status) > 1 and abs(status) < 7):
+							p_group = [prop_lookup(adj) for adj in self.properties if same_group(prop, adj)]
+							if(all([adj_s < 7 for adj_s in p_group])):
+								buildGS.liquid_cash[player_index] += (prop["houseprice"] // 2)
+								if(abs(status) == 6):
+									buildGS.houses_left -= 4
+									buildGS.hotels_left += 1
+								else:
+									buildGS.houses_left += 1
+							else:
+								invalid_move = True
+								break
+						else:
+							invalid_move = True
+							break
+
+					for p in s:
+						prop = self.properties[p]
+						status = buildGS.status[p]					
+						p_group = [prop_lookup(adj) for adj in self.properties if same_group(prop, adj)]
+						if(any([abs((status-adj_s-1) > 1) for adj_s in p_group])):
+							invalid_move = True
+							break
 
 					for p in m:
-						pass
-				
-			return success
+						prop = self.properties[p]
+						status = buildGS.status[p]
+						if(same_sign(status, p_sign) and abs(status) == 1):
+							buildGS.liquid_cash[player_index] += (prop["price"] // 2)
+						else:
+							invalid_move = True
+							break
+
+					for p in b:
+						prop = self.properties[p]
+						status = buildGS.status[p]
+						group = prop["group_id"]
+						if(buildGS.monopolies[group] == player_index):
+							if(same_sign(status, p_sign) and abs(status) > 6 and abs(status) < 7):
+								p_group = [prop_lookup(adj) for adj in self.properties if same_group(prop, adj)]
+								if(all([adj_s < 7 for adj_s in p_group])):
+									buildGS.liquid_cash[player_index] -= prop["houseprice"]
+									if(status == 5):
+										buildGS.hotels_left -= 1
+										buildGS.houses_left += 4
+									else:	
+										buildGS.houses_left -= 1
+								else:
+									invalid_move = True
+									break
+							else:
+								invalid_move = True
+								break
+						else:
+							invalid_move = True
+							break
+
+					for p in b:
+						prop = self.properties[p]
+						status = buildGS.status[p]					
+						p_group = [prop_lookup(adj) for adj in self.properties if same_group(prop, adj)]
+						if(any([abs((status-adj_s+1) > 1) for adj_s in p_group])):
+							invalid_move = True
+							break
+					
+					invalid_move = invalid_move or buildGS.houses_left < 0
+					invalid_move = invalid_move or buildGS.hotels_left < 0
+					invalid_move = invalid_move or buildGS.liquid_cash[player_index] < 0
+					
+					if(not invalid_move):
+						self.gamestate = buildGS
+
+			return not invalid_move
 
 			
 	def updateWealth(self, player_index, wealth):
