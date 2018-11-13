@@ -1,6 +1,28 @@
 import json
 import copy
 
+def GameState_fromDict(dictVal):
+	gs = GameState()
+	gs.__dict__ = dictVal
+	return gs
+
+def GameState_toDict(gs):
+	return copy.deepcopy(gs.__dict__)
+
+def HistoricState_fromDict(dictVal):
+	gs = GameState_fromDict(dictVal["gamestate"])
+	community_chest = dictVal["cards"]["community_chest"]
+	chance = dictVal["cards"]["chance"]
+	diceRoll = dictVal["diceRoll"]
+	error = dictVal["error"]
+	hs = HistoricState(gs, community_chest, chance, diceRoll, error)
+	return hs
+
+def HistoricState_toDict(hs):
+	d = copy.deepcopy(hs.__dict__)
+	d["gamestate"] = GameState_toDict(d["gamestate"])
+	return d
+
 class GameState(object):
 	def __init__(self):
 		self.turn = 0
@@ -33,14 +55,14 @@ class GameState(object):
 		return copy.deepcopy(self)
 
 class HistoricState(object):
-	def __init__(self, gameState, community_chest, chance, diceRoll, error_flag):
+	def __init__(self, gameState, community_chest, chance, diceRoll, error):
 		self.gamestate = gameState
 		self.cards = {
 			"community_chest": community_chest,
 			"chance": chance
 		}
 		self.diceRoll = diceRoll
-		self.error_flag = error_flag
+		self.error = error
 
 class History(object):
 	def __init__(self):
