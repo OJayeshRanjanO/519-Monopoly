@@ -27,3 +27,21 @@ class GameState(object):
 		self.houses_left = 32
 		self.monopolies_held = [0 for i in range(10)]
 		self.wait_count = [0, 0]
+
+class HistoricState(object):
+	def __init__(self, gameState, community_chest, chance, diceRoll, error_flag):
+		self.gamestate = gameState
+		self.cards = {
+			"community_chest": community_chest,
+			"chance": chance
+		}
+		self.diceRoll = diceRoll
+		self.error_flag = error_flag
+
+class History(object):
+	def __init__(self):
+		self.history = []
+
+	def add_history(self, historicState):
+		self.history.append(historicState)
+
