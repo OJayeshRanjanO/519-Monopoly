@@ -29,7 +29,7 @@ class Adjudicator(object):
 
 	def buildGamestate(self):
 		# Builds a deep copy of gamestate so models can use
-		return self.gamestate
+		return self.gamestate.deepcopy()
 
 	def multiBMST(self):
 		turn = self.gamestate.current_player
