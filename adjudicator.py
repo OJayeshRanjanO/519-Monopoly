@@ -337,13 +337,29 @@ class Adjudicator(object):
 			self.pullDeckCard(current_player, player_pos, tile_group_id)
 		#Special don't remember what this is.
 		elif(tile_status == 14):
-			self.processSpecialSnowflake(current_player, player_pos)
+			self.processSpecialSnowflake(current_player, player_p++os)
 		#Going on a one way trip to jail
 		else:
 			self.movePlayer(player_pos, 10, True, False)
 
 		#Let the players decided what to do next gien the updated board state.
 		self.multiBMST()
+
+
+	def processSpecialSnowflake(self, current_player, player_pos):
+		#This means they landed on go.
+		if(player_pos == 0):
+			self.updateWealth(current_player, 200)
+		#Free parking and just visitting spaces don't have any side
+		else:
+			pass
+
+	def damagePlayer(self, current_player, player_pos):
+		#Income tax, according to the document, we pay a flat $200
+		if(player_pos == 4):
+			self.updateWealth(current_player, -200)
+		else
+			self.updateWealth(current_player, -75)
 
 
 	def resolveProperty(self, current_player, tile_index, tile_group_id, dice_roll):
@@ -369,9 +385,7 @@ class Adjudicator(object):
 			self.updateProperty(player_pos, owner)
 		#Owned by player 1 in various degrees
 		else:
-			rent = calculateRent(tile_group_id, tile_status, dice_roll)
-
-			
+			rent = self.calculateRent(tile_group_id, tile_status, dice_roll)
 			self.updateWealth(current_player, -rent)
 
 	def calculateRent(tile_group_id, tile_status, dice_roll):
@@ -383,11 +397,11 @@ class Adjudicator(object):
 			#Railroad
 			railroad_rent = [25, 50, 100, 200]
 			if(group_id == 8):
-				num_railroads_owned = numRailsUtilsOwned(other_player, 0)
+				num_railroads_owned = self.numRailsUtilsOwned(other_player, 0)
 				rent = railroad_rent[numRailroadsOwned - 1]
 			#Utilities
 			elif(group_id == 9):
-				num_utilities_owned = numRailsUtilsOwned(other_player, 1)
+				num_utilities_owned = self.numRailsUtilsOwned(other_player, 1)
 				if(num_utilities_owned > 1):
 					rent = 4 * dice_roll
 				else
@@ -416,7 +430,7 @@ class Adjudicator(object):
 		for x in range(which):
 			signs.append(self.getTileStatus(x))
 
-		owned = map(playerOwnsTile(player, signs))
+		owned = map(self.playerOwnsTile(player, signs))
 		return owned.count(1)
 
 
