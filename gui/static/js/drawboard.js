@@ -309,8 +309,8 @@ var testState = {
 	"turn":5,
 	"current_player":1,
 	"jailed":[false,false],
-	"status":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	"position":[10,39],
+	"status":[0,6,0,-5,0,0,-7,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	"position":[3,3],
 	"liquid_cash":[1500,1500],
 	"total_wealth":[1500,1500],
 	"liquid_assets":[1500,1500],
@@ -331,11 +331,75 @@ var testState = {
 	"wait_count":[0, 0]	
 }
 
-var obj = tile_list[1]
+
 function loadPlayerProperties(state){
+		// console.log(tile_list)
+		// console.log(obj)
+	var hotel = "\u{1F3E2}"
+	var house = "\u{1F3E0}"
+	var owned = "OWNED"
+	var mortgaged = "MORTGAGED"
+	var unowned = "UNOWNED"
+
 	var status = state.status;
-	// var properties = 
-	// if ()
+	// var properties = tile_list;
+	for (var i = 0; i < tile_list.length;i++){
+		var obj = tile_list[i]
+		status_value = status[i];
+		var text = "";
+		if (status_value == 0){
+			c.font = "10px Arial";
+			text = unowned;
+		}
+		else if(status_value == 1 || status_value == -1){
+			c.font = "10px Arial";
+			text = owned
+		}
+		else if ( (status_value > -6 && status_value < -1) || (status_value > 1 && status_value < 6)){//HOUSE
+			c.font = "15px Arial";
+			text = ""
+			var num_houses = Math.abs(status_value) - 1;
+			for (var j = 0; j < num_houses; j++){
+				text+=house
+			}
+		}else if (status_value == 6 || status_value == -6){
+			c.font = "20px Arial";
+			text = hotel
+		}else if (status_value == 7 || status_value == -7){
+			c.font = "10px Arial";
+			text = mortgaged
+		}
+		var tileLocX=0;
+		var tileLocY=0;
+		if (i != 2 && i!= 4 && i!= 7 && i!=17 && i!= 22 && i!=33 && i!= 36 && i!=38){
+			if (obj.direction == "Bottom"){
+				tileLocX = obj.x + (obj.width/2) - (c.measureText(text).width/2);
+				tileLocY = obj.y + obj.height - c.measureText("B").width/2;
+			}else if (obj.direction == "Left"){
+				tileLocX = obj.x + ((obj.width-GroupColorDim)/2) - (c.measureText(text).width/2);
+				tileLocY = obj.y + obj.height - c.measureText("B").width/2;
+			}else if (obj.direction == "Top"){
+				tileLocX = obj.x + (obj.width/2) - (c.measureText(text).width/2);
+				tileLocY = obj.y + (obj.height - GroupColorDim) - c.measureText("B").width/2;
+			}else if (obj.direction == "Right"){
+				tileLocX = obj.x + ((obj.width+GroupColorDim)/2) - (c.measureText(text).width/2);
+				tileLocY = obj.y + obj.height - c.measureText("B").width/2;
+			}
+		}
+
+
+		if (status_value < 0){c.fillStyle = "blue";}
+		else if (status_value > 0){c.fillStyle = "red";}
+		else {c.fillStyle = "grey";}
+
+
+		c.fillText(text,tileLocX,tileLocY );
+
+	}
+
+
+
+
 }
 
 
@@ -353,11 +417,12 @@ function loadBoard(state){
 
 	tile_list.sort((a,b) => (a.index > b.index) ? 1 : ((b.index > a.index) ? -1 : 0)); 
 
-	drawPlayer(state)
+	drawPlayer(state);
+
+
+	loadPlayerProperties(state);
 
 
 }
-
 loadBoard(testState)
 
-console.log(tile_list)
