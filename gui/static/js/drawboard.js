@@ -1,28 +1,90 @@
 var canvas = document.querySelector("canvas")
-canvas.width = window.innerWidth/2;
-canvas.height = window.innerHeight;
-
 var c = canvas.getContext('2d');
-boardX = (canvas.width - canvas.width*0.9)/2;//550;
-boardY = (canvas.height - canvas.height*0.9)/2;
-boardWidth = canvas.width*0.9;
-boardHeight = canvas.height*0.9;
-var cornerTileDim = 110;
+
+console.log(screen.width+ " " +screen.height)
+
+if (screen.height <= 810){//James's screen
+	if (screen.width <= 1024){
+		canvas.width = window.innerWidth;
+	}else{
+		canvas.width = window.innerWidth*0.65;
+	}
+	canvas.height = window.innerHeight;
+
+	var cornerTileDim = 80;
+
+	var cornerTileFontSize = 12;
+	var fontSize = 8;
+	var radius = 8;
+	var playerInfoFontSize = 12;
+	var playerDotSize = 12;
+
+}
+else if (screen.height<=960){//Other People's screen
+	if (screen.width <= 1200){
+		canvas.width = window.innerWidth;
+	}else if (screen.width <= 1440){
+		canvas.width = window.innerWidth * 0.75;
+	}else{
+		canvas.width = window.innerWidth * 0.65;
+	}
+	canvas.height = window.innerHeight;
+
+	var cornerTileDim = 90;
+
+	var cornerTileFontSize = 15;
+	var fontSize = 9;
+	var radius = 9;
+	var playerInfoFontSize = 15;
+	var playerDotSize = 11;
+
+}
+else if (screen.height<=1080){//My Screen
+	if (screen.width <= 1280){
+		canvas.width = window.innerWidth;
+	}else if (screen.width <= 1400){
+		canvas.width = window.innerWidth * 0.75;
+	}else if (screen.width <= 1920){
+		canvas.width = window.innerWidth * 0.65;
+	}else{
+		canvas.width = window.innerWidth * 0.5;
+	}
+	canvas.height = window.innerHeight;
+
+	var cornerTileDim = 110;
+
+	var cornerTileFontSize = 20;
+	var fontSize = 10;
+	var radius = 10;
+	var playerInfoFontSize = 20;
+	var playerDotSize = 12;
+
+}
+
+canvas.style.left = (window.innerWidth - canvas.width)/2 + "px";
+
+var boardX = (canvas.width - canvas.width*0.9)/2;//550;
+var boardY = (canvas.height - canvas.height*0.9)/2;
+var boardWidth = canvas.width*0.9;
+var boardHeight = canvas.height*0.9;
+// var cornerTileDim = 90;
 c.rect(boardX,boardY,boardWidth,boardHeight)
 c.stroke()
 
+console.log(screen.width+ " " +screen.height)
 GroupColorDim = cornerTileDim *0.2
+
 var tile_list = []
 
 function CornerTiles(){
 		//Top left
 	c.rect(boardX,boardY,cornerTileDim,cornerTileDim)
 	c.stroke()
-	c.font = "20px Arial";
+	c.font = cornerTileFontSize+"px Arial";
 	text="FREE"
-	c.fillText(text,boardX+cornerTileDim/2-c.measureText(text).width/2,boardY+cornerTileDim/2-10);
+	c.fillText(text,boardX+cornerTileDim/2-c.measureText(text).width/2,boardY+cornerTileDim/2-(cornerTileFontSize/2));
 	text="PARKING"
-	c.fillText(text,boardX+cornerTileDim/2-c.measureText(text).width/2,boardY+cornerTileDim/2+10);
+	c.fillText(text,boardX+cornerTileDim/2-c.measureText(text).width/2,boardY+cornerTileDim/2+(cornerTileFontSize/2));
 	tile_list.push( new boardObjects("Top Left",boardX,boardY,cornerTileDim,cornerTileDim,"#ffffff",20,"FREE PARKING") )
 
 
@@ -30,11 +92,11 @@ function CornerTiles(){
 	BottomYCood = boardY+boardHeight-cornerTileDim
 	c.rect(boardX,BottomYCood,cornerTileDim,cornerTileDim)
 	c.stroke()
-	c.font = "20px Arial";
+	c.font = cornerTileFontSize+"px Arial";
 	text="JAIL / JUST"
-	c.fillText(text,boardX+cornerTileDim/2-c.measureText(text).width/2,BottomYCood+cornerTileDim/2-10);
+	c.fillText(text,boardX+cornerTileDim/2-c.measureText(text).width/2,BottomYCood+cornerTileDim/2-(cornerTileFontSize/2));
 	text="VISITING"
-	c.fillText(text,boardX+cornerTileDim/2-c.measureText(text).width/2,BottomYCood+cornerTileDim/2+10);
+	c.fillText(text,boardX+cornerTileDim/2-c.measureText(text).width/2,BottomYCood+cornerTileDim/2+(cornerTileFontSize/2));
 	tile_list.push( new boardObjects("Bottom Left",boardX,BottomYCood,cornerTileDim,cornerTileDim,"#ffffff",10,"JAIL / JUST VISITING") )
 
 
@@ -43,7 +105,7 @@ function CornerTiles(){
 	BottomXCood = boardX+boardWidth-cornerTileDim
 	c.rect(BottomXCood,BottomYCood,cornerTileDim,cornerTileDim)
 	c.stroke()
-	c.font = "30px Arial";
+	c.font = cornerTileFontSize*1.3+"px Arial";
 	text="GO"
 	c.fillText(text,BottomXCood+cornerTileDim/2-c.measureText(text).width/2,BottomYCood+cornerTileDim/2);
 	tile_list.push( new boardObjects("Bottom Right",BottomXCood,BottomYCood,cornerTileDim,cornerTileDim,"#ffffff",0,"GO") )
@@ -52,17 +114,16 @@ function CornerTiles(){
 	TopXCood = boardX+boardWidth-cornerTileDim
 	c.rect(TopXCood,boardY,cornerTileDim,cornerTileDim)
 	c.stroke()
-	c.font = "20px Arial";
+	c.font = cornerTileFontSize+"px Arial";
 	text="GO TO"
-	c.fillText(text,TopXCood+cornerTileDim/2-c.measureText(text).width/2,boardY+cornerTileDim/2-10);
+	c.fillText(text,TopXCood+cornerTileDim/2-c.measureText(text).width/2,boardY+cornerTileDim/2-(cornerTileFontSize/2));
 	text="JAIL"
-	c.fillText(text,TopXCood+cornerTileDim/2-c.measureText(text).width/2,boardY+cornerTileDim/2+10);
+	c.fillText(text,TopXCood+cornerTileDim/2-c.measureText(text).width/2,boardY+cornerTileDim/2+(cornerTileFontSize/2));
 	tile_list.push( new boardObjects("Top Right",TopXCood,boardY,cornerTileDim,cornerTileDim,"#ffffff",30,"GO TO JAIL") )
 }
 
 function RightTiles(){
-	c.font = "10px Arial";
-	var fontSize = 10;
+	c.font = fontSize+"px Arial";
 
 	//Right Tiles
 	rightTileWidth=cornerTileDim
@@ -110,8 +171,7 @@ function RightTiles(){
 }
 
 function TopTiles(){
-	c.font = "10px Arial";
-	var fontSize = 10;
+	c.font = fontSize + "px Arial";
 
 	//Top Tiles
 	topTileWidth=(boardWidth-(cornerTileDim+cornerTileDim)) / 9
@@ -160,8 +220,7 @@ function TopTiles(){
 }
 
 function LeftTiles(){
-	c.font = "10px Arial";
-	var fontSize = 10;
+	c.font = fontSize+"px Arial";
 
 	//Left Tiles
 	leftTileWidth=cornerTileDim
@@ -211,8 +270,7 @@ function LeftTiles(){
 }
 
 function BottomTiles(){
-	c.font = "10px Arial";
-	var fontSize = 10;
+	c.font = fontSize+"px Arial";
 
 	//Bottom Tiles
 	var botTileWidth=(boardWidth-(cornerTileDim+cornerTileDim)) / 9
@@ -265,7 +323,6 @@ function drawPlayer(state){
 		var obj = tile_list[player_loc[i]];
 
 		c.beginPath();
-		var radius = 10;
 	    c.fillStyle = i == 0 ? "red" : "blue";
 	    if (state.jailed[i]){
 	    	c.fillStyle = "grey";
@@ -277,18 +334,18 @@ function drawPlayer(state){
 	    	playerLocY = obj.y + obj.height-(radius*2);
 	    }else if (obj.direction == "Left"){
 	    	playerLocX = i == 0 ? obj.x + obj.width - GroupColorDim - (radius*2) : obj.x + (radius*2)
-	    	playerLocY = obj.y + obj.height-(radius*2);
+	    	playerLocY = obj.y + obj.height-(radius*2.5);
 	    }else if (obj.direction == "Top"){
 	    	playerLocX = i == 0 ? obj.x + obj.width - (radius*2) : obj.x + (radius*2)
 	    	playerLocY = obj.y + obj.height - GroupColorDim - (radius*2);
 	    }else if (obj.direction == "Right"){
 	    	playerLocX = i == 0 ? obj.x + obj.width - (radius*2) : obj.x + (radius*2) + GroupColorDim
-	    	playerLocY = obj.y + obj.height-(radius*2);
+	    	playerLocY = obj.y + obj.height-(radius*2.5);
 	    }
-
 	    c.arc(playerLocX, playerLocY, radius, 0, 2 * Math.PI, false);
 	    c.fill();
 	    c.fillStyle = "white";
+	    c.font = playerDotSize + "px Arial"
 	    c.fillText(i+1,playerLocX-(c.measureText(i+1).width/2),playerLocY+(c.measureText(i+1).width/2)  );
 	    c.closePath();
 	}
@@ -321,25 +378,25 @@ function loadPlayerProperties(state){
 		status_value = status[i];
 		var text = "";
 		if (status_value == 0){
-			c.font = "10px Arial";
+			c.font = fontSize+"px Arial";
 			text = unowned;
 		}
 		else if(status_value == 1 || status_value == -1){
-			c.font = "10px Arial";
+			c.font = fontSize+"px Arial";
 			text = owned
 		}
 		else if ( (status_value > -6 && status_value < -1) || (status_value > 1 && status_value < 6)){//HOUSE
-			c.font = "15px Arial";
+			c.font = fontSize*1.5 + "px Arial";
 			text = ""
 			var num_houses = Math.abs(status_value) - 1;
 			for (var j = 0; j < num_houses; j++){
 				text+=house
 			}
 		}else if (status_value == 6 || status_value == -6){
-			c.font = "20px Arial";
+			c.font = fontSize * 2 + "px Arial";
 			text = hotel
 		}else if (status_value == 7 || status_value == -7){
-			c.font = "10px Arial";
+			c.font = fontSize + "px Arial";
 			text = mortgaged
 		}
 		var tileLocX=0;
@@ -374,14 +431,14 @@ function loadPlayerProperties(state){
 var testState = {
 	"turn":5,
 	"current_player":0,
-	"jailed":[true,true],
+	"jailed":[false,false],
 	"status":[
 			0,3,0,4,0,0,-7,0,1,0,
-			0,0,0,7,0,0,0,0,0,0,
+			0,0,-1,7,-3,0,0,0,0,0,
 			0,-6,0,-5,-5,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,0,0,
+			0,6,4,0,5,0,0,0,0,0,
 			0,0],
-	"position":[10,10],
+	"position":[34,34],
 	"liquid_cash":[1500,1500],
 	"total_wealth":[1500,1500],
 	"liquid_assets":[1500,1500],
@@ -402,11 +459,12 @@ var testState = {
 	"wait_count":[1, 3]	
 }
 
-
 function showStats(state){
 	var player1 = document.getElementById("player1");
 	player1.style.left = tile_list[22].x + "px";
+	// console.log(player1.style.left + " " +tile_list[22].x)
 	player1.style.top = boardY+cornerTileDim+c.measureText("M").width + "px";
+	player1.style.fontSize = playerInfoFontSize+"px";
 	
 	player1.innerHTML = state.current_player == 0 ? "&#9654;" + "<b>PLAYER 1</b>" : "<b>PLAYER 1</b>";
 	player1.innerHTML += state.jailed[0] ?  " (JAIL: " + state.wait_count[0]+")" : ""
@@ -425,8 +483,12 @@ function showStats(state){
 	turn.innerText = "Turn " + state.turn;
 	turn.style.left = tile_list[25].x + c.measureText(turn.innerText).width/2 + "px";
 	turn.style.top = boardY+cornerTileDim+c.measureText("M").width + "px";
+	turn.style.fontSize = playerInfoFontSize+"px";
+
 
 	var player2 = document.getElementById("player2");
+	player2.style.fontSize = playerInfoFontSize+"px";
+
 	player2.style.left = tile_list[27].x+ "px";
 	player2.style.top = boardY+cornerTileDim +c.measureText("M").width+ "px";
 	player2.innerHTML = state.current_player == 1 ?  "&#9654;" + "<b>PLAYER 2</b>" : "<b>PLAYER 2</b>";
@@ -461,9 +523,11 @@ function loadBoard(state){
 
 	loadPlayerProperties(state);
 
-	showStats(state);
-
+	// showStats(state);
+	// console.log(tile_list[22].x)
 
 }
 loadBoard(testState)
+	// console.log(tile_list[22].x)
+
 
