@@ -53,7 +53,7 @@ def startMonopoly(startQueue, activeQueue):
 			agentModule = importlib.util.module_from_spec(spec)
 			spec.loader.exec_module(agentModule)
 			# Instantiate the agent from the team's uplaoded files
-			model = agentModule.Agent()
+			model = agentModule.Agent(dirPath)
 			# Append the agent to the list of models
 			models.append(model)
 
