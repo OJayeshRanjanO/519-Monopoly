@@ -377,10 +377,9 @@ class Adjudicator(object):
 				auc_price_other =  other_model.auctionProperty(current_gamestate)
 				#As of now the base price for a property will be set to 0, this will
 				#be updated when the property objects are fully implemented
-				winner = self.resolveAuction(auc_price_current, auc_price_other, 0)
-				if(winner != -1):
-					owner = winner
-			self.updateProperty(player_pos, owner)
+
+			if(owner != -1):
+				self.updateProperty(player_pos, owner)
 		else:
 			other_player, other_model = getOtherPlayerAndModel()
 			rent = self.calculateRent(tile_group_id, tile_status, dice_roll)
