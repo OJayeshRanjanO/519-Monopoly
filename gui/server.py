@@ -98,6 +98,9 @@ def upload_file():
 	return responseForm
 	
 def main():
+  shutil.rmtree("./games", ignore_errors=True)
+  os.mkdir("./games")
+
 	tTargets = [worker.startMonopoly, worker.activeMonopoly]
 	tArgs = [(gameStartQueue, gameActiveQueue), (gameActiveQueue, None)]
 	for target, args in zip(tTargets, tArgs):
