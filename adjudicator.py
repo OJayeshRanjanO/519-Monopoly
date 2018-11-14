@@ -273,9 +273,8 @@ class Adjudicator(object):
 						player_free = True
 						true_free = True
 					else:
-						#They tried to use a card that they didn't have.
-						#TODO handle
-						pass
+						self.error = True
+						return
 				elif jail_decision[0] == 'R':
 					if(double):
 							player_free = True
@@ -335,7 +334,7 @@ class Adjudicator(object):
 			self.pullDeckCard(current_player, player_pos, tile_group_id)
 		#Special don't remember what this is.
 		elif(tile_status == 14):
-			self.processSpecialSnowflake(current_player, player_p++os)
+			self.processSpecialSnowflake(current_player, player_pos)
 		#Going on a one way trip to jail
 		else:
 			self.movePlayer(player_pos, 10, True, False)
@@ -356,7 +355,7 @@ class Adjudicator(object):
 		#Income tax, according to the document, we pay a flat $200
 		if(player_pos == 4):
 			self.updateWealth(current_player, -200)
-		else
+		else:
 			self.updateWealth(current_player, -75)
 
 
@@ -402,7 +401,7 @@ class Adjudicator(object):
 				num_utilities_owned = self.numRailsUtilsOwned(other_player, 1)
 				if(num_utilities_owned > 1):
 					rent = 4 * dice_roll
-				else
+				else:
 					rent = 10 * dice_roll
 			else:
 				temp = abs(tile_status) - 2
