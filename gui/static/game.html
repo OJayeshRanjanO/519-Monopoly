@@ -15,11 +15,25 @@
 				overflow-x: hidden;
 				overflow-y: hidden;
 			}
+			#player1{
+				position: absolute;
+				/*top:200px;
+				left:200px;*/
+			}
+			#player2{
+				position: absolute;
+				/*top:200px;
+				left:700px;*/
+			}
 
 		</style>
 
 </head>
 <body>
+<div id="player1" style="color:red;font-size:20px">PLAYER 1</div>
+<div id="turn" style="color:black;font-size:20px;position: absolute;"></div>
+<div id="player2" style="color:blue;font-size:20px">PLAYER 2</div>
+
 <canvas></canvas>
 <script type="text/javascript" src="./js/drawboard.js"></script>
 </body>

@@ -305,33 +305,6 @@ function boardObjects(direction,x,y,width,height,color,index,name) {
 	this.name = name;
 }
 
-var testState = {
-	"turn":5,
-	"current_player":1,
-	"jailed":[false,false],
-	"status":[0,6,0,-5,0,0,-7,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	"position":[3,3],
-	"liquid_cash":[1500,1500],
-	"total_wealth":[1500,1500],
-	"liquid_assets":[1500,1500],
-	"phase":3,
-	"phase_info":null,
-	"debt":0,
-	"previous_states":[],	
-	"card_history":[],		
-	"percent_own_buildings":[0.0,0.0],
-	"percent_own_money":[0, 0],
-	"total_transacted_wealth":[0.0, 0.0],
-	"trades_p1":[],
-	"trades_p2":[],
-	"trades_attempmted":[0, 0], 
-	"hotels_left":12,
-	"houses_left":32,
-	"monopolies_held":[0,0,0,0,0,0,0,0,0,0],
-	"wait_count":[0, 0]	
-}
-
-
 function loadPlayerProperties(state){
 		// console.log(tile_list)
 		// console.log(obj)
@@ -396,12 +369,69 @@ function loadPlayerProperties(state){
 		c.fillText(text,tileLocX,tileLocY );
 
 	}
-
-
-
-
 }
 
+var testState = {
+	"turn":5,
+	"current_player":0,
+	"jailed":[true,true],
+	"status":[0,1,0,1,0,0,-7,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	"position":[10,10],
+	"liquid_cash":[1500,1500],
+	"total_wealth":[1500,1500],
+	"liquid_assets":[1500,1500],
+	"phase":3,
+	"phase_info":null,
+	"debt":0,
+	"previous_states":[],	
+	"card_history":[],		
+	"percent_own_buildings":[0.0,0.0],
+	"percent_own_money":[0, 0],
+	"total_transacted_wealth":[0.0, 0.0],
+	"trades_p1":[],
+	"trades_p2":[],
+	"trades_attempmted":[0, 0], 
+	"hotels_left":12,
+	"houses_left":32,
+	"monopolies_held":[0,0,0,0,0,0,0,0,0,0],
+	"wait_count":[1, 3]	
+}
+
+
+function showStats(state){
+	var player1 = document.getElementById("player1");
+	player1.style.left = tile_list[22].x + "px";
+	player1.style.top = boardY+cornerTileDim+c.measureText("M").width + "px";
+	
+	player1.innerHTML = state.current_player == 0 ? "&#9654;" + "<b>PLAYER 1</b>" : "<b>PLAYER 1</b>";
+	player1.innerHTML += state.jailed[0] ?  " (JAIL: " + state.wait_count[0]+")" : ""
+	player1.innerHTML += "<br>Liquid Cash:" + state.liquid_cash[0]
+	player1.innerHTML += "<br>Total Wealth:" + state.total_wealth[0]
+	player1.innerHTML += "<br>Liquid Assets:" + state.liquid_assets[0]
+	player1.innerHTML += "<br>Debt:" + state.debt
+	player1.innerHTML += "<br>Buildings Owned:" + state.percent_own_buildings[0] + "%"
+	player1.innerHTML += "<br>Money Owned:" + state.percent_own_buildings[0] + "%"
+	player1.innerHTML += "<br>Transacted Wealth:" + state.total_transacted_wealth[0]
+
+	var turn = document.getElementById("turn");
+	turn.innerText = "Turn " + state.turn;
+	turn.style.left = tile_list[25].x + c.measureText(turn.innerText).width/2 + "px";
+	turn.style.top = boardY+cornerTileDim+c.measureText("M").width + "px";
+
+	var player2 = document.getElementById("player2");
+	player2.style.left = tile_list[27].x+ "px";
+	player2.style.top = boardY+cornerTileDim +c.measureText("M").width+ "px";
+	player2.innerHTML = state.current_player == 1 ?  "&#9654;" + "<b>PLAYER 2</b>" : "<b>PLAYER 2</b>";
+	player2.innerHTML += state.jailed[1] ?  " (JAIL: " + state.wait_count[1]+")" : ""
+
+	player2.innerHTML += "<br>Liquid Cash:" + state.liquid_cash[1]
+	player2.innerHTML += "<br>Total Wealth:" + state.total_wealth[1]
+	player2.innerHTML += "<br>Liquid Assets:" + state.liquid_assets[1]
+	player2.innerHTML += "<br>Debt:" + state.debt
+	player2.innerHTML += "<br>Buildings Owned:" + state.percent_own_buildings[1] + "%"
+	player2.innerHTML += "<br>Money Owned:" + state.percent_own_buildings[1] + "%"
+	player2.innerHTML += "<br>Transacted Wealth:" + state.total_transacted_wealth[1]
+}
 
 function loadBoard(state){
 
@@ -413,14 +443,15 @@ function loadBoard(state){
 
 	TopTiles()
 
-	RightTiles(state)
+	RightTiles()
 
 	tile_list.sort((a,b) => (a.index > b.index) ? 1 : ((b.index > a.index) ? -1 : 0)); 
 
 	drawPlayer(state);
 
-
 	loadPlayerProperties(state);
+
+	showStats(state);
 
 
 }
