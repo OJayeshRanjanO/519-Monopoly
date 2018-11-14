@@ -14,33 +14,89 @@
 			<h5 class='text-center'>James Morris, Joseph Borromeo, Jayesh Ranjan</h5>
 		</div>
 		<hr>
-		<div class='row'>
-			<div class='col'>
-				<div class='container'>
-					<h3 class='text-center'>Upload Your Model</h3>
-					<form action='/upload' method="POST" enctype = "multipart/form-data">
-						<div class='form-group'>
-							<label for='team'>Team Name</label>
-							<input class='form-control' name="teamName" id='team' required>
-						</div>
-						<div class='form-group'>
-							<label for='game'>A unique game ID</label>
-							<input class='form-control' name="gameName" id='game' required>
-						</div>
-						<div class='form-group'>
-							<label for='file'>Upload your pickled file</label>
-							<input type="file" name="file" class="form-control-file border" id='file' required> 
-						</div>
-						<button type="submit" class="btn btn-outline-primary btn-block">Upload!</button> 
-					</form>
+		<div class="container">
+			<div class='row'>
+				<div class='col'>
+					<div class='container'>
+						<h3 class='text-center'>Upload Your Model</h3>
+						<form action='/upload' method="POST" enctype = "multipart/form-data">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Team</span>
+								</div>
+								<input type="text" name="teamName" class="form-control" placeholder="Team Name" required>
+							</div>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Game</span>
+								</div>
+								<input type="text" name="gameName" class="form-control" placeholder="Game Name" required>
+							</div>
+							<div class='form-group'>
+								<label for='file'>Upload your agent.py and pickled files</label>
+								<input type="file" name="file" class="form-control-file border" required> 
+							</div>
+							<button type="submit" class="btn btn-outline-primary btn-block">Upload!</button> 
+						</form>
+					</div>
+				</div>
+				<div class='col'>
+					<div class='container'>
+						<h3 class='text-center'>Upload A Custom Configuration</h3>
+						<form action='/config' method="POST" enctype = "multipart/form-data">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Game</span>
+								</div>
+								<input type="text" name="gameName" class="form-control" placeholder="Game Name" required>
+							</div>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">#</span>
+								</div>
+								<input type="text" name="numGames" class="form-control" placeholder="0">
+							</div>
+							<div class='form-group'>
+								<label for='file'>Upload your configuration json file</label>
+								<input type="file" name="file" class="form-control-file border"> 
+							</div>
+							<button type="submit" class="btn btn-outline-warning btn-block">Upload!</button> 
+						</form>
+					</div>
 				</div>
 			</div>
-			<div class='col'>
-				<h3 class='text-center'>View A Previous model</h3>
-				
+			<hr>
+			<div class="row">
+				<div class="col">
+					<div class="container">
+						<h3 class='text-center'>View A Previous model</h3>
+						<form action='/view' method="POST">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Game</span>
+								</div>
+								<input type="text" name="gameName" class="form-control" placeholder="Game Name" required>
+							</div>
+							<button type="submit" class="btn btn-outline-success btn-block">View Game!</button> 
+						</form>
+					</div>
+				</div>
+				<div class="col">
+					<div class="container">
+						<h3 class='text-center'>Start A Populated Game</h3>
+						<form action='/start' method="POST">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Game</span>
+								</div>
+								<input type="text" name="gameName" class="form-control" placeholder="Game Name" required>
+							</div>
+							<button type="submit" class="btn btn-outline-danger btn-block">Start Game!</button> 
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
-
 	</body>
 
 
