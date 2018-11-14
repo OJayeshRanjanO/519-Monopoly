@@ -1,15 +1,18 @@
 var canvas = document.querySelector("canvas")
-canvas.width = 1024//1000;//window.innerWidth;
-canvas.height = 768//window.innerHeight;
+canvas.width = window.innerWidth/2;
+canvas.height = window.innerHeight;
 
 var c = canvas.getContext('2d');
-boardX = 50;//550;
+boardX = (canvas.width - canvas.width*0.9)/2;//550;
 boardY = (canvas.height - canvas.height*0.9)/2;
-boardWidth = canvas.width * 0.9;
-boardHeight = canvas.height * 0.9;
+boardWidth = canvas.width*0.9;
+boardHeight = canvas.height*0.9;
 var cornerTileDim = 110;
 c.rect(boardX,boardY,boardWidth,boardHeight)
 c.stroke()
+
+GroupColorDim = cornerTileDim *0.2
+var tile_list = []
 
 function CornerTiles(){
 		//Top left
@@ -58,7 +61,6 @@ function CornerTiles(){
 }
 
 function RightTiles(){
-	GroupColorDim = cornerTileDim *0.2
 	c.font = "10px Arial";
 	var fontSize = 10;
 
@@ -89,7 +91,7 @@ function RightTiles(){
 			c.fillStyle="#00639e";
 			c.fillRect(rightTileStartX,rightTileStartY,GroupColorDim,leftTileHeight)
 		}
-		var rightObject = new boardObjects("Top",rightTileStartX,rightTileStartY,rightTileWidth,rightTileHeight,c.fillStyle,(i+30),"");
+		var rightObject = new boardObjects("Right",rightTileStartX,rightTileStartY,rightTileWidth,rightTileHeight,c.fillStyle,(i+30),"");
 
 		c.fillStyle="#000000";
 		var tileName = "";
@@ -108,7 +110,6 @@ function RightTiles(){
 }
 
 function TopTiles(){
-	GroupColorDim = cornerTileDim *0.2
 	c.font = "10px Arial";
 	var fontSize = 10;
 
@@ -159,7 +160,6 @@ function TopTiles(){
 }
 
 function LeftTiles(){
-	GroupColorDim = cornerTileDim *0.2
 	c.font = "10px Arial";
 	var fontSize = 10;
 
@@ -211,7 +211,6 @@ function LeftTiles(){
 }
 
 function BottomTiles(){
-	GroupColorDim = cornerTileDim *0.2
 	c.font = "10px Arial";
 	var fontSize = 10;
 
@@ -244,7 +243,7 @@ function BottomTiles(){
 		}else {
 			c.fillStyle="#ffffff"
 		}
-		var bottomObject = new boardObjects("Bottom",botTileStartX,botTileStartY,botTileWidth,botTileWidth,c.fillStyle,(9-i),"");
+		var bottomObject = new boardObjects("Bottom",botTileStartX,botTileStartY,botTileWidth,botTileHeight,c.fillStyle,(9-i),"");
 		c.fillStyle="#000000";
 		var currName = bottomArrayNames[i]
 		var tileName = ""
@@ -260,27 +259,6 @@ function BottomTiles(){
 	}
 }
 
-var tile_list = []
-
-function loadBoard(){
-
-	CornerTiles()
-
-	BottomTiles()
-
-	LeftTiles()
-
-	TopTiles()
-
-	RightTiles()
-
-}
-
-loadBoard()
-
-
-
-
 function boardObjects(direction,x,y,width,height,color,index,name) {
 	this.direction = direction;
 	this.x = x;
@@ -292,15 +270,12 @@ function boardObjects(direction,x,y,width,height,color,index,name) {
 	this.name = name;
 }
 
-tile_list.sort((a,b) => (a.index > b.index) ? 1 : ((b.index > a.index) ? -1 : 0)); 
-console.log(tile_list)
-
 var testState = {
 	"turn":5,
 	"current_player":1,
 	"jailed":[false,false],
 	"status":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-	"position":[1,2],
+	"position":[10,39],
 	"liquid_cash":[1500,1500],
 	"total_wealth":[1500,1500],
 	"liquid_assets":[1500,1500],
@@ -320,3 +295,68 @@ var testState = {
 	"monopolies_held":[0,0,0,0,0,0,0,0,0,0],
 	"wait_count":[0, 0]	
 }
+
+
+function drawPlayer(state){
+	for (var i = 0; i < 2; i++){
+		var player_loc = state.position;
+		var obj = tile_list[player_loc[i]];
+
+		c.beginPath();
+		var radius = 10;
+	    c.fillStyle = i == 0 ? "red" : "blue";
+	    if (state.jailed[i]){
+	    	c.fillStyle = "grey";
+	    }
+	    var playerLocX = 0;
+	    var playerLocY = 0;
+	    if (obj.direction == "Bottom" || obj.direction == "Bottom Left" || obj.direction == "Bottom Right" || obj.direction == "Top Left" || obj.direction == "Top Right"){
+	    	playerLocX = i == 0 ? obj.x + obj.width - (radius*2) : obj.x + (radius*2)
+	    	playerLocY = obj.y + obj.height-(radius*2);
+	    }else if (obj.direction == "Left"){
+	    	playerLocX = i == 0 ? obj.x + obj.width - GroupColorDim - (radius*2) : obj.x + (radius*2)
+	    	playerLocY = obj.y + obj.height-(radius*2);
+	    }else if (obj.direction == "Top"){
+	    	playerLocX = i == 0 ? obj.x + obj.width - (radius*2) : obj.x + (radius*2)
+	    	playerLocY = obj.y + obj.height - GroupColorDim - (radius*2);
+	    }else if (obj.direction == "Right"){
+	    	playerLocX = i == 0 ? obj.x + obj.width - (radius*2) : obj.x + (radius*2) + GroupColorDim
+	    	playerLocY = obj.y + obj.height-(radius*2);
+	    }
+
+	    c.arc(playerLocX, playerLocY, radius, 0, 2 * Math.PI, false);
+	    c.fill();
+	    c.fillStyle = "white";
+	    c.fillText(i+1,playerLocX-(c.measureText(i+1).width/2),playerLocY+(c.measureText(i+1).width/2)  );
+	    c.closePath();
+	}
+}
+var obj = tile_list[1]
+function loadPlayerProperties(state){
+	var properties = state.
+	if ()
+}
+
+
+function loadBoard(state){
+
+	CornerTiles()
+
+	BottomTiles()
+
+	LeftTiles()
+
+	TopTiles()
+
+	RightTiles(state)
+
+	tile_list.sort((a,b) => (a.index > b.index) ? 1 : ((b.index > a.index) ? -1 : 0)); 
+
+	drawPlayer(state)
+
+
+}
+
+loadBoard(testState)
+
+console.log(tile_list)
