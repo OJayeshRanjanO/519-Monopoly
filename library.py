@@ -15,12 +15,10 @@ def loadGameProperties(gameJson):
 	return properties
 
 def loadGameCards_CmntyChest(gameJson):
-	#return gameJson["cards"]["community_chest"]
-	return list(range(10))
+	return gameJson["cards"]["community_chest"]
 
 def loadGameCards_Chance(gameJson):
-	#return gameJson["cards"]["chance"]
-	return list(range(10))
+	return gameJson["cards"]["chance"]
 
 def loadLookup(location):
 	gameJson = loadGameJson(location)
