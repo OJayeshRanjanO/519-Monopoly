@@ -1,12 +1,12 @@
 var canvas = document.querySelector("canvas")
-canvas.width = 1000;//window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = 1024//1000;//window.innerWidth;
+canvas.height = 768//window.innerHeight;
 
 var c = canvas.getContext('2d');
 boardX = 50;//550;
-boardY = (canvas.height - 900)/2;
-boardWidth = 900;
-boardHeight = 900;
+boardY = (canvas.height - canvas.height*0.9)/2;
+boardWidth = canvas.width * 0.9;
+boardHeight = canvas.height * 0.9;
 var cornerTileDim = 110;
 c.rect(boardX,boardY,boardWidth,boardHeight)
 c.stroke()
