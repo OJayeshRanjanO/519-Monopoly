@@ -3,6 +3,7 @@ import sys
 import zipfile
 import importlib.util
 import pdb
+import json
 #import Adjudicator
 
 # A function which resolves the relative directory of a team within a game
@@ -16,6 +17,14 @@ def genZipPath(game, team):
 # A function which resolves the agent file for a specific team in a game
 def genBotPath(game, team):
 	return genDirPath(game, team) + "/agent.py"
+
+# A function that gets the path of the configuration
+def genConfPath(game):
+	return "./games/%s/config.json" % game
+
+# A function that gets the path of the number of runs
+def genNumPath(game):
+	return "./games/%s/num_runs.txt" % game
 
 # A worker thread which unzips team files and extracts their agent classes
 def startMonopoly(startQueue, activeQueue):
@@ -48,8 +57,27 @@ def startMonopoly(startQueue, activeQueue):
 			# Append the agent to the list of models
 			models.append(model)
 
-		# Add the extracted models and adjudicator to the running queue
-		activeQueue.put(models)
+		# Create config to None which represents the default case
+		config = None
+		# Check to see if a config file exists for this game
+		if(os.path.isfile(genConfPath(game_name))):
+			# If config exists, load it
+			with open(genConfPath(game_name), "r") as fp:
+				config = json.load(fp)
+		
+		# Assume the number of runs against two agents is 1
+		num_runs = 1
+		# If the number of runs is explicitly represented, set accordingly
+		if(os.path.isfile(genNumPath(game_name))):
+			# If num_runs explicit
+			with open(genNumPath(game_name), "r") as fp:
+				num_runs = int(json.load(fp))
+
+		# We add to the active game state the number of games we want to run
+		# with these models
+		for i in range(num_runs):
+			# Add the extracted models and adjudicator to the running queue
+			activeQueue.put(models)
 
 def activeMonopoly(activeQueue, finishedQueue):
 	print("Active Monopoly Thread Initiated!")
