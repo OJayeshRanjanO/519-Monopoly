@@ -15,7 +15,7 @@ class Adjudicator(object):
 		self.gamestate = GameState()
 		self.gamestateHistory = []
 		# Initialize the lookup table
-		self.properties, self.cmnty_chest, self.chance = library.loadLookup("./properties.json")
+		self.properties, self.cmnty_chest, self.chance = library.loadLookup("./lookup_state.json")
 		# Randomize a current deck for community chest and chance
 		self.cmnty_chest_deck = sorted(list(range(len(self.cmnty_chest))))
 		self.chance_deck = sorted(list(range(len(self.chance))))
@@ -40,7 +40,7 @@ class Adjudicator(object):
 					self.rolls = config["dice_rolls"]
 				# If a specific order of community_chest cards, let this be the original configuartion
 				if("community_chest_order" in config):
-					self.cmnt_chance_deck = config["community_chest_order"]
+					self.cmnty_chance_deck = config["community_chest_order"]
 				# If there is a specific chance configuration, let it be so
 				if("chance_order"):
 					self.chance_deck = config["chance_order"]
@@ -436,11 +436,18 @@ class Adjudicator(object):
 	def resolveCardModifiers(card_id, current_player):
 		pass
 
+	def pullCard(self, deck, lookup):
+		c_index = deck.pop(0)
+		card = lookup[c_index]
+		if(card["cost"]["getoutofjailfree"] == 0):
+			deck.append(c_index)
+		return card
+
 	def pullChanceCard(self):
-		pass
+		return self.pullCard(self.chance_deck, self.chance)
 
 	def pullCommunityChestCard(self):
-		pass
+		return self.pullCard(self.cmnty_chest_deck, self.cmnty_chest)
 
 	def getTileStatus(self, tile_index):
 		tile = self.properties[player_pos]
