@@ -210,8 +210,6 @@ class Adjudicator(object):
 
 		return return_val
 
-	def updateProperty(self, player_index, property_id):
-		pass
 
 	def resolveAuction(self, floor_price, current_player_price, other_player_price):
 		maxBet = int(max(current_player_price, other_player_price))
@@ -383,10 +381,11 @@ class Adjudicator(object):
 				if(winner != -1):
 					owner = winner
 			self.updateProperty(player_pos, owner)
-		#Owned by player 1 in various degrees
 		else:
+			other_player, other_model = getOtherPlayerAndModel()
 			rent = self.calculateRent(tile_group_id, tile_status, dice_roll)
 			self.updateWealth(current_player, -rent)
+			self.updateWealth(other_player, rent)
 
 	def calculateRent(tile_group_id, tile_status, dice_roll):
 		same_owner = self.playerOwnsTile(current_player, tile_status)
@@ -458,7 +457,8 @@ class Adjudicator(object):
 		self.gamestateHistory.append(current_reflection)
 
 	def updateProperty(self, player_pos, owner):
-		pass
+		new_status = -1 if owner else 0
+		self.gamestate.status[player_pos] = new_status
 
 		
 
