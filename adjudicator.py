@@ -442,7 +442,49 @@ class Adjudicator(object):
 			self.movePlayer(current_player, pos, True, pos!=10)
 		elif(card["jump"]["relative"] != 0):
 			self.movePlayer(current_player, pos, False, True)
-		pass
+		elif(card["jump"]["nearest"]):
+			curr_pos = self.gamestate.position[current_player]
+			minDistance = 41
+			minIndex = -1
+			for i in card["jump"]["nearest"]:
+				distance = i - curr_pos
+				if(distance < 0):
+					distance += 40
+				if(distance < minDistance):
+					minIndex = i
+					minDistance = distance
+			self.movePlayer(current_player, minDistance, True, True)
+		
+		costToPlayer = 0
+		costToOthers = 0
+		if(card["cost"]["cost_to_player"] != 0):
+			costToPlayer += card["cost"]["cost_to_player"]
+		if(card["cost"]["cost_to_others"] != 0):
+			costToOthers += card["cost"]["cost_to_others"]
+		if(card["cost"]["cost_per_house"] != 0):
+			houses = 0
+			for status in self.gamestate.status:
+				abs_status = abs(status)
+				if(self.playerOwnsTile(current_player, status)):
+					houses += (abs_status<6)*(abs_status-1)
+			costToPlayer += houses*card["cost"]["cost_per_house"]
+		if(card["cost"]["cost_per_hotel"] != 0):
+			hotels = 0
+			for status in self.gamestate.status:
+				abs_status = abs(status)
+				if(self.playerOwnsTile(current_player, status)):
+					if(abs_status < 6):
+					hotels += (abs_status == 6)
+			costToPlayer += hotels*card["cost"]["cost_per_house"]
+		if(card["cost"]["getoufofjailfree"] > 0):
+			# ADD getoutofjail addition functionality
+			pass 
+	
+		self.updateWealth(current_player, -costToPlayer)
+		self.updateWealth((current_player+1)%2, -costToOthers)
+
+		#TODO NEEDS TO INCLUDE ADDING GET OUT OF JAIL FREE AND MULTIPLIER
+			
 
 	def pullCard(self, deck, lookup):
 		c_index = deck.pop(0)
