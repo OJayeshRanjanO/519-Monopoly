@@ -1,8 +1,6 @@
 var canvas = document.querySelector("canvas")
 var c = canvas.getContext('2d');
 
-// console.log(screen.width+ " " +screen.height)
-
 if (screen.height <= 810){//James's screen
 	if (screen.width <= 1024){
 		canvas.width = window.innerWidth;
@@ -75,50 +73,61 @@ GroupColorDim = cornerTileDim *0.2
 
 var tile_list = []
 
+var currentIndex = 0;
+
 function CornerTiles(){
 		//Top left
+	c.beginPath()
 	c.rect(boardX,boardY,cornerTileDim,cornerTileDim)
 	c.stroke()
 	c.font = cornerTileFontSize+"px Arial";
+	c.fillStyle = "black";
 	text="FREE"
 	c.fillText(text,boardX+cornerTileDim/2-c.measureText(text).width/2,boardY+cornerTileDim/2-(cornerTileFontSize/2));
 	text="PARKING"
 	c.fillText(text,boardX+cornerTileDim/2-c.measureText(text).width/2,boardY+cornerTileDim/2+(cornerTileFontSize/2));
 	tile_list.push( new boardObjects("Top Left",boardX,boardY,cornerTileDim,cornerTileDim,"#ffffff",20,"FREE PARKING") )
-
+	c.closePath()
 
 	//Bottom left
+	c.beginPath()
 	BottomYCood = boardY+boardHeight-cornerTileDim
 	c.rect(boardX,BottomYCood,cornerTileDim,cornerTileDim)
 	c.stroke()
+	c.fillStyle = "black";
 	c.font = cornerTileFontSize+"px Arial";
 	text="JAIL / JUST"
 	c.fillText(text,boardX+cornerTileDim/2-c.measureText(text).width/2,BottomYCood+cornerTileDim/2-(cornerTileFontSize/2));
 	text="VISITING"
 	c.fillText(text,boardX+cornerTileDim/2-c.measureText(text).width/2,BottomYCood+cornerTileDim/2+(cornerTileFontSize/2));
 	tile_list.push( new boardObjects("Bottom Left",boardX,BottomYCood,cornerTileDim,cornerTileDim,"#ffffff",10,"JAIL / JUST VISITING") )
-
-
+	c.closePath()
 
 	//Bottom right
+	c.beginPath()
 	BottomXCood = boardX+boardWidth-cornerTileDim
 	c.rect(BottomXCood,BottomYCood,cornerTileDim,cornerTileDim)
 	c.stroke()
+	c.fillStyle = "black";
 	c.font = cornerTileFontSize*1.3+"px Arial";
 	text="GO"
 	c.fillText(text,BottomXCood+cornerTileDim/2-c.measureText(text).width/2,BottomYCood+cornerTileDim/2);
 	tile_list.push( new boardObjects("Bottom Right",BottomXCood,BottomYCood,cornerTileDim,cornerTileDim,"#ffffff",0,"GO") )
+	c.closePath()
 
 	//Top right
+	c.beginPath()
 	TopXCood = boardX+boardWidth-cornerTileDim
 	c.rect(TopXCood,boardY,cornerTileDim,cornerTileDim)
 	c.stroke()
+	c.fillStyle = "black";
 	c.font = cornerTileFontSize+"px Arial";
 	text="GO TO"
 	c.fillText(text,TopXCood+cornerTileDim/2-c.measureText(text).width/2,boardY+cornerTileDim/2-(cornerTileFontSize/2));
 	text="JAIL"
 	c.fillText(text,TopXCood+cornerTileDim/2-c.measureText(text).width/2,boardY+cornerTileDim/2+(cornerTileFontSize/2));
 	tile_list.push( new boardObjects("Top Right",TopXCood,boardY,cornerTileDim,cornerTileDim,"#ffffff",30,"GO TO JAIL") )
+	c.closePath()
 }
 
 function RightTiles(){
@@ -141,6 +150,7 @@ function RightTiles(){
 	["BROADWALK"]
 	]
 	for( var i = 0; i < 9; i++){
+		c.beginPath()
 		c.rect(rightTileStartX,rightTileStartY,rightTileWidth,rightTileHeight)
 		c.stroke()	
 		if (i== 0 || i == 1 || i == 3){
@@ -166,6 +176,8 @@ function RightTiles(){
 		tile_list.push(rightObject);
 
 		rightTileStartY+=rightTileHeight
+		c.beginPath()
+
 	}
 }
 
@@ -427,8 +439,104 @@ function loadPlayerProperties(state){
 	}
 }
 
+function showStats(state){
+	var player1 = document.getElementById("player1");
+	// (window.innerWidth - canvas.width)/2
+	canvasEdge = (window.innerWidth - canvas.width)/2
+	tileWidth = tile_list[22].width
+	player1.style.left = canvasEdge + boardX + cornerTileDim + tileWidth + "px"//(window.innerWidth - canvas.width)/2 + "px";
+	// console.log(player1.style.left + " " +tile_list[22].x)
+	player1.style.top = boardY+cornerTileDim+c.measureText("M").width + "px";
+	player1.style.fontSize = playerInfoFontSize+"px";
+	
+	player1.innerHTML = state.current_player == 0 ? "&#9654;" + "<b>PLAYER 1</b>" : "<b>PLAYER 1</b>";
+	player1.innerHTML += state.jailed[0] ?  " (JAIL: " + state.wait_count[0]+")" : ""
+	player1.innerHTML += "<br>Liquid Cash: $" + state.liquid_cash[0]
+	player1.innerHTML += "<br>Total Wealth: $" + state.total_wealth[0]
+	player1.innerHTML += "<br>Liquid Assets: $" + state.liquid_assets[0]
+	player1.innerHTML += "<br>Debt:" + state.debt
+	player1.innerHTML += "<br>Buildings Owned:" + state.percent_own_buildings[0] + "%"
+	player1.innerHTML += "<br>Money Owned:" + state.percent_own_buildings[0] + "%"
+	player1.innerHTML += "<br>Transacted Wealth:" + state.total_transacted_wealth[0]
+	// player1.innerHTML += "<br><br>TRADES:";
+
+	var turn = document.getElementById("turn");
+	turn.innerText = "Turn " + state.turn;
+	turn.style.left = canvasEdge + boardX + cornerTileDim + tileWidth*4 + "px";
+	turn.style.top = boardY+cornerTileDim+c.measureText("M").width + "px";
+	turn.style.fontSize = playerInfoFontSize+"px";
+
+
+	var player2 = document.getElementById("player2");
+	player2.style.fontSize = playerInfoFontSize+"px";
+
+	player2.style.left = canvasEdge + boardX + cornerTileDim + tileWidth*6 + "px";
+	player2.style.top = boardY+cornerTileDim +c.measureText("M").width+ "px";
+	player2.innerHTML = state.current_player == 1 ?  "&#9654;" + "<b>PLAYER 2</b>" : "<b>PLAYER 2</b>";
+	player2.innerHTML += state.jailed[1] ?  " (JAIL: " + state.wait_count[1]+")" : ""
+
+	player2.innerHTML += "<br>Liquid Cash: $" + state.liquid_cash[1]
+	player2.innerHTML += "<br>Total Wealth: $" + state.total_wealth[1]
+	player2.innerHTML += "<br>Liquid Assets: $" + state.liquid_assets[1]
+	player2.innerHTML += "<br>Debt:" + state.debt
+	player2.innerHTML += "<br>Buildings Owned:" + state.percent_own_buildings[1] + "%"
+	player2.innerHTML += "<br>Money Owned:" + state.percent_own_buildings[1] + "%"
+	player2.innerHTML += "<br>Transacted Wealth:" + state.total_transacted_wealth[1]
+	// player2.innerHTML += "<br><br>TRADES:";
+
+}
+function goChangeState(direction){
+	if (direction == "prev"){
+		if (currentIndex > 0){
+			currentIndex-=1;
+		}
+	}else if (direction == "next"){
+		if (currentIndex < boardStates.length-1){
+			currentIndex+=1;
+		}
+	}
+	loadBoard(boardStates[currentIndex])
+	console.log(currentIndex)
+}
+
+function drawButtons(){
+	var prev = document.getElementById("prev");
+	var next = document.getElementById("next");
+	next.style.width = cornerTileDim + "px";
+	prev.style.width = cornerTileDim+ "px";
+	// console.log(next.style.height + " TEST ")
+
+	prev.style.left = canvasEdge + boardX + "px";
+	next.style.left = canvasEdge + boardX + boardWidth - cornerTileDim + "px";
+
+}
+function loadBoard(state){
+	c.clearRect(0, 0, canvas.width, canvas.height);
+	tile_list = []
+
+	CornerTiles()
+
+	BottomTiles()
+
+	LeftTiles()
+
+	TopTiles()
+
+	RightTiles()
+
+	tile_list.sort((a,b) => (a.index > b.index) ? 1 : ((b.index > a.index) ? -1 : 0)); 
+
+	drawPlayer(state);
+
+	loadPlayerProperties(state);
+
+	showStats(state);
+
+	drawButtons();
+
+}
 var testState = {
-	"turn":5,
+	"turn":1,
 	"current_player":1,
 	"jailed":[false,false],
 	"status":[
@@ -455,81 +563,69 @@ var testState = {
 	"hotels_left":12,
 	"houses_left":32,
 	"monopolies_held":[0,0,0,0,0,0,0,0,0,0],
-	"wait_count":[1, 3]	
+	"wait_count":[0, 0]	
 }
 
-function showStats(state){
-	var player1 = document.getElementById("player1");
-	// (window.innerWidth - canvas.width)/2
-	canvasEdge = (window.innerWidth - canvas.width)/2
-	tileWidth = tile_list[22].width
-	player1.style.left = canvasEdge + boardX + cornerTileDim + tileWidth + "px"//(window.innerWidth - canvas.width)/2 + "px";
-	// console.log(player1.style.left + " " +tile_list[22].x)
-	player1.style.top = boardY+cornerTileDim+c.measureText("M").width + "px";
-	player1.style.fontSize = playerInfoFontSize+"px";
-	
-	player1.innerHTML = state.current_player == 0 ? "&#9654;" + "<b>PLAYER 1</b>" : "<b>PLAYER 1</b>";
-	player1.innerHTML += state.jailed[0] ?  " (JAIL: " + state.wait_count[0]+")" : ""
-	player1.innerHTML += "<br>Liquid Cash: $" + state.liquid_cash[0]
-	player1.innerHTML += "<br>Total Wealth: $" + state.total_wealth[0]
-	player1.innerHTML += "<br>Liquid Assets: $" + state.liquid_assets[0]
-	player1.innerHTML += "<br>Debt:" + state.debt
-	player1.innerHTML += "<br>Buildings Owned:" + state.percent_own_buildings[0] + "%"
-	player1.innerHTML += "<br>Money Owned:" + state.percent_own_buildings[0] + "%"
-	player1.innerHTML += "<br>Transacted Wealth:" + state.total_transacted_wealth[0]
-	player1.innerHTML += "<br><br>TRADES:";
-
-
-
-	var turn = document.getElementById("turn");
-	turn.innerText = "Turn " + state.turn;
-	turn.style.left = canvasEdge + boardX + cornerTileDim + tileWidth*4 + "px";
-	turn.style.top = boardY+cornerTileDim+c.measureText("M").width + "px";
-	turn.style.fontSize = playerInfoFontSize+"px";
-
-
-	var player2 = document.getElementById("player2");
-	player2.style.fontSize = playerInfoFontSize+"px";
-
-	player2.style.left = canvasEdge + boardX + cornerTileDim + tileWidth*6 + "px";
-	player2.style.top = boardY+cornerTileDim +c.measureText("M").width+ "px";
-	player2.innerHTML = state.current_player == 1 ?  "&#9654;" + "<b>PLAYER 2</b>" : "<b>PLAYER 2</b>";
-	player2.innerHTML += state.jailed[1] ?  " (JAIL: " + state.wait_count[1]+")" : ""
-
-	player2.innerHTML += "<br>Liquid Cash: $" + state.liquid_cash[1]
-	player2.innerHTML += "<br>Total Wealth: $" + state.total_wealth[1]
-	player2.innerHTML += "<br>Liquid Assets: $" + state.liquid_assets[1]
-	player2.innerHTML += "<br>Debt:" + state.debt
-	player2.innerHTML += "<br>Buildings Owned:" + state.percent_own_buildings[1] + "%"
-	player2.innerHTML += "<br>Money Owned:" + state.percent_own_buildings[1] + "%"
-	player2.innerHTML += "<br>Transacted Wealth:" + state.total_transacted_wealth[1]
-	player2.innerHTML += "<br><br>TRADES:";
-
+var testState2 = {
+	"turn":2,
+	"current_player":0,
+	"jailed":[false,false],
+	"status":[
+			0,-3,0,-4,0,0,7,0,-1,0,
+			0,0,1,-7,3,0,0,0,0,0,
+			0,6,0,5,5,0,0,0,0,0,
+			0,-6,-4,0,-5,0,0,0,0,0,
+			0,0],
+	"position":[9,15],
+	"liquid_cash":[400,870],
+	"total_wealth":[123,745],
+	"liquid_assets":[546,123],
+	"phase":3,
+	"phase_info":null,
+	"debt":50,
+	"previous_states":[],	
+	"card_history":[],		
+	"percent_own_buildings":[50,50],
+	"percent_own_money":[30, 70],
+	"total_transacted_wealth":[0, 0],
+	"trades_p1":[],
+	"trades_p2":[],
+	"trades_attempmted":[0, 0], 
+	"hotels_left":12,
+	"houses_left":32,
+	"monopolies_held":[0,0,0,0,0,0,0,0,0,0],
+	"wait_count":[0, 0]	
 }
 
-function loadBoard(state){
-
-	CornerTiles()
-
-	BottomTiles()
-
-	LeftTiles()
-
-	TopTiles()
-
-	RightTiles()
-
-	tile_list.sort((a,b) => (a.index > b.index) ? 1 : ((b.index > a.index) ? -1 : 0)); 
-
-	drawPlayer(state);
-
-	loadPlayerProperties(state);
-
-	showStats(state);
-	// console.log(tile_list[22].x)
-
+var testState3 = {
+	"turn":3,
+	"current_player":0,
+	"jailed":[false,false],
+	"status":[
+			0,-2,0,-3,0,0,7,0,-2,0,
+			0,0,2,-6,4,0,0,0,0,0,
+			0,7,0,6,4,0,0,0,0,0,
+			0,-5,-3,0,-6,0,0,0,0,0,
+			0,0],
+	"position":[10,32],
+	"liquid_cash":[700,200],
+	"total_wealth":[800,500],
+	"liquid_assets":[100,300],
+	"phase":3,
+	"phase_info":null,
+	"debt":50,
+	"previous_states":[],	
+	"card_history":[],		
+	"percent_own_buildings":[20,30],
+	"percent_own_money":[50, 50],
+	"total_transacted_wealth":[1000, 2000],
+	"trades_p1":[],
+	"trades_p2":[],
+	"trades_attempmted":[0, 0], 
+	"hotels_left":12,
+	"houses_left":32,
+	"monopolies_held":[0,0,0,0,0,0,0,0,0,0],
+	"wait_count":[0, 0]	
 }
-loadBoard(testState)
-	// console.log(tile_list[22].x)
-
-
+boardStates = [testState,testState2,testState3]
+loadBoard(boardStates[currentIndex]);

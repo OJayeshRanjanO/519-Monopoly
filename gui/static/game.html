@@ -19,11 +19,15 @@
 
 </head>
 <body>
-<canvas></canvas>
-<div id="player1" style="color:red;position: absolute;">PLAYER 1</div>
-<div id="turn" style="color:black;position: absolute;"></div>
-<div id="player2" style="color:blue;position: absolute;">PLAYER 2</div>
-<script type="text/javascript" src="./js/drawboard.js"></script>
+	<button class="navigate" id="prev" style="position:absolute;z-index:1;" onclick="goChangeState('prev');">PREV</button>
+	<button class="navigate" id="next" style="position:absolute;z-index:1;" onclick="goChangeState('next');">NEXT</button>
+	<canvas ></canvas>
+
+	<div id="player1" style="color:red;position: absolute;">PLAYER 1</div>
+	<div id="turn" style="color:black;position: absolute;"></div>
+	<div id="player2" style="color:blue;position: absolute;">PLAYER 2</div>
+
+	<script type="text/javascript" src="./js/drawboard.js"></script>
 
 </body>
 </html>
