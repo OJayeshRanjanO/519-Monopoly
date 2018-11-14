@@ -61,6 +61,11 @@ class Adjudicator(object):
 		# Builds a deep copy of gamestate so models can use
 		return self.gamestate.deepcopy()
 
+	def playerOwnsTile(self, current_player, tile_status):
+		p_sign = (-1)**(current_player)
+		same_sign = lambda x,y: (x < 0 and y < 0) or (x > 0 and y > 0)
+		return same_sign(tile_status, p_sign)
+
 	def multiBMST(self):
 		turn = self.gamestate.current_player
 		responses = [None, None]
@@ -316,16 +321,39 @@ class Adjudicator(object):
 		self.double_count[current_player] = self.double_count[current_player] + 1
 
 	def mainLogic(self, dice_roll):
-		#### Need to check the tile type here ####
 		current_player, current_model = self.getCurrentPlayerAndModel()
 		other_player, other_model = self.getOtherPlayerAndModel()
 		player_pos = self.position[current_player]
-		tile_status = self.lookupSpace(current_player)
+		tile_group_id = self.getTileGroupId(player_pos) 
 
+		#Property
+		if(tile_group_id <= 9):
+			self.resolveProperty(current_player, player_pos, tile_group_id, dice_roll)
+		#Cost tile, luxury and income tax
+		elif(tile_group_id == 10):
+			self.damagePlayer(current_player, player_pos)
+		#Deck card
+		elif(tile_group_id >= 11 and tile_group_id <= 12):
+			self.pullDeckCard(current_player, player_pos, tile_group_id)
+		#Special don't remember what this is.
+		elif(tile_status == 14):
+			self.processSpecialSnowflake(current_player, player_pos)
+		#Going on a one way trip to jail
+		else:
+			self.movePlayer(player_pos, 10, True, False)
+
+		#Let the players decided what to do next gien the updated board state.
+		self.multiBMST()
+
+
+	def resolveProperty(self, current_player, tile_index, tile_group_id, dice_roll):
 		#player landed on an unowned property
+		prop = self.properties[tile_index]
+		tile_status = self.getTileStatus(tile_index)
+
 		if(tile_status == 0):
 			self.multiBMST()
-			current_gamestate = self.buildGamestate(self)
+			current_gamestate = self.buildGamestate()
 			gonna_buy = player_model.buyProperty(current_gamestate)
 			owner = -1
 			if(not gonna_buy):
@@ -338,31 +366,59 @@ class Adjudicator(object):
 				winner = self.resolveAuction(auc_price_current, auc_price_other, 0)
 				if(winner != -1):
 					owner = winner
-
 			self.updateProperty(player_pos, owner)
+		#Owned by player 1 in various degrees
+		else:
+			rent = calculateRent(tile_group_id, tile_status, dice_roll)
 
-		cost_to_player = 0
-		cost_to_others = 0
+			
+			self.updateWealth(current_player, -rent)
 
-		#Every other tile status indicates various degrees of ownership
-		#TODO PARSE OUT TO FUNCTION
-		if(tile_status != 0):
-			#Need to calculate the rent 
-			cost_to_player = self.resolveRent(player_pos)
-		#If there is a cost associated with the spot e.g. income tax or luxury tax
-		if(tile_status == -2 or tile_status == -3):
-			cost_to_player = self.resolveRent(property_index)
-		#Chance or community chest
-		if(tile_status == -4 or tile_status == -5):
-			card = None
-			if((tile_status % 2) == 0):
-				card = self.pullChanceCard()
+	def calculateRent(tile_group_id, tile_status, dice_roll):
+		same_owner = self.playerOwnsTile(current_player, tile_status)
+		rent = 0
+		other_player, other_model = self.getOtherPlayerAndModel()
+
+		if(not same_owner):	
+			#Railroad
+			railroad_rent = [25, 50, 100, 200]
+			if(group_id == 8):
+				num_railroads_owned = numRailsUtilsOwned(other_player, 0)
+				rent = railroad_rent[numRailroadsOwned - 1]
+			#Utilities
+			elif(group_id == 9):
+				num_utilities_owned = numRailsUtilsOwned(other_player, 1)
+				if(num_utilities_owned > 1):
+					rent = 4 * dice_roll
+				else
+					rent = 10 * dice_roll
 			else:
-				card = self.pullCommunityChestCard()
+				temp = abs(tile_status) - 2
+				if(temp < 0):
+					rent = prop["rent"]
+				else:
+					rent_var = prop["multpliedrent"]
+					rent = rent_var[temp]
+		else:
+			rent = 0
 
-			self.resolveCardModifiers(card, current_player)
+	def numRailsUtilsOwned(player, util_or_rail):
+		signs = []
+		tile_pos = [5, 5, 10, 12, 28, 14]
+		which = []
+		#Check for railroads
+		if(rail_or_util == 0):
+			which = tile_pos[0:3]
+		#Check for utils
+		else:
+			which = tile_pos[3:]
+		
+		for x in range(which):
+			signs.append(self.getTileStatus(x))
 
-		self.multiBMST()
+		owned = map(playerOwnsTile(player, signs))
+		return owned.count(1)
+
 
 
 	def resolveCardModifiers(card_id, current_player):
@@ -374,8 +430,13 @@ class Adjudicator(object):
 	def pullCommunityChestCard(self):
 		pass
 
-	def lookupSpace(self, current_player):
-		pass
+	def getTileStatus(self, tile_index):
+		tile = self.properties[player_pos]
+		return self.status[tile]
+
+	def getTileGroupId(self, tile_index):
+		prop = self.properties[tile_index]
+		return prop["group_id"]
 
 
 	def updateGameHistory(self):
@@ -385,6 +446,5 @@ class Adjudicator(object):
 	def updateProperty(self, player_pos, owner):
 		pass
 
-	def resolveRent(self, property_index):
-		pass
+		
 
