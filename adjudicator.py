@@ -46,7 +46,6 @@ class Adjudicator(object):
 					self.chance_deck = config["chance_order"]
 
 
-
 	def diceRoll(self):
 		return self.rolls[self.turn]
 
@@ -333,9 +332,14 @@ class Adjudicator(object):
 		#Cost tile, luxury and income tax
 		elif(tile_group_id == 10):
 			self.damagePlayer(current_player, player_pos)
-		#Deck card
-		elif(tile_group_id >= 11 and tile_group_id <= 12):
-			self.pullDeckCard(current_player, player_pos, tile_group_id)
+		#Chance 
+		elif(tile_group_id == 11):
+			card = pullCard(deck, self.chance)
+			self.resolveCardModifiers(card, current_player)
+		#Community Chest
+		elif(tile_group_id == 12):
+			card = pullCard(deck, self.cmnty_chest)
+			self.resolveCardModifiers(card, current_player)
 		#Special don't remember what this is.
 		elif(tile_status == 14):
 			self.processSpecialSnowflake(current_player, player_pos)
@@ -474,7 +478,7 @@ class Adjudicator(object):
 				abs_status = abs(status)
 				if(self.playerOwnsTile(current_player, status)):
 					if(abs_status < 6):
-					hotels += (abs_status == 6)
+						hotels += (abs_status == 6)
 			costToPlayer += hotels*card["cost"]["cost_per_house"]
 		if(card["cost"]["getoufofjailfree"] > 0):
 			# ADD getoutofjail addition functionality
