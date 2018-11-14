@@ -193,6 +193,10 @@ class Adjudicator(object):
 		updated_pos = updated_pos % 40
 		if(updated_pos < current_pos and get_go): 
 			self.updateWealth(current_pos, 200)
+		# PLayer now jailed
+		if(updated_pos == 30):
+			updated_pos = 10
+		self.gamestate.position[player_index] = updated_pos
 
 
 	def hasJailCard(which_deck, player_index):
@@ -432,7 +436,12 @@ class Adjudicator(object):
 
 
 
-	def resolveCardModifiers(card_id, current_player):
+	def resolveCardModifiers(self, card, current_player):
+		if(card["jump"]["fixed"] > 0):
+			pos = card["jump"]["fixed"]
+			self.movePlayer(current_player, pos, True, pos!=10)
+		elif(card["jump"]["relative"] != 0):
+			self.movePlayer(current_player, pos, False, True)
 		pass
 
 	def pullCard(self, deck, lookup):
