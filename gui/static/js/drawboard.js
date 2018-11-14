@@ -259,6 +259,41 @@ function BottomTiles(){
 	}
 }
 
+function drawPlayer(state){
+	for (var i = 0; i < 2; i++){
+		var player_loc = state.position;
+		var obj = tile_list[player_loc[i]];
+
+		c.beginPath();
+		var radius = 10;
+	    c.fillStyle = i == 0 ? "red" : "blue";
+	    if (state.jailed[i]){
+	    	c.fillStyle = "grey";
+	    }
+	    var playerLocX = 0;
+	    var playerLocY = 0;
+	    if (obj.direction == "Bottom" || obj.direction == "Bottom Left" || obj.direction == "Bottom Right" || obj.direction == "Top Left" || obj.direction == "Top Right"){
+	    	playerLocX = i == 0 ? obj.x + obj.width - (radius*2) : obj.x + (radius*2)
+	    	playerLocY = obj.y + obj.height-(radius*2);
+	    }else if (obj.direction == "Left"){
+	    	playerLocX = i == 0 ? obj.x + obj.width - GroupColorDim - (radius*2) : obj.x + (radius*2)
+	    	playerLocY = obj.y + obj.height-(radius*2);
+	    }else if (obj.direction == "Top"){
+	    	playerLocX = i == 0 ? obj.x + obj.width - (radius*2) : obj.x + (radius*2)
+	    	playerLocY = obj.y + obj.height - GroupColorDim - (radius*2);
+	    }else if (obj.direction == "Right"){
+	    	playerLocX = i == 0 ? obj.x + obj.width - (radius*2) : obj.x + (radius*2) + GroupColorDim
+	    	playerLocY = obj.y + obj.height-(radius*2);
+	    }
+
+	    c.arc(playerLocX, playerLocY, radius, 0, 2 * Math.PI, false);
+	    c.fill();
+	    c.fillStyle = "white";
+	    c.fillText(i+1,playerLocX-(c.measureText(i+1).width/2),playerLocY+(c.measureText(i+1).width/2)  );
+	    c.closePath();
+	}
+}
+
 function boardObjects(direction,x,y,width,height,color,index,name) {
 	this.direction = direction;
 	this.x = x;
@@ -296,45 +331,11 @@ var testState = {
 	"wait_count":[0, 0]	
 }
 
-
-function drawPlayer(state){
-	for (var i = 0; i < 2; i++){
-		var player_loc = state.position;
-		var obj = tile_list[player_loc[i]];
-
-		c.beginPath();
-		var radius = 10;
-	    c.fillStyle = i == 0 ? "red" : "blue";
-	    if (state.jailed[i]){
-	    	c.fillStyle = "grey";
-	    }
-	    var playerLocX = 0;
-	    var playerLocY = 0;
-	    if (obj.direction == "Bottom" || obj.direction == "Bottom Left" || obj.direction == "Bottom Right" || obj.direction == "Top Left" || obj.direction == "Top Right"){
-	    	playerLocX = i == 0 ? obj.x + obj.width - (radius*2) : obj.x + (radius*2)
-	    	playerLocY = obj.y + obj.height-(radius*2);
-	    }else if (obj.direction == "Left"){
-	    	playerLocX = i == 0 ? obj.x + obj.width - GroupColorDim - (radius*2) : obj.x + (radius*2)
-	    	playerLocY = obj.y + obj.height-(radius*2);
-	    }else if (obj.direction == "Top"){
-	    	playerLocX = i == 0 ? obj.x + obj.width - (radius*2) : obj.x + (radius*2)
-	    	playerLocY = obj.y + obj.height - GroupColorDim - (radius*2);
-	    }else if (obj.direction == "Right"){
-	    	playerLocX = i == 0 ? obj.x + obj.width - (radius*2) : obj.x + (radius*2) + GroupColorDim
-	    	playerLocY = obj.y + obj.height-(radius*2);
-	    }
-
-	    c.arc(playerLocX, playerLocY, radius, 0, 2 * Math.PI, false);
-	    c.fill();
-	    c.fillStyle = "white";
-	    c.fillText(i+1,playerLocX-(c.measureText(i+1).width/2),playerLocY+(c.measureText(i+1).width/2)  );
-	    c.closePath();
-	}
-}
 var obj = tile_list[1]
 function loadPlayerProperties(state){
-	var properties = state.
-	if ()
+	var status = state.status;
+	// var properties = 
+	// if ()
 }
 
 

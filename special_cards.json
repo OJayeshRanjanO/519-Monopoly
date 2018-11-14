@@ -1,504 +1,504 @@
 {
 	"chance": [{
 			"title": "Advance to Go (Collect $200)",
-			"jump":{
-				"fixed":2,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": 0,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":200,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": -200,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "Advance to Illinois Avenue - If you pass Go, collect $200",
-			"jump":{
-				"fixed":24,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": 24,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":200,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": -200,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "Advance to St. Charles Place - If you pass Go, collect $200",
-			"jump":{
-				"fixed":11,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": 11,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":200,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": -200,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.",
-			"jump":{
-				"fixed":-2,
-				"relative":-2,
-				"nearest":[12,38]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": [12, 38]
 			},
-			"cost":{
-				"cost_to_player":0,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":10,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": 0,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 10,
+				"getoutofjailfree": 0
 
 			}
 		},
 		{
 			"title": "Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.",
-			"jump":{
-				"fixed":-2,
-				"relative":-2,
-				"nearest":[5,15,25,35]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": [5, 15, 25, 35]
 			},
-			"cost":{
-				"cost_to_player":0,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":2,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": 0,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 2,
+				"getoutofjailfree": 0
 
 			}
 		},
 		{
 			"title": "Bank pays you dividend of $50",
-			"jump":{
-				"fixed":-1,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":50,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": -50,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "Get out of Jail Free - This card may be kept until needed, or traded/sold",
-			"jump":{
-				"fixed":-1,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":0,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":1
+			"cost": {
+				"cost_to_player": 0,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 1
 
 			}
 		},
 		{
 			"title": "Go Back 3 Spaces",
-			"jump":{
-				"fixed":-1,
-				"relative":-3,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": -3,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":0,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": 0,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "Go to Jail - Go directly to Jail - Do not pass Go, do not collect $200",
-			"jump":{
-				"fixed":10,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": 10,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":0,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": 0,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "Make general repairs on all your property - For each house pay $25 - For each hotel $100",
-			"jump":{
-				"fixed":-1,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":0,
-				"cost_to_others":0,
-				"cost_per_house":25,
-				"cost_per_hotel":100,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": 0,
+				"cost_to_others": 0,
+				"cost_per_house": 25,
+				"cost_per_hotel": 100,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "Pay poor tax of $15",
-			"jump":{
-				"fixed":-1,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":-15,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": 15,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "Take a trip to Reading Railroad - If you pass Go, collect $200",
-			"jump":{
-				"fixed":5,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": 5,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":200,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": -200,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "Take a walk on the Boardwalk - Advance token to Boardwalk",
-			"jump":{
-				"fixed":39,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": 39,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":0,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": 0,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "You have been elected Chairman of the Board - Pay each player $50",
-			"jump":{
-				"fixed":-1,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":0,
-				"cost_to_others":-50,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": 0,
+				"cost_to_others": -50,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "Your building loan matures - Collect $150",
-			"jump":{
-				"fixed":-1,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":150,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": -150,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		}
 	],
-	"communitychest": [{
+	"community_chest": [{
 			"title": "Advance to Go (Collect $200)",
-			"jump":{
-				"fixed":0,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": 0,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":200,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": -200,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "Bank error in your favor - Collect $200 ",
-			"jump":{
-				"fixed":-1,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":200,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": -200,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "Doctor fee - Pay $50",
-			"jump":{
-				"fixed":-1,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":-50,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": 50,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "From sale of stock you get $50",
-			"jump":{
-				"fixed":-1,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":50,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": -50,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 
 			}
 		},
 		{
 			"title": "Get Out of Jail Free",
-			"jump":{
-				"fixed":-1,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":0,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": 0,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 1
 			}
 		},
 		{
 			"title": "Go to Jail - Go directly to jail - Do not pass Go - Do not collect $200",
-			"jump":{
-				"fixed":10,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": 10,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":0,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": 0,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 
 			}
 		},
 		{
 			"title": "Grand Opera Night - Collect $50 from every player for opening night seats",
-			"jump":{
-				"fixed":-1,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":0,
-				"cost_to_others":-50,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": 0,
+				"cost_to_others": 50,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "Holiday Fund matures - Receive $100",
-			"jump":{
-				"fixed":-1,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":100,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": -100,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "Income tax refund - Collect $20",
-			"jump":{
-				"fixed":-1,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":20,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": -20,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "Life insurance matures - Collect $100",
-			"jump":{
-				"fixed":-1,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":100,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": -100,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "Pay hospital fees of $100",
-			"jump":{
-				"fixed":-1,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":-100,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": 100,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "Pay school fees of $150",
-			"jump":{
-				"fixed":-1,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":-150,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": 150,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "Receive $25 consultancy fee",
-			"jump":{
-				"fixed":-1,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":25,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": -25,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "You are assessed for street repairs - $40 per house - $115 per hotel",
-			"jump":{
-				"fixed":-1,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":0,
-				"cost_to_others":0,
-				"cost_per_house":40,
-				"cost_per_hotel":115,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": 0,
+				"cost_to_others": 0,
+				"cost_per_house": 40,
+				"cost_per_hotel": 115,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "You have won second prize in a beauty contest - Collect $10",
-			"jump":{
-				"fixed":-1,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":10,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": -10,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		},
 		{
 			"title": "You inherit $100",
-			"jump":{
-				"fixed":-1,
-				"relative":0,
-				"nearest":[]
+			"jump": {
+				"fixed": -1,
+				"relative": 0,
+				"nearest": []
 			},
-			"cost":{
-				"cost_to_player":100,
-				"cost_to_others":0,
-				"cost_per_house":0,
-				"cost_per_hotel":0,
-				"rentmultiplier":1,
-				"getoutofjailfree":0
+			"cost": {
+				"cost_to_player": -100,
+				"cost_to_others": 0,
+				"cost_per_house": 0,
+				"cost_per_hotel": 0,
+				"rentmultiplier": 1,
+				"getoutofjailfree": 0
 			}
 		}
 	]

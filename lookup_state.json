@@ -529,12 +529,12 @@
 		"chance": [{
 				"title": "Advance to Go (Collect $200)",
 				"jump":{
-					"fixed":2,
+					"fixed":0,
 					"relative":0,
 					"nearest":[]
 				},
 				"cost":{
-					"cost_to_player":200,
+					"cost_to_player":-200,
 					"cost_to_others":0,
 					"cost_per_house":0,
 					"cost_per_hotel":0,
@@ -550,7 +550,7 @@
 					"nearest":[]
 				},
 				"cost":{
-					"cost_to_player":200,
+					"cost_to_player":-200,
 					"cost_to_others":0,
 					"cost_per_house":0,
 					"cost_per_hotel":0,
@@ -566,7 +566,7 @@
 					"nearest":[]
 				},
 				"cost":{
-					"cost_to_player":200,
+					"cost_to_player":-200,
 					"cost_to_others":0,
 					"cost_per_house":0,
 					"cost_per_hotel":0,
@@ -577,8 +577,8 @@
 			{
 				"title": "Advance token to nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.",
 				"jump":{
-					"fixed":-2,
-					"relative":-2,
+					"fixed":-1,
+					"relative":0,
 					"nearest":[12,38]
 				},
 				"cost":{
@@ -594,8 +594,8 @@
 			{
 				"title": "Advance token to the nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.",
 				"jump":{
-					"fixed":-2,
-					"relative":-2,
+					"fixed":-1,
+					"relative":0,
 					"nearest":[5,15,25,35]
 				},
 				"cost":{
@@ -616,7 +616,7 @@
 					"nearest":[]
 				},
 				"cost":{
-					"cost_to_player":50,
+					"cost_to_player":-50,
 					"cost_to_others":0,
 					"cost_per_house":0,
 					"cost_per_hotel":0,
@@ -697,7 +697,7 @@
 					"nearest":[]
 				},
 				"cost":{
-					"cost_to_player":-15,
+					"cost_to_player":15,
 					"cost_to_others":0,
 					"cost_per_house":0,
 					"cost_per_hotel":0,
@@ -713,7 +713,7 @@
 					"nearest":[]
 				},
 				"cost":{
-					"cost_to_player":200,
+					"cost_to_player":-200,
 					"cost_to_others":0,
 					"cost_per_house":0,
 					"cost_per_hotel":0,
@@ -761,7 +761,7 @@
 					"nearest":[]
 				},
 				"cost":{
-					"cost_to_player":150,
+					"cost_to_player":-150,
 					"cost_to_others":0,
 					"cost_per_house":0,
 					"cost_per_hotel":0,
@@ -778,7 +778,7 @@
 					"nearest":[]
 				},
 				"cost":{
-					"cost_to_player":200,
+					"cost_to_player":-200,
 					"cost_to_others":0,
 					"cost_per_house":0,
 					"cost_per_hotel":0,
@@ -794,7 +794,7 @@
 					"nearest":[]
 				},
 				"cost":{
-					"cost_to_player":200,
+					"cost_to_player":-200,
 					"cost_to_others":0,
 					"cost_per_house":0,
 					"cost_per_hotel":0,
@@ -810,7 +810,7 @@
 					"nearest":[]
 				},
 				"cost":{
-					"cost_to_player":-50,
+					"cost_to_player":50,
 					"cost_to_others":0,
 					"cost_per_house":0,
 					"cost_per_hotel":0,
@@ -826,7 +826,7 @@
 					"nearest":[]
 				},
 				"cost":{
-					"cost_to_player":50,
+					"cost_to_player":-50,
 					"cost_to_others":0,
 					"cost_per_house":0,
 					"cost_per_hotel":0,
@@ -848,7 +848,7 @@
 					"cost_per_house":0,
 					"cost_per_hotel":0,
 					"rentmultiplier":1,
-					"getoutofjailfree":0
+					"getoutofjailfree":1
 				}
 			},
 			{
@@ -877,7 +877,7 @@
 				},
 				"cost":{
 					"cost_to_player":0,
-					"cost_to_others":-50,
+					"cost_to_others":50,
 					"cost_per_house":0,
 					"cost_per_hotel":0,
 					"rentmultiplier":1,
@@ -886,54 +886,6 @@
 			},
 			{
 				"title": "Holiday Fund matures - Receive $100",
-				"jump":{
-					"fixed":-1,
-					"relative":0,
-					"nearest":[]
-				},
-				"cost":{
-					"cost_to_player":100,
-					"cost_to_others":0,
-					"cost_per_house":0,
-					"cost_per_hotel":0,
-					"rentmultiplier":1,
-					"getoutofjailfree":0
-				}
-			},
-			{
-				"title": "Income tax refund - Collect $20",
-				"jump":{
-					"fixed":-1,
-					"relative":0,
-					"nearest":[]
-				},
-				"cost":{
-					"cost_to_player":20,
-					"cost_to_others":0,
-					"cost_per_house":0,
-					"cost_per_hotel":0,
-					"rentmultiplier":1,
-					"getoutofjailfree":0
-				}
-			},
-			{
-				"title": "Life insurance matures - Collect $100",
-				"jump":{
-					"fixed":-1,
-					"relative":0,
-					"nearest":[]
-				},
-				"cost":{
-					"cost_to_player":100,
-					"cost_to_others":0,
-					"cost_per_house":0,
-					"cost_per_hotel":0,
-					"rentmultiplier":1,
-					"getoutofjailfree":0
-				}
-			},
-			{
-				"title": "Pay hospital fees of $100",
 				"jump":{
 					"fixed":-1,
 					"relative":0,
@@ -949,6 +901,54 @@
 				}
 			},
 			{
+				"title": "Income tax refund - Collect $20",
+				"jump":{
+					"fixed":-1,
+					"relative":0,
+					"nearest":[]
+				},
+				"cost":{
+					"cost_to_player":-20,
+					"cost_to_others":0,
+					"cost_per_house":0,
+					"cost_per_hotel":0,
+					"rentmultiplier":1,
+					"getoutofjailfree":0
+				}
+			},
+			{
+				"title": "Life insurance matures - Collect $100",
+				"jump":{
+					"fixed":-1,
+					"relative":0,
+					"nearest":[]
+				},
+				"cost":{
+					"cost_to_player":-100,
+					"cost_to_others":0,
+					"cost_per_house":0,
+					"cost_per_hotel":0,
+					"rentmultiplier":1,
+					"getoutofjailfree":0
+				}
+			},
+			{
+				"title": "Pay hospital fees of $100",
+				"jump":{
+					"fixed":-1,
+					"relative":0,
+					"nearest":[]
+				},
+				"cost":{
+					"cost_to_player":100,
+					"cost_to_others":0,
+					"cost_per_house":0,
+					"cost_per_hotel":0,
+					"rentmultiplier":1,
+					"getoutofjailfree":0
+				}
+			},
+			{
 				"title": "Pay school fees of $150",
 				"jump":{
 					"fixed":-1,
@@ -956,7 +956,7 @@
 					"nearest":[]
 				},
 				"cost":{
-					"cost_to_player":-150,
+					"cost_to_player":150,
 					"cost_to_others":0,
 					"cost_per_house":0,
 					"cost_per_hotel":0,
@@ -972,7 +972,7 @@
 					"nearest":[]
 				},
 				"cost":{
-					"cost_to_player":25,
+					"cost_to_player":-25,
 					"cost_to_others":0,
 					"cost_per_house":0,
 					"cost_per_hotel":0,
@@ -1004,7 +1004,7 @@
 					"nearest":[]
 				},
 				"cost":{
-					"cost_to_player":10,
+					"cost_to_player":-10,
 					"cost_to_others":0,
 					"cost_per_house":0,
 					"cost_per_hotel":0,
@@ -1020,7 +1020,7 @@
 					"nearest":[]
 				},
 				"cost":{
-					"cost_to_player":100,
+					"cost_to_player":-100,
 					"cost_to_others":0,
 					"cost_per_house":0,
 					"cost_per_hotel":0,
