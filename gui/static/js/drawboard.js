@@ -375,7 +375,12 @@ var testState = {
 	"turn":5,
 	"current_player":0,
 	"jailed":[true,true],
-	"status":[0,1,0,1,0,0,-7,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+	"status":[
+			0,3,0,4,0,0,-7,0,1,0,
+			0,0,0,7,0,0,0,0,0,0,
+			0,-6,0,-5,-5,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,
+			0,0],
 	"position":[10,10],
 	"liquid_cash":[1500,1500],
 	"total_wealth":[1500,1500],
@@ -412,6 +417,9 @@ function showStats(state){
 	player1.innerHTML += "<br>Buildings Owned:" + state.percent_own_buildings[0] + "%"
 	player1.innerHTML += "<br>Money Owned:" + state.percent_own_buildings[0] + "%"
 	player1.innerHTML += "<br>Transacted Wealth:" + state.total_transacted_wealth[0]
+	player1.innerHTML += "<br><br>TRADES:";
+
+
 
 	var turn = document.getElementById("turn");
 	turn.innerText = "Turn " + state.turn;
@@ -431,6 +439,8 @@ function showStats(state){
 	player2.innerHTML += "<br>Buildings Owned:" + state.percent_own_buildings[1] + "%"
 	player2.innerHTML += "<br>Money Owned:" + state.percent_own_buildings[1] + "%"
 	player2.innerHTML += "<br>Transacted Wealth:" + state.total_transacted_wealth[1]
+	player2.innerHTML += "<br><br>TRADES:";
+
 }
 
 function loadBoard(state){
