@@ -111,7 +111,9 @@ function CornerTiles(){
 	c.fillStyle = "black";
 	c.font = cornerTileFontSize*1.3+"px Arial";
 	text="GO"
-	c.fillText(text,BottomXCood+cornerTileDim/2-c.measureText(text).width/2,BottomYCood+cornerTileDim/2);
+	c.fillText(text,BottomXCood+cornerTileDim/2-c.measureText(text).width/2,BottomYCood+cornerTileDim/2-(cornerTileFontSize/2));
+	text="\u{1F844}"
+	c.fillText(text,BottomXCood+cornerTileDim/2-c.measureText(text).width/2,BottomYCood+cornerTileDim/2+(cornerTileFontSize/2));
 	tile_list.push( new boardObjects("Bottom Right",BottomXCood,BottomYCood,cornerTileDim,cornerTileDim,"#ffffff",0,"GO") )
 	c.closePath()
 
