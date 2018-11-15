@@ -1,7 +1,7 @@
 {
 	"game_state_array": [{
 		"turn": 1,
-		"current_player": 1,
+		"current_player": 0,
 		"jailed": [false, false],
 		"status": [
 			0, 3, 0, 4, 0, 0, -7, 0, 1, 0,
@@ -31,7 +31,7 @@
 		"wait_count": [0, 0]
 	}, {
 		"turn": 2,
-		"current_player": 0,
+		"current_player": 1,
 		"jailed": [false, false],
 		"status": [
 			0, -3, 0, -4, 0, 0, 7, 0, -1, 0,

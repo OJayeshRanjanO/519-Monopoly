@@ -97,9 +97,13 @@ def upload_file():
 
 	return responseForm
 	
-@app.route('/display_gui', methods = ['POST'])
+@app.route('/display_gui')
 def display_gui():
-	return app.send_static_file('game.html')#json.loads("{'test':1}")
+	return app.send_static_file('game.html')
+
+@app.route('/fetch_gamestate', methods = ['POST'])
+def fetch_gamestate():
+	return app.send_static_file('demo_game_state.json')
 
 
 def main():
