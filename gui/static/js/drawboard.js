@@ -628,4 +628,19 @@ var testState3 = {
 	"wait_count":[0, 0]	
 }
 boardStates = [testState,testState2,testState3]
-loadBoard(boardStates[currentIndex]);
+
+$( document ).ready(function() {
+
+	loadBoard(boardStates[currentIndex]);
+	 // $.ajax({
+  //     type: "POST",
+  //     url: "/display_gui",
+  //     dataType: "json",
+  //     contentType : "application/json"
+  //   }).done(function (data, textStatus, jqXHR) {
+  //       // var data = data.cruiseList;
+  //       alert(data)
+  //   });
+  alert("TEST")
+
+});

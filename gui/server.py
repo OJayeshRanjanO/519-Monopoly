@@ -97,6 +97,11 @@ def upload_file():
 
 	return responseForm
 	
+@app.route('/display_gui', methods = ['POST'])
+def display_gui():
+	return app.send_static_file('game.html')#json.loads("{'test':1}")
+
+
 def main():
 	shutil.rmtree("./games", ignore_errors=True)
 	os.mkdir("./games")
