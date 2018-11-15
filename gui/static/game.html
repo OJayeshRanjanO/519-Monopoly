@@ -1,37 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<style type="text/css">
-			canvas{
-				overflow-x: hidden;
-				overflow-y: hidden;
-				border:2px solid black;
-				position: relative;
-				/*left: 0px;*/
-			}
-			body{
-				margin: 0px;
-				overflow-x: hidden;
-				overflow-y: hidden;
-			}
-		</style>
-
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style type="text/css">
+		canvas{
+			overflow-x: hidden;
+			overflow-y: hidden;
+			border:2px solid black;
+			position: relative;
+			/*left: 0px;*/
+		}
+		body{
+			margin: 0px;
+			overflow-x: hidden;
+			overflow-y: hidden;
+		}
+		button{
+			position:absolute;z-index:1;
+			background: none;
+			border: 2px solid black;
+		}
+		button:hover{
+			background-color: grey;
+		}button:active{
+			color:white;
+			background-color: black;
+		}
+	</style>
 </head>
 <body>
-	<button class="navigate" id="prev" style="position:absolute;z-index:1;" onclick="goChangeState('prev');">PREV</button>
-	<button class="navigate" id="next" style="position:absolute;z-index:1;" onclick="goChangeState('next');">NEXT</button>
+	<button class="navigate" id="prev" onclick="goChangeState('prev');">PREV</button>
+	<button class="navigate" id="next" onclick="goChangeState('next');">NEXT</button>
 	<canvas ></canvas>
-
 	<div id="player1" style="color:red;position: absolute;">PLAYER 1</div>
 	<div id="turn" style="color:black;position: absolute;"></div>
 	<div id="player2" style="color:blue;position: absolute;">PLAYER 2</div>
-
 	<script type="text/javascript" src="./js/drawboard.js"></script>
-
 </body>
 </html>

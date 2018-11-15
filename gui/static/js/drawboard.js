@@ -504,10 +504,17 @@ function drawButtons(){
 	var next = document.getElementById("next");
 	next.style.width = cornerTileDim + "px";
 	prev.style.width = cornerTileDim+ "px";
+
+	next.style.height = boardY /2+ "px";
+	prev.style.height = boardY/2+ "px";
 	// console.log(next.style.height + " TEST ")
 
 	prev.style.left = canvasEdge + boardX + "px";
 	next.style.left = canvasEdge + boardX + boardWidth - cornerTileDim + "px";
+
+	prev.style.top = (boardY - boardY/2)/2 + "px"
+	next.style.top = (boardY - boardY/2)/2 + "px"
+
 
 }
 function loadBoard(state){
