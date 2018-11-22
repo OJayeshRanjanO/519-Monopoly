@@ -443,7 +443,7 @@ class Adjudicator(object):
 	def resolveCardModifiers(self, card, current_player):
 		if(card["jump"]["fixed"] > 0):
 			pos = card["jump"]["fixed"]
-			self.movePlayer(current_player, pos, True, pos!=10)
+			self.movePlayer(current_player, pos, True, pos!=30)
 		elif(card["jump"]["relative"] != 0):
 			self.movePlayer(current_player, pos, False, True)
 		elif(card["jump"]["nearest"]):
