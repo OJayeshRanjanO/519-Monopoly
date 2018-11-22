@@ -73,6 +73,8 @@ GroupColorDim = cornerTileDim *0.2
 
 var tile_list = []
 
+var boardStates = []
+
 var currentIndex = 0;
 
 function CornerTiles(){
@@ -111,7 +113,9 @@ function CornerTiles(){
 	c.fillStyle = "black";
 	c.font = cornerTileFontSize*1.3+"px Arial";
 	text="GO"
-	c.fillText(text,BottomXCood+cornerTileDim/2-c.measureText(text).width/2,BottomYCood+cornerTileDim/2);
+	c.fillText(text,BottomXCood+cornerTileDim/2-c.measureText(text).width/2,BottomYCood+cornerTileDim/2-(cornerTileFontSize/2));
+	text="\u{1F844}"
+	c.fillText(text,BottomXCood+cornerTileDim/2-c.measureText(text).width/2,BottomYCood+cornerTileDim/2+(cornerTileFontSize/2));
 	tile_list.push( new boardObjects("Bottom Right",BottomXCood,BottomYCood,cornerTileDim,cornerTileDim,"#ffffff",0,"GO") )
 	c.closePath()
 
@@ -504,10 +508,17 @@ function drawButtons(){
 	var next = document.getElementById("next");
 	next.style.width = cornerTileDim + "px";
 	prev.style.width = cornerTileDim+ "px";
+
+	next.style.height = boardY /2+ "px";
+	prev.style.height = boardY/2+ "px";
 	// console.log(next.style.height + " TEST ")
 
 	prev.style.left = canvasEdge + boardX + "px";
 	next.style.left = canvasEdge + boardX + boardWidth - cornerTileDim + "px";
+
+	prev.style.top = (boardY - boardY/2)/2 + "px"
+	next.style.top = (boardY - boardY/2)/2 + "px"
+
 
 }
 function loadBoard(state){
@@ -535,112 +546,23 @@ function loadBoard(state){
 	drawButtons();
 
 }
-var testState = {
-	"turn":1,
-	"current_player":1,
-	"jailed":[false,false],
-	"status":[
-			0,3,0,4,0,0,-7,0,1,0,
-			0,0,-1,7,-3,0,0,0,0,0,
-			0,-6,0,-5,-5,0,0,0,0,0,
-			0,6,4,0,5,0,0,0,0,0,
-			0,0],
-	"position":[34,34],
-	"liquid_cash":[1500,1500],
-	"total_wealth":[1500,1500],
-	"liquid_assets":[1500,1500],
-	"phase":3,
-	"phase_info":null,
-	"debt":0,
-	"previous_states":[],	
-	"card_history":[],		
-	"percent_own_buildings":[0.0,0.0],
-	"percent_own_money":[0, 0],
-	"total_transacted_wealth":[0.0, 0.0],
-	"trades_p1":[],
-	"trades_p2":[],
-	"trades_attempmted":[0, 0], 
-	"hotels_left":12,
-	"houses_left":32,
-	"monopolies_held":[0,0,0,0,0,0,0,0,0,0],
-	"wait_count":[0, 0]	
-}
-
-var testState2 = {
-	"turn":2,
-	"current_player":0,
-	"jailed":[false,false],
-	"status":[
-			0,-3,0,-4,0,0,7,0,-1,0,
-			0,0,1,-7,3,0,0,0,0,0,
-			0,6,0,5,5,0,0,0,0,0,
-			0,-6,-4,0,-5,0,0,0,0,0,
-			0,0],
-	"position":[9,15],
-	"liquid_cash":[400,870],
-	"total_wealth":[123,745],
-	"liquid_assets":[546,123],
-	"phase":3,
-	"phase_info":null,
-	"debt":50,
-	"previous_states":[],	
-	"card_history":[],		
-	"percent_own_buildings":[50,50],
-	"percent_own_money":[30, 70],
-	"total_transacted_wealth":[0, 0],
-	"trades_p1":[],
-	"trades_p2":[],
-	"trades_attempmted":[0, 0], 
-	"hotels_left":12,
-	"houses_left":32,
-	"monopolies_held":[0,0,0,0,0,0,0,0,0,0],
-	"wait_count":[0, 0]	
-}
-
-var testState3 = {
-	"turn":3,
-	"current_player":0,
-	"jailed":[false,false],
-	"status":[
-			0,-2,0,-3,0,0,7,0,-2,0,
-			0,0,2,-6,4,0,0,0,0,0,
-			0,7,0,6,4,0,0,0,0,0,
-			0,-5,-3,0,-6,0,0,0,0,0,
-			0,0],
-	"position":[10,32],
-	"liquid_cash":[700,200],
-	"total_wealth":[800,500],
-	"liquid_assets":[100,300],
-	"phase":3,
-	"phase_info":null,
-	"debt":50,
-	"previous_states":[],	
-	"card_history":[],		
-	"percent_own_buildings":[20,30],
-	"percent_own_money":[50, 50],
-	"total_transacted_wealth":[1000, 2000],
-	"trades_p1":[],
-	"trades_p2":[],
-	"trades_attempmted":[0, 0], 
-	"hotels_left":12,
-	"houses_left":32,
-	"monopolies_held":[0,0,0,0,0,0,0,0,0,0],
-	"wait_count":[0, 0]	
-}
-boardStates = [testState,testState2,testState3]
 
 $( document ).ready(function() {
 
-	loadBoard(boardStates[currentIndex]);
-	 // $.ajax({
-  //     type: "POST",
-  //     url: "/display_gui",
-  //     dataType: "json",
-  //     contentType : "application/json"
-  //   }).done(function (data, textStatus, jqXHR) {
-  //       // var data = data.cruiseList;
-  //       alert(data)
-  //   });
-  alert("TEST")
+	 $.ajax({
+      type: "POST",
+      url: "/fetch_gamestate",
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
+        // var data = data.cruiseList;
+        // console.log(data.game_state_array);
+        boardStates = data.game_state_array;
+        // console.log(boardStates);
+        loadBoard(boardStates[currentIndex]);
+
+    }).fail(function(jqXHR, textStatus, errorThrown) { 
+    	alert(textStatus + " " + jqXHR); 
+    });
 
 });
