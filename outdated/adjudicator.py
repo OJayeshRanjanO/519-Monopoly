@@ -11,7 +11,7 @@ class Adjudicator(object):
 		# Set some constants
 		self.maxTurns = 100
 		# Initialize game state
-		self.turn = 0		
+		self.turn = 0
 		self.gamestate = GameState()
 		self.gamestateHistory = []
 		# Initialize the lookup table
@@ -26,15 +26,15 @@ class Adjudicator(object):
 		if(config):
 			# If a history is provided, initailze that state entirely
 			if("from_history" in config):
-				loadedHistory = library.HistoricState_fromDict(config["from_history"])			
+				loadedHistory = library.HistoricState_fromDict(config["from_history"])
 				self.cmnty_chest_deck = loadedHistory.cards.community_chest
 				self.chance_deck = loadedHistory.cards.chance
 				self.gamestate = loadedHistory.gamestate
 				self.error = loadedHistory.error
 				self.rolls[0] = loadedHistory.diceRoll
-			
+
 			# Now we can use sub combinations of state backup
-			else:			
+			else:
 				# If there are a specific dice roll layout required, let this be the start
 				if("dice_rolls" in config):
 					self.rolls = config["dice_rolls"]
@@ -66,6 +66,8 @@ class Adjudicator(object):
 		return same_sign(tile_status, p_sign)
 
 	def multiBMST(self):
+		TradeDecision = 1
+
 		turn = self.gamestate.current_player
 		responses = [None, None]
 		concensus = False
@@ -74,12 +76,13 @@ class Adjudicator(object):
 			model = self.players[turn]
 			resp = model.getBMSTDecision(gs)
 
-			self.respondToBMSTDecision(turn, resp)
+			if(resp):
+				self.respondToBMSTDecision(turn, resp)
 
-			if(type(resp) == TradeDecision):
-				gs = self.buildGamestate()
-				self.player[(turn+1)%2].respondTrade(gs)
-			
+				if(resp[0] == TradeDecision):
+					gs = self.buildGamestate()
+					self.player[(turn+1)%2].respondTrade(gs)
+
 			responses[turn] = resp
 			concensus = responses[0] is None and responses[1] is None
 			turn = (turn + 1) % 2
@@ -106,7 +109,7 @@ class Adjudicator(object):
 
 					for p in s:
 						prop = self.properties[p]
-						status = buildGS.status[p]					
+						status = buildGS.status[p]
 						if(abs(status) > 1 and abs(status) < 7):
 							buildGS.liquid_cash[player_index] += (prop["houseprice"] // 2)
 							buildGS.status[p] -= p_sign
@@ -143,7 +146,7 @@ class Adjudicator(object):
 							if(status == 5):
 								buildGS.hotels_left -= 1
 								buildGS.houses_left += 4
-							else:	
+							else:
 								buildGS.houses_left -= 1
 						else:
 							invalid_move = True
@@ -151,7 +154,7 @@ class Adjudicator(object):
 
 					for p in s+b:
 						prop = self.properties[p]
-						status = buildGS.status[p]					
+						status = buildGS.status[p]
 						p_group = [prop_lookup(adj) for adj in self.properties if same_group(prop, adj)]
 						if(any([abs(status-((adj_s!=7)*adj_s)) > 1 for adj_s in p_group])):
 							invalid_move = True
@@ -160,12 +163,12 @@ class Adjudicator(object):
 					invalid_move = invalid_move or buildGS.houses_left < 0
 					invalid_move = invalid_move or buildGS.hotels_left < 0
 					invalid_move = invalid_move or buildGS.liquid_cash[player_index] < 0
-					
+
 					if(not invalid_move):
 						self.gamestate = buildGS
 
 			return not invalid_move
-			
+
 	def updateWealth(self, player_index, wealth):
 		self.gamestate.liquid_cash[player_index] += wealth
 
@@ -175,13 +178,13 @@ class Adjudicator(object):
 		return (playerIndex, playerModel)
 
 	def getOtherPlayerAndModel(self):
-		player_index = self.players[(self.turn + 1)%2]
+		player_index = (self.turn + 1)%2
 		player_model = self.players[player_index]
 		return (player_index, player_model)
 
 	def inJail(self, player_index):
 		return self.gamestate.jailed[player_index]
-	
+
 	def movePlayer(self, player_index, move, fixed=False, get_go=False):
 		previous_pos = self.gamestate.position[player_index]
 		current_pos = previous_pos
@@ -190,7 +193,7 @@ class Adjudicator(object):
 		else:
 			current_pos = previous_pos + move
 		updated_pos = updated_pos % 40
-		if(updated_pos < current_pos and get_go): 
+		if(updated_pos < current_pos and get_go):
 			self.updateWealth(current_pos, 200)
 		# PLayer now jailed
 		if(updated_pos == 30):
@@ -223,7 +226,7 @@ class Adjudicator(object):
 				return 1
 			else:
 				return 0
-				
+
 	#Pass in a negative 1 to remove and positve 1 to add
 	def updateJailCards(amount, which_deck, player_index):
 		jail_cards = self.gamestate.jail_free_card[player_index]
@@ -240,7 +243,7 @@ class Adjudicator(object):
 	def updateWaitCount(self):
 		current_player, current_model = self.getCurrentPlayerAndModel()
 		current_wait = self.gamestate.wait_count[current_player]
-		self.gamestate.wait_count[current_player] = current_wait + 1 
+		self.gamestate.wait_count[current_player] = current_wait + 1
 
 	# Plays the game, returns a csv
 	def play(self):
@@ -250,12 +253,14 @@ class Adjudicator(object):
 			double = die1 == die2
 			roll = die1 + die2
 
-			double_count = self.GameState.double_count[current_player]
+			double_count = self.gamestate.double_count[current_player]
 			jail_decision = None
 			true_free = True
+			player_free = True
+
 			is_jailed = self.inJail(current_player)
 
-			if(is_jailed[current_player] == True):
+			if(is_jailed):
 				trueFree = False
 
 				self.multiBMST()
@@ -264,7 +269,7 @@ class Adjudicator(object):
 				temp_state = self.buildGamestate()
 				jail_decision = player_model.jailDecision(temp_state)
 				wait_count = self.gamestate.wait_count[current_player]
-				
+
 				valid = 1
 				if jail_decision[0] == 'C':
 					num_jail_free = hasJailCard(jail_decision[1], current_player)
@@ -306,8 +311,6 @@ class Adjudicator(object):
 				else:
 					self.movePlayer(player_pos, roll)
 
-			self.buildGamestate(self)
-
 		self.turn = self.turn + 1
 		return self.gameFinished()
 
@@ -321,10 +324,12 @@ class Adjudicator(object):
 		self.double_count[current_player] = self.double_count[current_player] + 1
 
 	def mainLogic(self, dice_roll):
+		turnFinished = True
+
 		current_player, current_model = self.getCurrentPlayerAndModel()
 		other_player, other_model = self.getOtherPlayerAndModel()
-		player_pos = self.position[current_player]
-		tile_group_id = self.getTileGroupId(player_pos) 
+		player_pos = self.gamestate.position[current_player]
+		tile_group_id = self.getTileGroupId(player_pos)
 
 		#Property
 		if(tile_group_id <= 9):
@@ -332,7 +337,7 @@ class Adjudicator(object):
 		#Cost tile, luxury and income tax
 		elif(tile_group_id == 10):
 			self.damagePlayer(current_player, player_pos)
-		#Chance 
+		#Chance
 		elif(tile_group_id == 11):
 			card = pullCard(deck, self.chance)
 			self.resolveCardModifiers(card, current_player)
@@ -341,7 +346,7 @@ class Adjudicator(object):
 			card = pullCard(deck, self.cmnty_chest)
 			self.resolveCardModifiers(card, current_player)
 		#Special don't remember what this is.
-		elif(tile_status == 14):
+		elif(tile_group_id == 14):
 			self.processSpecialSnowflake(current_player, player_pos)
 		#Going on a one way trip to jail
 		else:
@@ -379,7 +384,7 @@ class Adjudicator(object):
 			owner = -1
 			if(not gonna_buy):
 				self.multiBMST()
-				#phase info needs to be updated here before model call 
+				#phase info needs to be updated here before model call
 				auc_price_current = current_model.auctionProperty(current_gamestate)
 				auc_price_other =  other_model.auctionProperty(current_gamestate)
 				#As of now the base price for a property will be set to 0, this will
@@ -398,7 +403,7 @@ class Adjudicator(object):
 		rent = 0
 		other_player, other_model = self.getOtherPlayerAndModel()
 
-		if(not same_owner):	
+		if(not same_owner):
 			#Railroad
 			railroad_rent = [25, 50, 100, 200]
 			if(group_id == 8):
@@ -431,7 +436,7 @@ class Adjudicator(object):
 		#Check for utils
 		else:
 			which = tile_pos[3:]
-		
+
 		for x in range(which):
 			signs.append(self.getTileStatus(x))
 
@@ -441,11 +446,15 @@ class Adjudicator(object):
 
 
 	def resolveCardModifiers(self, card, current_player):
+		playerMoved = False
+
 		if(card["jump"]["fixed"] > 0):
 			pos = card["jump"]["fixed"]
 			self.movePlayer(current_player, pos, True, pos!=30)
+			playerMoved = True
 		elif(card["jump"]["relative"] != 0):
 			self.movePlayer(current_player, pos, False, True)
+			playerMoved = True
 		elif(card["jump"]["nearest"]):
 			curr_pos = self.gamestate.position[current_player]
 			minDistance = 41
@@ -458,7 +467,8 @@ class Adjudicator(object):
 					minIndex = i
 					minDistance = distance
 			self.movePlayer(current_player, minDistance, True, True)
-		
+			playerMoved = True
+
 		costToPlayer = 0
 		costToOthers = 0
 		if(card["cost"]["cost_to_player"] != 0):
@@ -482,13 +492,14 @@ class Adjudicator(object):
 			costToPlayer += hotels*card["cost"]["cost_per_house"]
 		if(card["cost"]["getoufofjailfree"] > 0):
 			# ADD getoutofjail addition functionality
-			pass 
-	
+			pass
+
 		self.updateWealth(current_player, -costToPlayer)
 		self.updateWealth((current_player+1)%2, -costToOthers)
 
 		#TODO NEEDS TO INCLUDE ADDING GET OUT OF JAIL FREE AND MULTIPLIER
-			
+
+		return playerMoved
 
 	def pullCard(self, deck, lookup):
 		c_index = deck.pop(0)
@@ -519,6 +530,3 @@ class Adjudicator(object):
 	def updateProperty(self, player_pos, owner):
 		new_status = -1 if owner else 0
 		self.gamestate.status[player_pos] = new_status
-
-		
-

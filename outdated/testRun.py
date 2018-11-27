@@ -4,7 +4,9 @@ import greedy_interface as agent
 def main():
 	a1, a2 = agent.Agent(), agent.Agent()
 
-	adjudicator = adj(a1, a2)
+	adjudicator = adj.Adjudicator(a1, a2)
+
+	adjudicator.play()
 
 
 
